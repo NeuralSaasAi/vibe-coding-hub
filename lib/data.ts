@@ -98,7 +98,7 @@ export function loadJobs(root = findRoot(), tools = loadTools(root)): JobsFile {
     for (const s of [...job.first_pick, ...job.also_consider, ...tokens]) {
       if (!slugs.has(s)) problems.push(`${file}: job "${job.id}" names unknown tool "${s}"`);
     }
-    for (const m of text.matchAll(/\{cat:([a-z0-9-]+)\}/g)) {
+    for (const m of text.matchAll(/\{cat:([a-z0-9-]+)(?:\|[^}]+)?\}/g)) {
       if (!(CATEGORY_IDS as readonly string[]).includes(m[1]!)) {
         problems.push(`${file}: job "${job.id}" names unknown category "${m[1]}"`);
       }
@@ -152,7 +152,7 @@ export function loadAll(root = findRoot()): HubData {
   return { root, categories, tools, jobs: loadJobs(root, tools), guide: loadGuide(root) };
 }
 
-/** Tools in a category, featured first, then alphabetical. */
+/** Tools in a category, alphabetical. */
 export function toolsInCategory(tools: Tool[], category: string): Tool[] {
   return tools
     .filter((t) => t.category === category)

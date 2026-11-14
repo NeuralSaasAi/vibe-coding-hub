@@ -9,6 +9,8 @@
   Free, community-maintained, and checked against vendor pages every month.
 </p>
 
+<!-- BEGIN:badges -->
+
 <p align="center">
   <img src="https://img.shields.io/badge/tools-69-7c5cff" alt="69 tools">
   <img src="https://img.shields.io/badge/free%20tiers-18-16a34a" alt="18 free tiers">
@@ -16,6 +18,8 @@
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs welcome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-CC0--1.0-blue" alt="CC0 license"></a>
 </p>
+
+<!-- END:badges -->
 
 <p align="center">
   <a href="#tools-by-category"><b>🧰 Find a tool</b></a> ·
@@ -108,6 +112,8 @@ You do not need to know how to code to start. You do need a few habits. This pat
 
 Tags: `Free tier` means we confirmed a free plan on the vendor's site in 2026-11. `Open source` means the code is public. No tag means not yet verified. Pull requests welcome.
 
+<!-- BEGIN:tools -->
+
 ### AI app builders
 
 Describe the app in plain language and get a working web app, usually with hosting included. Best for non-developers and fast prototypes.
@@ -143,7 +149,7 @@ Agents that run in your terminal, read your whole project and make changes. Best
 - [Aider](https://aider.chat) - Terminal pair programmer that edits files in your git repo and commits each change, so every step is easy to undo. `Open source`
 - [Amp](https://ampcode.com) - Coding agent for the terminal and editor.
 - [Claude Code](https://claude.com/product/claude-code) - Anthropic's agent that reads your codebase, edits files and runs commands. Included with Claude Pro and above.
-- [Codex CLI](https://github.com/openai/codex) - OpenAI's terminal agent. Sign in with a ChatGPT plan (including Free) or use an API key. `Open source` `Free tier`
+- [Codex CLI](https://github.com/openai/codex) - OpenAI's terminal agent. Sign in with a ChatGPT plan (including Free) or use an API key. `Free tier` `Open source`
 - [Gemini CLI](https://github.com/google-gemini/gemini-cli) - Google's terminal agent, now aimed at Gemini Code Assist business users. Free individual access moved to Antigravity CLI in June 2026. `Open source`
 - [GitHub Copilot CLI](https://github.com/github/copilot-cli) - Copilot in your terminal. Works on the Copilot Free plan. `Free tier`
 - [Goose](https://block.github.io/goose/) - Local agent that works with many model providers and MCP tools. `Open source`
@@ -217,7 +223,11 @@ The tools that tell you something broke before your users do.
 - [UptimeRobot](https://uptimerobot.com) - Alerts you when your site goes down.
 - [Vitest](https://vitest.dev) - Fast unit tests for JavaScript and TypeScript projects. `Open source`
 
+<!-- END:tools -->
+
 ## Free tools and free tiers
+
+<!-- BEGIN:free-tiers -->
 
 What you get for $0. Checked on each vendor's page in 2026-11. Free plans change often, so check the source before you rely on a limit.
 
@@ -242,11 +252,15 @@ What you get for $0. Checked on each vendor's page in 2026-11. Free plans change
 | v0 | Building and deploying | 7 messages a day; free credits depend on current signup offer | [Pricing docs](https://v0.app/docs/pricing) |
 | Vercel (Hobby) | Hosting and preview deploys | 1M CDN requests and 100 GB data transfer a month | [Pricing](https://vercel.com/pricing) |
 
+<!-- END:free-tiers -->
+
 Open-source tools in this list (Aider, Cline, Codex CLI, OpenCode, Playwright and others) are free to use. You still pay for the AI model they call unless you sign in with a plan that covers it.
 
 ## Pricing at a glance
 
 Monthly prices in USD, before tax, billed monthly unless noted. Most AI tools now bill by credits, tokens or usage pools, so your real cost depends on how much you build. Prices change often: if one is wrong, please [send a pricing update](https://github.com/NeuralSaasAi/vibe-coding-hub/issues/new?template=pricing-update.yml).
+
+<!-- BEGIN:pricing -->
 
 | Tool | Free plan | Entry paid plan | Higher plans | How usage is measured | Source | Last verified |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -267,10 +281,14 @@ Monthly prices in USD, before tax, billed monthly unless noted. Most AI tools no
 | v0 | Yes | Plus $30 per user ($30 credits) | Business $100 per user; Enterprise custom | Dollar credits, plus $2 daily login credit on paid plans | [Pricing docs](https://v0.app/docs/pricing) | 2026-11 |
 | Vercel | Yes (Hobby) | Pro $20 | Enterprise custom | Included usage, then pay as you go | [Pricing](https://vercel.com/pricing) | 2026-11 |
 
+<!-- END:pricing -->
+
 > [!TIP]
 > **Budget tip:** the plan fee is only part of the cost. AI builders spend credits on every change, including fixes, and hosted backends charge for data and compute once you have users. Set a usage alert wherever the tool offers one.
 
 ## Which tool for which job
+
+<!-- BEGIN:jobs -->
 
 A starting point, not a ranking. Any of these tools can build most apps. The question is how much control you want and when you will need more.
 
@@ -283,12 +301,16 @@ A starting point, not a ranking. Any of these tools can build most apps. The que
 | An AI agent or chatbot | [Replit](https://replit.com), [v0](https://v0.app) | [Lovable](https://lovable.dev), [Claude Code](https://claude.com/product/claude-code) or [Codex CLI](https://github.com/openai/codex) for custom logic | Cost control and answer quality at scale. You will need logging and tests. |
 | Changes to an existing codebase | [Cursor](https://cursor.com), [Kiro](https://kiro.dev), [GitHub Copilot](https://github.com/features/copilot) | [Claude Code](https://claude.com/product/claude-code), [Codex CLI](https://github.com/openai/codex), [Aider](https://aider.chat), [Cline](https://cline.bot) | These are the tools people grow into. |
 
+<!-- END:jobs -->
+
 ## Keep your vibe-coded app alive
 
 Getting the first version working is the fun part. Keeping it working while you add features, get users and fix problems is where most projects stall. Nobody gets this right the first time. These habits make it much easier, whichever tool you use.
 
 > [!IMPORTANT]
 > In a [2025 study by Veracode](https://www.veracode.com/blog/genai-code-security-report), AI-generated code failed security tests in 45% of tasks. That is not a reason to stop. It means you need a short checklist and a few safety nets.
+
+<!-- BEGIN:guide -->
 
 ### 1. Before you build
 
@@ -381,6 +403,8 @@ Keeping a live app healthy.
 
 > [!WARNING]
 > A slow app is usually caused by loading every row on each page view, or by one database query running inside a loop. Ask your AI tool to list every database query on the slow page before it tries a fix.
+
+<!-- END:guide -->
 
 **Stuck? [Get a free review of your vibe-coded app](https://neuralsaasai.com/contact?utm_source=github&utm_medium=readme&utm_campaign=vibe-coding-hub&utm_content=keep-alive-guide).**
 

@@ -1,6 +1,6 @@
 intro: A starting point, not a ranking. Any of these tools can build most apps. The question is how much control you want and when you will need more.
 
-# Text fields use {slug} for a tool link and {cat:id} for a category link.
+# Text fields use {slug} for a tool link and {cat:id} or {cat:id|label} for a category link.
 jobs:
   - id: landing-page
     use_case: A landing page or marketing site
@@ -13,7 +13,7 @@ jobs:
     use_case: A SaaS MVP with login and payments
     first_pick_text: "{lovable} or {bolt}, with {supabase} and {stripe}"
     also_text: "{replit}, {v0}, {base44}"
-    outgrow: Complex business rules, background jobs, many user roles. Sync to GitHub and continue in an {cat:ai-ides}.
+    outgrow: Complex business rules, background jobs, many user roles. Sync to GitHub and continue in an {cat:ai-ides|AI IDE}.
     first_pick: [lovable, bolt, supabase, stripe]
     also_consider: [replit, v0, base44]
   - id: internal-tool
