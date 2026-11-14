@@ -175,7 +175,7 @@ const clientData = {
     );
     $("outgrow").textContent = rec.outgrow.replace(/\{cat:[a-z0-9-]+\|([^}]+)\}/g, "$1").replace(/\{([a-z0-9-]+)\}/g, (_, s) => tools.find((t) => t.slug === s)?.name ?? s);
     $("notes").replaceChildren(...rec.notes.map((n) => el("li", { class: "flex gap-2" }, `💡 ${n}`)));
-    $("tools-link").setAttribute("href", `${base}/tools?ids=${rec.slugs.join(",")}`);
+    $("tools-link").setAttribute("href", `${base}/tools/?ids=${rec.slugs.join(",")}`);
     result.hidden = false;
   }
 

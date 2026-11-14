@@ -1,11 +1,18 @@
-/** Joins a base path (like "/vibe-coding-hub" or "/") with a site path. */
+/**
+ * Joins a base path (like "/vibe-coding-hub" or "/") with a site path.
+ * Page paths get a trailing slash, matching how GitHub Pages serves folders.
+ * File paths (anything with an extension, like /og.png) are left as they are.
+ */
 export function joinBase(base: string, path: string): string {
   if (/^(https?:|mailto:|#)/.test(path)) return path;
   const b = base.replace(/\/+$/, "");
-  const [pathname, rest = ""] = path.split(/(?=[?#])/, 2) as [string, string?];
-  const p = pathname.replace(/^\/+/, "");
-  const joined = `${b}/${p}`;
-  return (joined === "" ? "/" : joined) + rest;
+  const cut = path.search(/[?#]/);
+  const pathname = cut === -1 ? path : path.slice(0, cut);
+  const rest = cut === -1 ? "" : path.slice(cut);
+  let p = pathname.replace(/^\/+/, "");
+  const isFile = /\.[a-z0-9]+$/i.test(p);
+  if (p && !isFile && !p.endsWith("/")) p += "/";
+  return `${b}/${p}` + rest;
 }
 
 /** Use for every internal link, so a custom domain needs no code changes. */

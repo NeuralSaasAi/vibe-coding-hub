@@ -10,15 +10,20 @@ const data = loadAll(repoRoot);
 
 describe("joinBase", () => {
   it("joins with a repo base path", () => {
-    expect(joinBase("/vibe-coding-hub", "/tools")).toBe("/vibe-coding-hub/tools");
-    expect(joinBase("/vibe-coding-hub/", "tools?free=1")).toBe("/vibe-coding-hub/tools?free=1");
-    expect(joinBase("/vibe-coding-hub", "/roadmap#after-launch")).toBe("/vibe-coding-hub/roadmap#after-launch");
+    expect(joinBase("/vibe-coding-hub", "/tools")).toBe("/vibe-coding-hub/tools/");
+    expect(joinBase("/vibe-coding-hub/", "tools?free=1")).toBe("/vibe-coding-hub/tools/?free=1");
+    expect(joinBase("/vibe-coding-hub", "/roadmap#after-launch")).toBe("/vibe-coding-hub/roadmap/#after-launch");
     expect(joinBase("/vibe-coding-hub", "/")).toBe("/vibe-coding-hub/");
+    expect(joinBase("/vibe-coding-hub", "/tools/")).toBe("/vibe-coding-hub/tools/");
+  });
+  it("leaves file paths without a trailing slash", () => {
+    expect(joinBase("/vibe-coding-hub", "/og.png")).toBe("/vibe-coding-hub/og.png");
+    expect(joinBase("/vibe-coding-hub", "/sitemap-index.xml")).toBe("/vibe-coding-hub/sitemap-index.xml");
   });
   it("joins without a base path, for a custom domain", () => {
-    expect(joinBase("/", "/tools")).toBe("/tools");
+    expect(joinBase("/", "/tools")).toBe("/tools/");
     expect(joinBase("/", "/")).toBe("/");
-    expect(joinBase("", "pricing")).toBe("/pricing");
+    expect(joinBase("", "pricing")).toBe("/pricing/");
   });
   it("leaves absolute links alone", () => {
     expect(joinBase("/x", "https://neuralsaasai.com")).toBe("https://neuralsaasai.com");

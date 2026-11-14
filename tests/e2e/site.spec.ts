@@ -4,11 +4,11 @@ import { loadAll } from "../../lib/data.ts";
 
 const data = loadAll();
 const freeBuilders = data.tools.filter((t) => t.category === "ai-app-builders" && t.free_tier).length;
-const pages = ["", "tools", "pricing", "roadmap", "which-tool", "when-it-breaks"];
+const pages = ["", "tools/", "pricing/", "roadmap/", "which-tool/", "when-it-breaks/"];
 
 test.describe("tool explorer", () => {
   test("filters by category and free tier, and keeps the filter in the URL", async ({ page }) => {
-    await page.goto("tools");
+    await page.goto("tools/");
     await expect(page.locator("[data-tool]:visible")).toHaveCount(data.tools.length);
 
     await page.getByRole("button", { name: /AI app builders/ }).click();
@@ -24,7 +24,7 @@ test.describe("tool explorer", () => {
   });
 
   test("searches and shows the empty state", async ({ page }) => {
-    await page.goto("tools");
+    await page.goto("tools/");
     await page.getByRole("searchbox", { name: "Search tools" }).fill("supabase");
     await expect(page.locator('[data-tool][data-slug="supabase"]')).toBeVisible();
     await page.getByRole("searchbox", { name: "Search tools" }).fill("zzzz-no-such-tool");
@@ -35,7 +35,7 @@ test.describe("tool explorer", () => {
   test("lists every tool without JavaScript", async ({ browser }) => {
     const context = await browser.newContext({ javaScriptEnabled: false });
     const page = await context.newPage();
-    await page.goto("tools");
+    await page.goto("tools/");
     await expect(page.locator("[data-tool]")).toHaveCount(data.tools.length);
     await context.close();
   });
@@ -43,7 +43,7 @@ test.describe("tool explorer", () => {
 
 test.describe("pricing", () => {
   test("sorts by entry price", async ({ page }) => {
-    await page.goto("pricing");
+    await page.goto("pricing/");
     const prices = async () =>
       page.locator("[data-row]").evaluateAll((rows) => rows.map((r) => Number((r as HTMLElement).dataset.price)));
     const asc = await prices();
@@ -56,7 +56,7 @@ test.describe("pricing", () => {
   });
 
   test("prefills the pricing update issue", async ({ page }) => {
-    await page.goto("pricing");
+    await page.goto("pricing/");
     const link = page.locator('[data-row][data-name="Bolt"]').getByRole("link", { name: "Report a change" });
     await expect(link).toHaveAttribute("href", /template=pricing-update\.yml&title=%5BPricing%5D%20Bolt/);
   });
@@ -64,7 +64,7 @@ test.describe("pricing", () => {
 
 test.describe("roadmap", () => {
   test("opens a stage, saves a tick and restores it after reload", async ({ page }) => {
-    await page.goto("roadmap");
+    await page.goto("roadmap/");
     await page.getByRole("button", { name: "Open step 3: Before you launch" }).click();
     const dialog = page.getByRole("dialog", { name: "Before you launch" });
     await expect(dialog).toBeVisible();
@@ -80,12 +80,12 @@ test.describe("roadmap", () => {
   });
 
   test("deep links open the right panel", async ({ page }) => {
-    await page.goto("roadmap#when-something-breaks");
+    await page.goto("roadmap/#when-something-breaks");
     await expect(page.getByRole("dialog", { name: "When something breaks" })).toBeVisible();
   });
 
   test("works with the keyboard alone", async ({ page }) => {
-    await page.goto("roadmap");
+    await page.goto("roadmap/");
     const node = page.getByRole("button", { name: "Open step 1: Before you build" });
     await node.focus();
     await page.keyboard.press("Enter");
@@ -99,20 +99,20 @@ test.describe("roadmap", () => {
 
 test.describe("which tool", () => {
   test("SaaS MVP with no coding leads to Lovable, Bolt, Supabase and Stripe", async ({ page }) => {
-    await page.goto("which-tool");
+    await page.goto("which-tool/");
     await page.getByLabel("A SaaS MVP with login and payments").check();
     await page.getByLabel("I don't code").check();
     await page.getByLabel("Whatever gets it done").check();
     const picks = page.locator('[data-r="picks"]');
     for (const name of ["Lovable", "Bolt", "Supabase", "Stripe"]) await expect(picks).toContainText(name);
-    await expect(page.locator('[data-r="tools-link"]')).toHaveAttribute("href", /\/tools\?ids=lovable,bolt,supabase,stripe/);
+    await expect(page.locator('[data-r="tools-link"]')).toHaveAttribute("href", /\/tools\/\?ids=lovable,bolt,supabase,stripe/);
   });
 
   test("the result link opens a filtered tool list", async ({ page }) => {
-    await page.goto("which-tool");
+    await page.goto("which-tool/");
     await page.getByLabel("A mobile app").check();
     await page.locator('[data-r="tools-link"]').click();
-    await expect(page).toHaveURL(/\/tools\?ids=/);
+    await expect(page).toHaveURL(/\/tools\/\?ids=/);
     await expect(page.locator('[data-tool][data-slug="bolt"]')).toBeVisible();
     await expect(page.locator('[data-tool][data-slug="vercel"]')).toBeHidden();
   });
@@ -121,7 +121,7 @@ test.describe("which tool", () => {
 test.describe("when it breaks", () => {
   test("renders the diagram and copies a prompt", async ({ page, context }) => {
     await context.grantPermissions(["clipboard-read", "clipboard-write"]);
-    await page.goto("when-it-breaks");
+    await page.goto("when-it-breaks/");
     const diagram = page.locator(".diagram img:visible").first();
     await expect(diagram).toBeVisible();
     expect(await diagram.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(100);
@@ -137,7 +137,7 @@ test.describe("every page", () => {
   for (const path of pages) {
     test(`/${path} has SEO tags, UTM links and no serious accessibility issues`, async ({ page }) => {
       await page.goto(path);
-      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /^https:\/\/neuralsaasai\.github\.io\/vibe-coding-hub/);
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /^https:\/\/neuralsaasai\.github\.io\/vibe-coding-hub\/([a-z-]+\/)?$/);
       await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /og\.png$/);
       expect(await page.locator('script[type="application/ld+json"]').count()).toBeGreaterThan(0);
 
@@ -148,6 +148,8 @@ test.describe("every page", () => {
 
       for (const theme of ["dark", "light"]) {
         await page.evaluate((t) => (document.documentElement.dataset.theme = t), theme);
+        // Let the theme change finish painting before measuring contrast
+        await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(r, 150)))));
         const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
         const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
         expect(serious.map((v) => `${theme}: ${v.id} (${v.nodes.length}) ${v.nodes[0]?.target}`)).toEqual([]);
