@@ -1,5 +1,6 @@
 import type { Category, GuideStage, JobsFile, Tool } from "../schema/tool.ts";
 import { stats, toolsInCategory } from "./data.ts";
+import { siteLink } from "./site-url.ts";
 
 export const REPO = "NeuralSaasAi/vibe-coding-hub";
 export const REPO_URL = `https://github.com/${REPO}`;
@@ -137,6 +138,8 @@ export function renderBadges(tools: Tool[]): string {
     `  <img src="https://img.shields.io/badge/tools-${s.tools}-7c5cff" alt="${s.tools} tools">`,
     `  <img src="https://img.shields.io/badge/free%20tiers-${s.freeTiers}-16a34a" alt="${s.freeTiers} free tiers">`,
     `  <img src="https://img.shields.io/badge/prices%20verified-${month}-0ea5c6" alt="Prices verified ${s.latestVerified}">`,
+    `  <a href="${siteLink()}"><img src="https://img.shields.io/badge/website-live-7c5cff" alt="Website"></a>`,
+    `  <a href="${REPO_URL}/actions/workflows/ci.yml"><img src="${REPO_URL}/actions/workflows/ci.yml/badge.svg" alt="Checks"></a>`,
     '  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs welcome"></a>',
     '  <a href="LICENSE"><img src="https://img.shields.io/badge/license-CC0--1.0-blue" alt="CC0 license"></a>',
     "</p>",

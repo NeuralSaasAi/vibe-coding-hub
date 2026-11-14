@@ -62,7 +62,8 @@ describe("README generator", () => {
         doc
           .split("### 1. Before you build")[1]!
           .split("**Stuck?")[0]!
-          .replace(/```mermaid[\s\S]*?```/g, ""),
+          .replace(/```mermaid[\s\S]*?```/g, "")
+          .replace(/^Prefer a step-by-step view\?.*$/m, ""),
       );
     expect(strip(readme())).toBe(strip(before()));
   });

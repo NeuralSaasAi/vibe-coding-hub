@@ -20,6 +20,7 @@ import {
   stagePath,
   whichToolDiagram,
 } from "../lib/render.ts";
+import { siteLink } from "../lib/site-url.ts";
 import { banner, categoryCard, footerCard, journey, logoTile, pricingChart, stageImage } from "../lib/svg.ts";
 
 export interface Output {
@@ -38,8 +39,8 @@ export function buildReadme(data: HubData, current: string): string {
   const sections: Record<string, string> = {
     badges: renderBadges(data.tools),
     glance: renderGlance(data.tools, data.categories),
-    gallery: renderGallery(data.tools, data.categories),
-    roadmap: renderRoadmap(data.guide),
+    gallery: renderGallery(data.tools, data.categories, (c) => siteLink(`tools/?category=${c.id}`)),
+    roadmap: renderRoadmap(data.guide, (s) => siteLink(`roadmap/#${s.id}`)),
     tools: renderTools(data.tools, data.categories, { collapse: true }),
     "free-tiers": renderFreeTiers(data.tools),
     pricing: renderPricing(data.tools),
