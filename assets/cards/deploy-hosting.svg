@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" width="400" height="220" role="img" aria-labelledby="t d">
+  <title id="t">Deploy and hosting</title>
+  <desc id="d">Deploy and hosting: 9 tools, 2 with a free tier, 1 open source. Best for: Putting exported code on the internet.</desc>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1529"/>
+      <stop offset="1" stop-color="#1a1240"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="398" height="218" rx="18" fill="url(#g)" stroke="#fb923c" stroke-opacity="0.6" stroke-width="2"/>
+  <rect x="24" y="24" width="52" height="52" rx="14" fill="#fb923c" fill-opacity="0.16"/>
+  <text x="50" y="61" font-size="28" text-anchor="middle">🚀</text>
+  <text x="92" y="48" fill="#e6e9f5" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="20" font-weight="700">Deploy and hosting</text>
+  <text x="92" y="72" fill="#fb923c" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="15" font-weight="600">9 tools · 2 free tiers · 1 open source</text>
+  <text x="24" y="126" fill="#aab2d5" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="18">Putting exported code on the</text>
+  <text x="24" y="152" fill="#aab2d5" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="18">internet</text>
+  <text x="376" y="196" fill="#fb923c" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="15" font-weight="600" text-anchor="end">Browse →</text>
+</svg>

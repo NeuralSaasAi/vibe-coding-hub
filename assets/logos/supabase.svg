@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="t d">
+  <title id="t">Supabase</title>
+  <desc id="d">Supabase logo tile, in the Backend and database category.</desc>
+  <rect x="1" y="1" width="62" height="62" rx="14" fill="#111733" stroke="#34d399" stroke-opacity="0.55" stroke-width="2"/>
+  <g transform="translate(16 16) scale(1.3333)"><path fill="#3FCF8E" d="M11.9 1.036c-.015-.986-1.26-1.41-1.874-.637L.764 12.05C-.33 13.427.65 15.455 2.409 15.455h9.579l.113 7.51c.014.985 1.259 1.408 1.873.636l9.262-11.653c1.093-1.375.113-3.403-1.645-3.403h-9.642z"/></g>
+</svg>

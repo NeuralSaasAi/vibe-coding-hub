@@ -159,3 +159,73 @@ export function replaceSection(doc: string, name: string, content: string): stri
 export function sectionNames(doc: string): string[] {
   return [...doc.matchAll(/<!-- BEGIN:([a-z0-9:-]+) -->/g)].map((m) => m[1]!);
 }
+
+// ---------- Visual sections (Task 3) ----------
+
+const attr = (text: string) => text.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+
+export const logoPath = (tool: Tool) => `assets/logos/${tool.slug}.svg`;
+export const cardPath = (category: Category) => `assets/cards/${category.id}.svg`;
+export const stagePath = (stage: GuideStage) => `assets/roadmap/${stage.order}-${stage.id}.svg`;
+
+export function renderGlance(tools: Tool[], categories: Category[]): string {
+  const rows = categories.map((cat) => {
+    const logos = toolsInCategory(tools, cat.id)
+      .map(
+        (t) =>
+          `<a href="${attr(t.url)}"><img src="${logoPath(t)}" width="40" height="40" alt="${attr(t.name)}" title="${attr(t.name)}"></a>`,
+      )
+      .join(" ");
+    return `  <tr>\n    <td><a href="#${githubAnchor(cat.title)}"><b>${cat.emoji} ${cat.title}</b></a></td>\n    <td>${logos}</td>\n  </tr>`;
+  });
+  return `<table>\n${rows.join("\n")}\n</table>`;
+}
+
+export function renderGallery(tools: Tool[], categories: Category[], hrefFor?: (c: Category) => string): string {
+  const cells = categories.map((cat) => {
+    const count = tools.filter((t) => t.category === cat.id).length;
+    const href = hrefFor ? hrefFor(cat) : `#${githubAnchor(cat.title)}`;
+    return `    <td width="33%" align="center"><a href="${attr(href)}"><img src="${cardPath(cat)}" width="100%" alt="${attr(`${cat.title}: ${count} tools. ${cat.best_for}.`)}"></a></td>`;
+  });
+  const rows: string[] = [];
+  for (let i = 0; i < cells.length; i += 3) rows.push(`  <tr>\n${cells.slice(i, i + 3).join("\n")}\n  </tr>`);
+  return `<table>\n${rows.join("\n")}\n</table>`;
+}
+
+export function renderRoadmap(stages: GuideStage[], hrefFor?: (s: GuideStage) => string): string {
+  const imgs = stages.map((s) => {
+    const href = hrefFor ? hrefFor(s) : `#${githubAnchor(`${s.order}. ${s.title}`)}`;
+    return `  <a href="${attr(href)}"><img src="${stagePath(s)}" width="19%" alt="${attr(`Step ${s.order}: ${s.title}`)}"></a>`;
+  });
+  return `<p align="center">\n${imgs.join("\n")}\n</p>`;
+}
+
+export function renderRecentlyVerified(tools: Tool[], count = 5): string {
+  const priced = tools
+    .filter((t) => t.pricing)
+    .sort(
+      (a, b) =>
+        b.pricing!.last_verified.localeCompare(a.pricing!.last_verified) ||
+        (a.pricing!.label ?? a.name).localeCompare(b.pricing!.label ?? b.name),
+    )
+    .slice(0, count);
+  const parts = priced.map((t) => `${t.pricing!.label ?? t.name} (${t.pricing!.last_verified})`);
+  const list = parts.length > 1 ? `${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}` : parts.join("");
+  return `**Recently verified:** ${list}. Help keep it fresh: [send a pricing update](${REPO_URL}/issues/new?template=pricing-update.yml).`;
+}
+
+/** Mermaid text is wrapped in quotes, so double quotes inside labels are swapped for single ones. */
+const mm = (text: string) => text.replace(/"/g, "'");
+
+export function whichToolDiagram(jobs: JobsFile, tools: Tool[]): string {
+  const bySlug = new Map(tools.map((t) => [t.slug, t]));
+  const lines = ["flowchart LR", '  Q{"What are you<br/>building?"}'];
+  jobs.jobs.forEach((job, i) => {
+    const picks = job.first_pick.map((s) => bySlug.get(s)!.name).join(", ");
+    lines.push(`  Q --> J${i}["${mm(job.use_case)}"]`);
+    lines.push(`  J${i} --> P${i}(["${mm(picks)}"])`);
+  });
+  return `${lines.join("\n")}\n`;
+}
+
+export const mermaidBlock = (source: string) => `\`\`\`mermaid\n${source.trim()}\n\`\`\``;

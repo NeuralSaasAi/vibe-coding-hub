@@ -1,0 +1,10 @@
+flowchart TD
+  A(["Something broke"]) --> B["1. Reproduce it<br/>exact steps, expected vs actual"]
+  B --> C["2. Read the real error<br/>console, network tab, host logs"]
+  C --> D["3. Find the change<br/>compare commits or git bisect"]
+  D --> E["5. Give the AI context<br/>error + steps + file, explain first"]
+  E --> F{"Fixed within<br/>3 tries?"}
+  F -- "Yes" --> G(["Commit the fix"])
+  F -- "No" --> H["4. Roll back<br/>last working version"]
+  H --> I["6. Stop the loop<br/>fresh chat with a clear summary"]
+  I --> B

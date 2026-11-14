@@ -1,0 +1,6 @@
+flowchart LR
+  A["Edit a file in data/<br/>or use an issue form"] --> B["Open a<br/>pull request"]
+  B --> C{"Checks pass?<br/>schema, links, README"}
+  C -- "Yes" --> D["Maintainer<br/>reviews and merges"]
+  C -- "No" --> A
+  D --> E(["README and website<br/>update automatically"])

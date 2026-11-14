@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 150" width="240" height="150" role="img" aria-labelledby="t d">
+  <title id="t">Stage 5: After launch</title>
+  <desc id="d">Stage 5 of 5 on the roadmap: After launch. Keeping a live app healthy.</desc>
+  <rect x="1" y="1" width="238" height="148" rx="18" fill="#0f1529" stroke="#16a34a" stroke-width="2"/>
+  <circle cx="40" cy="42" r="22" fill="#16a34a" fill-opacity="0.18" stroke="#16a34a" stroke-width="2"/>
+  <text x="40" y="50" font-size="22" text-anchor="middle">💚</text>
+  <text x="72" y="38" fill="#16a34a" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="1">STEP 5</text>
+  <text x="72" y="58" fill="#e6e9f5" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="17" font-weight="700">After launch</text>
+  <text x="22" y="92" fill="#aab2d5" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="13">• Errors and uptime</text>
+  <text x="22" y="112" fill="#aab2d5" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="13">• Package updates</text>
+  <text x="22" y="132" fill="#aab2d5" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="13">• Features on branches</text>
+</svg>

@@ -5,11 +5,12 @@ import { findRoot } from "../lib/data.ts";
 
 export const repoRoot = findRoot(import.meta.dirname);
 
-/** Copies data/ and content/ into a temp folder so tests can break files safely. */
+/** Copies the data, content and diagrams into a temp folder so tests can break files safely. */
 export function tempRepo(): { root: string; write: (path: string, text: string) => void; cleanup: () => void } {
   const root = mkdtempSync(join(tmpdir(), "vch-"));
-  cpSync(join(repoRoot, "data"), join(root, "data"), { recursive: true });
-  cpSync(join(repoRoot, "content"), join(root, "content"), { recursive: true });
+  for (const dir of ["data", "content", "diagrams"]) {
+    cpSync(join(repoRoot, dir), join(root, dir), { recursive: true });
+  }
   return {
     root,
     write: (path, text) => writeFileSync(join(root, path), text),

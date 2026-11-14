@@ -12,7 +12,7 @@ user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
 # 403 and 429 usually mean bot protection or rate limiting, not a dead link
 accept = ["200..=299", "403", "429"]
 
-exclude_path = ["node_modules", ".git", "CODE_OF_CONDUCT.md"]
+exclude_path = ["node_modules", "site/node_modules", "site/dist", ".git", "CODE_OF_CONDUCT.md", "tests/fixtures"]
 
 # Domains that block automated checks or rate-limit CI runners
 exclude = [
@@ -20,8 +20,11 @@ exclude = [
   "^https://(www\\.)?x\\.com",
   "^https://(www\\.)?twitter\\.com",
   "^https://(www\\.)?linkedin\\.com",
-  "^https://github\\.com/NeuralSaasAi/vibe-coding-hub/(issues|actions)",
+  "^https://github\\.com/NeuralSaasAi/vibe-coding-hub/(issues|actions|graphs|edit)",
   "^https://img\\.shields\\.io",
   # Site is up (200 over HTTP/1.1) but its HTTP/2 handshake fails in lychee's client
   "^https://www\\.magicpatterns\\.com",
+  # Community image services: dynamic, slow, and the page uses hash routing
+  "^https://(www\\.|api\\.)?star-history\\.com",
+  "^https://contrib\\.rocks",
 ]
