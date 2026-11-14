@@ -23,7 +23,13 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            site/package-lock.json
       - run: npm ci
+      # Unit tests import site helpers, and site/tsconfig.json extends Astro's config
+      - run: npm ci
+        working-directory: site
       - name: Validate data files
         run: npm run validate
       - name: README and images match the data
