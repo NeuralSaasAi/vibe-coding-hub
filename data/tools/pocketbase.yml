@@ -4,3 +4,4 @@ category: backend-database
 description: Single-file backend with SQLite, login and an admin dashboard.
 free_tier: false
 open_source: true
+icon: pocketbase

@@ -1,0 +1,71 @@
+# Where each logo in this folder came from. Written by scripts/fetch-logos.ts.
+# Logos are trademarks of their owners and are used only to identify each tool.
+21st-dev:
+  url: https://21st.dev/apple-touch-icon.png
+  fetched: 2026-11-14
+aider:
+  url: https://aider.chat/assets/icons/apple-touch-icon.png
+  fetched: 2026-11-14
+auth-js:
+  url: https://github.com/nextauthjs.png?size=128
+  fetched: 2026-11-14
+base44:
+  url: https://media.base44.com/images/public/marketing-site-assets/branded/favicon-branded-v2.png
+  fetched: 2026-11-14
+codex-cli:
+  url: https://github.com/openai.png?size=128
+  fetched: 2026-11-14
+devin:
+  url: https://devin.ai/favicon.svg
+  fetched: 2026-11-14
+emergent:
+  url: https://cdn.prod.website-files.com/6a0edf12ef1a8562ed56d806/6a16a2349f51334d1700e015_emergent.png
+  fetched: 2026-11-14
+gitleaks:
+  url: https://github.com/gitleaks.png?size=128
+  fetched: 2026-11-14
+goose:
+  url: https://github.com/aaif-goose.png?size=128
+  fetched: 2026-11-14
+kinde:
+  url: https://www.kinde.com/icon.svg
+  fetched: 2026-11-14
+kiro:
+  url: https://kiro.dev/icon.svg?fe599162bb293ea0
+  fetched: 2026-11-14
+kiro-cli:
+  url: https://kiro.dev/icon.svg?fe599162bb293ea0
+  fetched: 2026-11-14
+lovable:
+  url: https://lovable.dev/apple-touch-icon.png
+  fetched: 2026-11-14
+magic-patterns:
+  url: https://www.magicpatterns.com/icon.svg
+  fetched: 2026-11-14
+playwright:
+  url: https://playwright.dev/img/playwright-logo.svg
+  fetched: 2026-11-14
+polar:
+  url: https://polar.sh/favicon.png
+  fetched: 2026-11-14
+relume:
+  url: https://cdn.prod.website-files.com/6177739448baa66404ce1d9c/6a86639aa87a4f5a28e25042_Favicon-Relume%20(512px).png
+  fetched: 2026-11-14
+rocket:
+  url: https://www.rocket.new/apple-touch-icon.png
+  fetched: 2026-11-14
+semgrep:
+  url: https://semgrep.dev/build/assets/favicon-CIx-xpG_.svg
+  fetched: 2026-11-14
+tempo:
+  url: https://www.tempo.new/favicon.svg
+  fetched: 2026-11-14
+uizard:
+  url: https://uizard.io/apple-touch-icon.png
+  fetched: 2026-11-14
+uptimerobot:
+  url: https://uptimerobot.com/apple-touch-icon.png
+  fetched: 2026-11-14
+workos:
+  url: https://cdn.prod.website-files.com/621f54116cab10f6e9215d8b/621f549024eb2947f6f2f7f7_Favicon%20256x256.png
+  fetched: 2026-11-14

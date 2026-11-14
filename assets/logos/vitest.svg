@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="t d">
   <title id="t">Vitest</title>
-  <desc id="d">Vitest logo tile, in the Testing, security and monitoring category.</desc>
-  <rect x="1" y="1" width="62" height="62" rx="14" fill="#111733" stroke="#a3e635" stroke-opacity="0.55" stroke-width="2"/>
-  <g transform="translate(16 16) scale(1.3333)"><path fill="#00FF74" d="M11.545 23.3a.613.613 0 0 1-.895.197L.252 15.936A.61.61 0 0 1 0 15.439V6.325c0-.502.569-.792.975-.497l6.358 4.624c.594.433 1.432.25 1.793-.39L14.393.7a.62.62 0 0 1 .535-.314h8.455a.613.613 0 0 1 .537.916z"/></g>
+  <desc id="d">Vitest logo.</desc>
+  <rect x="0.5" y="0.5" width="63" height="63" rx="12" fill="#ffffff" stroke="#16150f" stroke-opacity="0.12"/>
+  <g transform="translate(14 14) scale(1.5)"><path fill="#16150f" d="M11.545 23.3a.613.613 0 0 1-.895.197L.252 15.936A.61.61 0 0 1 0 15.439V6.325c0-.502.569-.792.975-.497l6.358 4.624c.594.433 1.432.25 1.793-.39L14.393.7a.62.62 0 0 1 .535-.314h8.455a.613.613 0 0 1 .537.916z"/></g>
 </svg>

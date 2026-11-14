@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="t d">
   <title id="t">v0</title>
-  <desc id="d">v0 logo tile, in the AI app builders category.</desc>
-  <rect x="1" y="1" width="62" height="62" rx="14" fill="#111733" stroke="#7c5cff" stroke-opacity="0.55" stroke-width="2"/>
-  <g transform="translate(16 16) scale(1.3333)"><path fill="#e6e9f5" d="M14.066 6.028v2.22h5.729q.075-.001.148.005l-5.853 5.752a2 2 0 0 1-.024-.309V8.247h-2.353v5.45c0 2.322 1.935 4.222 4.258 4.222h5.675v-2.22h-5.675q-.03 0-.059-.003l5.729-5.629q.006.082.006.166v5.465H24v-5.465a4.204 4.204 0 0 0-4.205-4.205zM0 8.245l8.28 9.266c.839.94 2.396.346 2.396-.914V8.245H8.19v5.44l-4.86-5.44Z"/></g>
+  <desc id="d">v0 logo.</desc>
+  <rect x="0.5" y="0.5" width="63" height="63" rx="12" fill="#ffffff" stroke="#16150f" stroke-opacity="0.12"/>
+  <g transform="translate(14 14) scale(1.5)"><path fill="#000000" d="M14.066 6.028v2.22h5.729q.075-.001.148.005l-5.853 5.752a2 2 0 0 1-.024-.309V8.247h-2.353v5.45c0 2.322 1.935 4.222 4.258 4.222h5.675v-2.22h-5.675q-.03 0-.059-.003l5.729-5.629q.006.082.006.166v5.465H24v-5.465a4.204 4.204 0 0 0-4.205-4.205zM0 8.245l8.28 9.266c.839.94 2.396.346 2.396-.914V8.245H8.19v5.44l-4.86-5.44Z"/></g>
 </svg>

@@ -4,6 +4,7 @@ import { XMLValidator } from "fast-xml-parser";
 import { describe, expect, it } from "vitest";
 import { loadAll } from "../lib/data.ts";
 import { buildOutputs, strayFiles } from "../scripts/generate.ts";
+import { MONOGRAM_TOOLS } from "../lib/svg.ts";
 import { repoRoot } from "./helpers.ts";
 
 const walk = (dir: string): string[] =>
@@ -39,6 +40,23 @@ describe("generated images", () => {
     expect(text).toMatch(/<title[^>]*>[^<]+<\/title>/);
     expect(text).toMatch(/<desc[^>]*>[^<]+<\/desc>/);
     expect(text).not.toMatch(/<script|@import|url\(http/i);
+  });
+});
+
+describe("logos", () => {
+  it("gives every tool a real logo, except the documented monograms", () => {
+    const data = loadAll(repoRoot);
+    const monograms = data.tools
+      .filter((t) => readFileSync(join(repoRoot, `assets/logos/${t.slug}.svg`), "utf8").includes(" monogram."))
+      .map((t) => t.slug)
+      .sort();
+    expect(monograms).toEqual([...MONOGRAM_TOOLS].sort());
+  });
+
+  it("records where every fetched logo came from", () => {
+    const sources = readFileSync(join(repoRoot, "data/logos/sources.yml"), "utf8");
+    const files = readdirSync(join(repoRoot, "data/logos")).filter((f) => f !== "sources.yml");
+    for (const f of files) expect(sources, f).toContain(`${f.replace(/\.[a-z]+$/, "")}:`);
   });
 });
 

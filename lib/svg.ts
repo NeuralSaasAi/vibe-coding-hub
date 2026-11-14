@@ -1,3 +1,4 @@
+import { existsSync, readFileSync } from "node:fs";
 import * as simpleIcons from "simple-icons";
 import type { Category, GuideStage, Tool } from "../schema/tool.ts";
 import { stats } from "./data.ts";
@@ -120,23 +121,46 @@ export function initials(name: string): string {
   return (w[0]!.toUpperCase() + (w[1] ?? "")).slice(0, 2);
 }
 
-/** A 64x64 tile with the tool's Simple Icons glyph, or its initials. */
-export function logoTile(tool: Tool, category: Category): string {
+/** Tools whose sites block automated downloads and publish no icon file. They get a monogram. */
+export const MONOGRAM_TOOLS = ["rocket", "same"];
+
+const LOGO_DIR = new URL("../data/logos/", import.meta.url);
+const MIME: Record<string, string> = { svg: "image/svg+xml", png: "image/png", jpg: "image/jpeg", webp: "image/webp" };
+
+/** The fetched logo file for a tool, as a data URI, if there is one. */
+export function logoFile(slug: string): string | undefined {
+  for (const ext of Object.keys(MIME)) {
+    const url = new URL(`${slug}.${ext}`, LOGO_DIR);
+    if (existsSync(url)) return `data:${MIME[ext]};base64,${readFileSync(url).toString("base64")}`;
+  }
+  return undefined;
+}
+
+/** A 64x64 tile: the Simple Icons glyph, else the tool's own icon, else a monogram. */
+export function logoTile(tool: Tool, _category: Category): string {
   const icon = tool.icon ? iconsBySlug.get(tool.icon) : undefined;
+  const file = icon ? undefined : logoFile(tool.slug);
   let mark: string;
+  let kind: string;
   if (icon) {
     const hex = `#${icon.hex}`;
-    const fill = luminance(hex) < 0.12 ? "#e6e9f5" : hex;
-    mark = `  <g transform="translate(16 16) scale(1.3333)"><path fill="${fill}" d="${icon.path}"/></g>`;
+    // Very light brand colours disappear on the white tile, so draw those in ink
+    const fill = luminance(hex) > 0.6 ? "#16150f" : hex;
+    mark = `  <g transform="translate(14 14) scale(1.5)"><path fill="${fill}" d="${icon.path}"/></g>`;
+    kind = "logo";
+  } else if (file) {
+    mark = `  <image x="12" y="12" width="40" height="40" href="${file}" preserveAspectRatio="xMidYMid meet"/>`;
+    kind = "logo";
   } else {
-    mark = `  <text x="32" y="41" fill="${category.color}" font-family="${SANS}" font-size="24" font-weight="700" text-anchor="middle">${esc(initials(tool.name))}</text>`;
+    mark = `  <text x="32" y="40" fill="#16150f" font-family="${SANS}" font-size="20" font-weight="700" letter-spacing="-0.5" text-anchor="middle">${esc(initials(tool.name))}</text>`;
+    kind = "monogram";
   }
   return svg(
     64,
     64,
     tool.name,
-    `${tool.name} logo tile${icon ? "" : " (initials)"}, in the ${category.title} category.`,
-    `  <rect x="1" y="1" width="62" height="62" rx="14" fill="#111733" stroke="${category.color}" stroke-opacity="0.55" stroke-width="2"/>
+    `${tool.name} ${kind}.`,
+    `  <rect x="0.5" y="0.5" width="63" height="63" rx="12" fill="#ffffff" stroke="#16150f" stroke-opacity="0.12"/>
 ${mark}`,
   );
 }
