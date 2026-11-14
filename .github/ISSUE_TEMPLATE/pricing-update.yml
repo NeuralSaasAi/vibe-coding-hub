@@ -1,0 +1,42 @@
+name: Pricing or free tier update
+description: Report a price, plan or free-tier limit that has changed.
+title: "[Pricing] "
+labels: ["pricing-update"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Prices change often, so thank you. Please link the vendor's own pricing page or docs as the source.
+  - type: input
+    id: tool
+    attributes:
+      label: Tool
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: What the list says now
+    validations:
+      required: true
+  - type: textarea
+    id: correct
+    attributes:
+      label: What it should say
+      description: Plan names, monthly USD prices before tax, and limits. Note if a price is only shown billed yearly.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source (vendor pricing page or docs)
+      placeholder: https://
+    validations:
+      required: true
+  - type: input
+    id: date
+    attributes:
+      label: Date you checked
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true

@@ -1,0 +1,32 @@
+name: Broken or outdated link
+description: Report a link that is dead, redirects somewhere unexpected, or points to a tool that shut down.
+title: "[Link] "
+labels: ["broken-link"]
+body:
+  - type: input
+    id: link
+    attributes:
+      label: The link
+      placeholder: https://
+    validations:
+      required: true
+  - type: dropdown
+    id: problem
+    attributes:
+      label: What's wrong?
+      options:
+        - Page not found or site down
+        - Redirects to a different product or company
+        - Tool shut down or was acquired
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: replacement
+    attributes:
+      label: Correct link, if you know it
+      placeholder: https://
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else?

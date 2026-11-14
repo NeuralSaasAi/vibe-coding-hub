@@ -1,0 +1,72 @@
+name: Add a tool
+description: Suggest a tool for the list. A maintainer will review and add it.
+title: "[Add tool] "
+labels: ["add-tool"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. Please check the tool isn't already listed and read the [inclusion rules](https://github.com/NeuralSaasAi/vibe-coding-hub/blob/main/CONTRIBUTING.md#what-gets-included).
+  - type: input
+    id: name
+    attributes:
+      label: Tool name
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Official website or repository
+      description: No affiliate, review-site or tracking links.
+      placeholder: https://
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - AI app builders
+        - AI IDEs and editor extensions
+        - CLI coding agents
+        - UI and design generators
+        - Backend and database
+        - Auth and payments
+        - Deploy and hosting
+        - Testing, security and monitoring
+        - Learning resources
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What does it help you do?
+      description: One or two plain sentences, in your own words.
+    validations:
+      required: true
+  - type: dropdown
+    id: free
+    attributes:
+      label: Is there a free plan?
+      options:
+        - "Yes"
+        - "No"
+        - Open source
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: pricing
+    attributes:
+      label: Link to the pricing page
+      placeholder: https://
+  - type: dropdown
+    id: affiliation
+    attributes:
+      label: Are you affiliated with this tool?
+      options:
+        - "No"
+        - "Yes (founder, employee, contractor or paid partner)"
+    validations:
+      required: true
