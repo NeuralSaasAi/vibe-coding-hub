@@ -21,7 +21,7 @@ import {
   whichToolDiagram,
 } from "../lib/render.ts";
 import { siteLink } from "../lib/site-url.ts";
-import { banner, categoryCard, footerCard, journey, logoTile, pricingChart, stageImage } from "../lib/svg.ts";
+import { banner, CHART_THEMES, categoryCard, footerCard, journey, logoTile, pricingChart, stageImage } from "../lib/svg.ts";
 
 export interface Output {
   /** Path relative to the repo root. */
@@ -70,7 +70,8 @@ export function buildOutputs(data: HubData): Output[] {
     { path: "assets/banner-dark.svg", content: banner(data.tools, "dark") },
     { path: "assets/banner-light.svg", content: banner(data.tools, "light") },
     { path: "assets/journey.svg", content: journey(data.tools) },
-    { path: "assets/pricing-chart.svg", content: pricingChart(data.tools, data.categories) },
+    { path: "assets/pricing-chart.svg", content: pricingChart(data.tools, data.categories, CHART_THEMES.paper) },
+    { path: "assets/pricing-chart-dark.svg", content: pricingChart(data.tools, data.categories, CHART_THEMES.night) },
     { path: "assets/footer-card.svg", content: footerCard() },
     { path: "diagrams/which-tool.mmd", content: whichToolDiagram(data.jobs, data.tools) },
   ];

@@ -1,5 +1,6 @@
 ---
 import { withBase, REPO_URL } from "../lib/url.ts";
+import { summary } from "../lib/data.ts";
 
 const links = [
   { href: "/roadmap", label: "Roadmap" },
@@ -12,21 +13,21 @@ const current = Astro.url.pathname.replace(/\/$/, "");
 const isCurrent = (href: string) => current === withBase(href).replace(/\/$/, "");
 ---
 
-<header class="sticky top-0 z-40 border-b border-line/70 bg-bg/75 backdrop-blur-xl">
-  <nav class="container-x flex h-16 items-center gap-4" aria-label="Main">
-    <a href={withBase("/")} class="flex items-center gap-2.5 font-extrabold tracking-tight no-underline">
-      <span class="grid h-8 w-8 place-items-center rounded-lg text-white" style="background: var(--accent)" aria-hidden="true">›_</span>
-      <span class="whitespace-nowrap"><span class="hidden sm:inline">Vibe Coding </span>Hub</span>
+<header class="sticky top-0 z-40 border-b border-rule bg-paper/92 backdrop-blur-sm">
+  <nav class="container-x flex h-16 items-center gap-6" aria-label="Main">
+    <a href={withBase("/")} class="flex items-baseline gap-2 no-underline">
+      <span class="font-serif text-[1.45rem] leading-none tracking-tight">Vibe Coding Hub</span>
+      <span class="mono hidden text-[0.68rem] text-faint sm:inline">v{summary.latestVerified.replace("-", ".")}</span>
     </a>
 
-    <ul class="ml-6 hidden items-center gap-1 lg:flex">
+    <ul class="ml-4 hidden items-center gap-6 lg:flex">
       {
         links.map((l) => (
           <li>
             <a
               href={withBase(l.href)}
               aria-current={isCurrent(l.href) ? "page" : undefined}
-              class="rounded-full px-3 py-1.5 text-sm font-semibold text-muted no-underline transition hover:bg-surface hover:text-ink aria-[current=page]:bg-surface aria-[current=page]:text-ink"
+              class="text-[0.92rem] text-ink-2 no-underline decoration-accent decoration-2 underline-offset-[22px] hover:text-ink aria-[current=page]:font-medium aria-[current=page]:text-ink aria-[current=page]:underline"
             >
               {l.label}
             </a>
@@ -36,27 +37,21 @@ const isCurrent = (href: string) => current === withBase(href).replace(/\/$/, ""
     </ul>
 
     <div class="ml-auto flex items-center gap-2">
-      <button
-        type="button"
-        id="theme-toggle"
-        class="btn btn-sm"
-        aria-label="Switch between dark and light theme"
-        title="Switch theme"
-      >
-        <span aria-hidden="true" data-icon>◐</span>
+      <button type="button" id="theme-toggle" class="btn btn-sm" aria-label="Switch between light and dark theme" title="Switch theme">
+        <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor" /></svg>
       </button>
-      <a href={REPO_URL} class="btn btn-sm no-underline" rel="noopener" aria-label="Star Vibe Coding Hub on GitHub">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-        <span class="hidden sm:inline">Star</span>
-        <span class="tag tag-price" data-stars aria-label="GitHub stars" hidden></span>
+      <a href={REPO_URL} class="btn btn-sm no-underline" rel="noopener" aria-label="Vibe Coding Hub on GitHub">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+        <span class="mono text-xs text-faint" data-stars aria-label="GitHub stars" hidden></span>
       </a>
       <details class="relative lg:hidden">
-        <summary class="btn btn-sm list-none" aria-label="Open menu">☰</summary>
+        <summary class="btn btn-sm list-none" aria-label="Open menu">Menu</summary>
         <ul class="card absolute right-0 mt-2 w-56 p-2">
           {
             links.map((l) => (
               <li>
-                <a href={withBase(l.href)} class="block rounded-lg px-3 py-2 text-sm font-semibold no-underline hover:bg-surface-2">
+                <a href={withBase(l.href)} class="block rounded-md px-3 py-2 text-sm no-underline hover:bg-paper-2">
                   {l.label}
                 </a>
               </li>
@@ -69,9 +64,8 @@ const isCurrent = (href: string) => current === withBase(href).replace(/\/$/, ""
 </header>
 
 <script>
-  const toggle = document.getElementById("theme-toggle");
-  toggle?.addEventListener("click", () => {
-    const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+  document.getElementById("theme-toggle")?.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
     localStorage.setItem("vch:theme", next);
   });
@@ -80,7 +74,7 @@ const isCurrent = (href: string) => current === withBase(href).replace(/\/$/, ""
   const badge = document.querySelector<HTMLElement>("[data-stars]");
   const show = (n: number) => {
     if (!badge || n < 1) return;
-    badge.textContent = n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
+    badge.textContent = `★ ${n >= 1000 ? `${(n / 1000).toFixed(1)}k` : n}`;
     badge.hidden = false;
   };
   const cached = sessionStorage.getItem("vch:stars");

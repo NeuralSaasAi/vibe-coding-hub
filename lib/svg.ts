@@ -5,6 +5,7 @@ import { stats } from "./data.ts";
 
 const SANS = "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif";
 const MONO = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace";
+const SERIF = "Iowan Old Style,Palatino Linotype,Georgia,serif";
 
 export const esc = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -267,20 +268,34 @@ export function pricingRows(tools: Tool[], categories: Category[]): ChartRow[] {
     .sort((a, b) => a.value - b.value || a.label.localeCompare(b.label));
 }
 
-export function pricingChart(tools: Tool[], categories: Category[]): string {
+export interface ChartTheme {
+  bg: string;
+  ink: string;
+  muted: string;
+  rule: string;
+  bar: string;
+  barYearly: string;
+}
+
+export const CHART_THEMES: Record<"paper" | "night", ChartTheme> = {
+  paper: { bg: "#fbfaf7", ink: "#16150f", muted: "#6b675c", rule: "#dcd7ca", bar: "#16150f", barYearly: "#c2410c" },
+  night: { bg: "#1c1b18", ink: "#edebe4", muted: "#959082", rule: "#2d2b26", bar: "#edebe4", barYearly: "#ff7a3d" },
+};
+
+/** Horizontal bar chart of entry prices. One ink colour; yearly-only prices in the accent. */
+export function pricingChart(tools: Tool[], categories: Category[], theme: ChartTheme = CHART_THEMES.paper): string {
   const rows = pricingRows(tools, categories);
   const s = stats(tools);
-  const max = Math.max(...rows.map((r) => r.value));
-  const top = 86;
-  const rowH = 34;
-  const left = 250;
+  const max = Math.ceil(Math.max(...rows.map((r) => r.value)) / 10) * 10;
+  const top = 92;
+  const rowH = 32;
+  const left = 230;
   const width = 900;
-  const barMax = width - left - 110;
-  const used = categories.filter((c) => tools.some((t) => t.pricing && t.category === c.id));
-  const perRow = 4;
-  const legendRows = Math.ceil(used.length / perRow);
-  const legendTop = top + rows.length * rowH + 22;
-  const height = legendTop + legendRows * 26 + 18;
+  const right = 70;
+  const barMax = width - left - right;
+  const height = top + rows.length * rowH + 64;
+  const ticks = Array.from({ length: max / 10 + 1 }, (_, i) => i * 10);
+  const x = (v: number) => left + Math.round((v / max) * barMax);
   return svg(
     width,
     height,
@@ -288,26 +303,27 @@ export function pricingChart(tools: Tool[], categories: Category[]): string {
     `Bar chart of the cheapest paid plan for ${rows.length} tools, verified ${s.latestVerified}: ${rows
       .map((r) => `${r.label} $${r.value}${r.yearly ? " billed yearly" : ""}`)
       .join(", ")}.`,
-    `  <rect width="${width}" height="${height}" rx="20" fill="#0f1529"/>
-  <text x="32" y="44" fill="#e6e9f5" font-family="${SANS}" font-size="22" font-weight="700">Entry plan, USD per month</text>
-  <text x="${width - 32}" y="44" fill="#8b94bb" font-family="${SANS}" font-size="15" text-anchor="end">verified ${s.latestVerified} · * billed yearly</text>
+    `  <rect width="${width}" height="${height}" fill="${theme.bg}"/>
+  <text x="32" y="44" fill="${theme.ink}" font-family="${SERIF}" font-size="28">Entry plan, USD per month</text>
+  <text x="32" y="68" fill="${theme.muted}" font-family="${MONO}" font-size="13">Cheapest paid plan · verified ${s.latestVerified} · from vendor pages</text>
+${ticks
+  .map(
+    (t) => `  <line x1="${x(t)}" y1="${top - 6}" x2="${x(t)}" y2="${top + rows.length * rowH}" stroke="${theme.rule}" stroke-width="1"/>
+  <text x="${x(t)}" y="${top + rows.length * rowH + 20}" fill="${theme.muted}" font-family="${MONO}" font-size="12" text-anchor="middle">$${t}</text>`,
+  )
+  .join("\n")}
 ${rows
   .map((r, i) => {
     const y = top + i * rowH;
-    const w = Math.max(4, Math.round((r.value / max) * barMax));
-    return `  <text x="${left - 14}" y="${y + 21}" fill="#c7cde6" font-family="${SANS}" font-size="16" text-anchor="end">${esc(r.label)}</text>
-  <rect x="${left}" y="${y + 6}" width="${w}" height="22" rx="6" fill="${r.color}" fill-opacity="0.85"/>
-  <text x="${left + w + 10}" y="${y + 23}" fill="#e6e9f5" font-family="${MONO}" font-size="15">$${r.value}${r.yearly ? "*" : ""}</text>`;
+    const w = Math.max(3, x(r.value) - left);
+    const fill = r.yearly ? theme.barYearly : theme.bar;
+    return `  <text x="${left - 14}" y="${y + 20}" fill="${theme.ink}" font-family="${SANS}" font-size="15" text-anchor="end">${esc(r.label)}</text>
+  <rect x="${left}" y="${y + 8}" width="${w}" height="16" fill="${fill}"/>
+  <text x="${left + w + 8}" y="${y + 21}" fill="${theme.ink}" font-family="${MONO}" font-size="14">$${r.value}${r.yearly ? "*" : ""}</text>`;
   })
   .join("\n")}
-${used
-  .map((c, i) => {
-    const x = 32 + (i % perRow) * 210;
-    const y = legendTop + Math.floor(i / perRow) * 26;
-    const label = c.title.replace(" and editor extensions", "").replace(", security and monitoring", "");
-    return `  <rect x="${x}" y="${y}" width="12" height="12" rx="3" fill="${c.color}"/>\n  <text x="${x + 18}" y="${y + 11}" fill="#8b94bb" font-family="${SANS}" font-size="13">${esc(label)}</text>`;
-  })
-  .join("\n")}`,
+  <rect x="32" y="${height - 26}" width="12" height="12" fill="${theme.barYearly}"/>
+  <text x="50" y="${height - 16}" fill="${theme.muted}" font-family="${MONO}" font-size="12">* only shown billed yearly</text>`,
   );
 }
 

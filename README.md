@@ -411,7 +411,10 @@ Open-source tools in this list (Aider, Cline, Codex CLI, OpenCode, Playwright an
 Monthly prices in USD, before tax, billed monthly unless noted. Most AI tools now bill by credits, tokens or usage pools, so your real cost depends on how much you build. Prices change often: if one is wrong, please [send a pricing update](https://github.com/NeuralSaasAi/vibe-coding-hub/issues/new?template=pricing-update.yml).
 
 <p align="center">
-  <a href="https://neuralsaasai.github.io/vibe-coding-hub/pricing/"><img src="assets/pricing-chart.svg" alt="Bar chart of the cheapest paid plan for each tool in the table below, in USD per month" width="100%"></a>
+  <a href="https://neuralsaasai.github.io/vibe-coding-hub/pricing/"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/pricing-chart-dark.svg">
+    <img src="assets/pricing-chart.svg" alt="Bar chart of the cheapest paid plan for each tool in the table below, in USD per month" width="100%">
+  </picture></a>
 </p>
 
 <p align="center"><a href="https://neuralsaasai.github.io/vibe-coding-hub/pricing/">Sort and compare on the website →</a></p>

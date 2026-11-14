@@ -1,24 +1,33 @@
 ---
 import Base from "../layouts/Base.astro";
 import ToolLogo from "../components/ToolLogo.astro";
-import { hub, summary, byCategory, shortTitle } from "../lib/data.ts";
+import { hub, summary, byCategory, shortTitle, toolBySlug } from "../lib/data.ts";
 import { withBase } from "../lib/url.ts";
 
 const paths = [
-  { emoji: "🌱", title: "New to this", text: "You have an idea and have never shipped an app.", href: "/which-tool", cta: "Find your first tool" },
-  { emoji: "💸", title: "Comparing tools", text: "What's free, and what it really costs per month.", href: "/pricing", cta: "Compare prices" },
-  { emoji: "🚀", title: "About to launch", text: "It works on your screen. Make it safe for real users.", href: "/roadmap#before-you-launch", cta: "Open the checklist" },
-  { emoji: "🔥", title: "Something broke", text: "Login loops, payments don't update, deploy fails.", href: "/when-it-breaks", cta: "Fix it calmly" },
-  { emoji: "🧑‍💻", title: "A developer", text: "Agents that work inside your own codebase.", href: "/tools?category=cli-agents", cta: "See CLI agents" },
+  { n: "A", title: "I have an idea and have never shipped an app", text: "Three questions, then a starting tool set with prices.", href: "/which-tool", cta: "Find a starting stack" },
+  { n: "B", title: "I want to know what this will cost", text: `Entry plans for ${summary.prices} tools, each checked on the vendor's own page.`, href: "/pricing", cta: "Compare prices" },
+  { n: "C", title: "It works on my screen. Is it safe to launch?", text: "Eight checks that catch the problems AI-built apps ship with most often.", href: "/roadmap/#before-you-launch", cta: "Open the launch checklist" },
+  { n: "D", title: "Something broke and the AI keeps making it worse", text: "A six-step method, three prompts, and when to stop prompting.", href: "/when-it-breaks", cta: "Debug it calmly" },
+  { n: "E", title: "I code, and want an agent in my own repo", text: "AI IDEs and terminal agents that work on an existing codebase.", href: "/tools/?category=cli-agents", cta: "See the agents" },
 ];
 
-const stats = [
-  { value: summary.tools, label: "tools" },
-  { value: summary.categories, label: "categories" },
-  { value: summary.freeTiers, label: "free tiers" },
-  { value: summary.prices, label: "dated prices" },
-  { value: summary.openSource, label: "open source" },
-];
+// The cheapest verified entry plan per category, for the hero panel.
+const cheapest = hub.categories
+  .map((c) => {
+    const priced = byCategory(c.id).filter((t) => t.pricing?.entry_usd !== undefined);
+    priced.sort((a, b) => a.pricing!.entry_usd! - b.pricing!.entry_usd!);
+    return priced[0] ? { cat: c, tool: priced[0] } : null;
+  })
+  .filter((x): x is NonNullable<typeof x> => Boolean(x));
+
+const marquee = [...hub.tools].sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
+const stageColor = (i: number) => `var(--stage-${i + 1})`;
+
+// Bento layout: the first category gets the large tile.
+const [lead, ...restCats] = hub.categories;
+const leadTools = byCategory(lead!.id);
+const featuredStack = ["lovable", "supabase", "clerk", "stripe", "vercel", "sentry"].map(toolBySlug);
 ---
 
 <Base
@@ -27,92 +36,132 @@ const stats = [
   editPath="README.md"
 >
   <!-- Hero -->
-  <section class="relative overflow-hidden">
-    <div class="grid-bg pointer-events-none absolute inset-0" aria-hidden="true"></div>
-    <div class="container-x relative grid items-center gap-12 pb-16 pt-16 lg:grid-cols-[1.05fr_1fr] lg:pt-24">
+  <section class="container-x pb-14 pt-12 lg:pt-20">
+    <p class="eyebrow">A field guide for people who build with AI · verified {summary.latestVerified}</p>
+    <div class="mt-6 grid gap-12 lg:grid-cols-[1.25fr_1fr] lg:items-end">
       <div>
-        <p class="eyebrow">Free · community-maintained · verified {summary.latestVerified}</p>
-        <h1 class="mt-4 text-[clamp(2.4rem,5.6vw,4.2rem)] font-extrabold leading-[1.04] tracking-[-0.035em]">
-          Ship the app.<br /><span class="gradient-text">Keep it alive.</span>
+        <h1 class="display text-[clamp(3.2rem,8.6vw,7.4rem)]">
+          Ship the app.<br />Keep it <em>alive.</em>
         </h1>
-        <p class="lead mt-6 max-w-xl">
-          The tools, the real prices, and the habits that keep an AI-built app working after the demo. Pick a tool, check what it costs, then follow the roadmap from first prompt to a healthy live app.
+        <p class="lead mt-8 max-w-xl">
+          The tools, the real prices, and the habits that keep an AI-built app working after the demo. Written from vendor pages and official docs, and corrected by anyone in the open.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a class="btn btn-primary no-underline" href={withBase("/roadmap")}>Walk the roadmap →</a>
           <a class="btn no-underline" href={withBase("/tools")}>Browse {summary.tools} tools</a>
-          <a class="btn no-underline" href={withBase("/when-it-breaks")}>🛟 Fix my app</a>
         </div>
       </div>
 
-      <div class="terminal" role="img" aria-label="A terminal showing the prompt: build me an app that actually stays up, followed by what the hub covers">
-        <div class="terminal-bar" aria-hidden="true">
-          <span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span>
-          <p class="ml-auto mr-auto text-xs font-semibold text-faint">vibe-coding-hub</p>
+      <aside class="panel-box overflow-hidden" aria-labelledby="cheapest-title">
+        <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-rule px-5 py-3">
+          <h2 id="cheapest-title" class="eyebrow text-ink">Cheapest way in, by category</h2>
+          <span class="mono text-xs text-faint">USD / month</span>
         </div>
-        <div class="space-y-3 p-6 text-[15px] leading-relaxed sm:text-base" aria-hidden="true">
-          <p><span class="text-cyan">&gt;</span> <span class="typing">build me an app that actually stays up</span></p>
-          <p class="term-line text-muted" style="animation-delay:2.1s"><span class="text-green">✓</span> {summary.tools} tools across {summary.categories} categories</p>
-          <p class="term-line text-muted" style="animation-delay:2.5s"><span class="text-green">✓</span> {summary.freeTiers} free tiers, {summary.prices} prices from vendor pages</p>
-          <p class="term-line text-muted" style="animation-delay:2.9s"><span class="text-green">✓</span> ship-ready launch checklist</p>
-          <p class="term-line text-muted" style="animation-delay:3.3s"><span class="text-green">✓</span> calm debugging method + prompts</p>
-          <p class="term-line" style="animation-delay:3.8s"><span class="text-violet">→</span> <span class="font-semibold">next:</span> <span class="text-muted">pick your path below</span></p>
+        <table class="w-full text-sm">
+          <caption class="sr-only">The cheapest verified paid plan in each category</caption>
+          <tbody>
+            {
+              cheapest.map(({ cat, tool }) => (
+                <tr class="border-b border-rule last:border-0">
+                  <th scope="row" class="py-2.5 pl-5 pr-3 text-left font-normal">
+                    <span class="flex items-center gap-3">
+                      <ToolLogo tool={tool} size={28} />
+                      <span>
+                        <span class="block font-medium text-ink">{tool.pricing!.label ?? tool.name}</span>
+                        <span class="block text-xs text-faint">{shortTitle(cat)}</span>
+                      </span>
+                    </span>
+                  </th>
+                  <td class="mono py-2.5 pr-5 text-right text-ink">
+                    ${tool.pricing!.entry_usd}
+                    {tool.pricing!.entry_yearly && <span class="text-faint">*</span>}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+        <div class="flex items-center justify-between border-t border-rule bg-paper-2 px-5 py-3 text-sm">
+          <span class="mono text-xs text-faint">* billed yearly · from vendor pages</span>
+          <a class="link-arrow" href={withBase("/pricing")}>All {summary.prices} prices →</a>
         </div>
-      </div>
+      </aside>
     </div>
 
-    <div class="container-x relative pb-6">
-      <dl class="card grid grid-cols-2 divide-line sm:grid-cols-5 sm:divide-x">
-        {
-          stats.map((s) => (
-            <div class="px-5 py-5 text-center">
-              <dt class="text-xs font-semibold uppercase tracking-wider text-faint">{s.label}</dt>
-              <dd class="mt-1 text-3xl font-extrabold tracking-tight">{s.value}</dd>
-            </div>
-          ))
-        }
-      </dl>
-    </div>
-  </section>
-
-  <!-- Pick your path -->
-  <section class="container-x section" aria-labelledby="paths-title">
-    <p class="eyebrow">Start where you are</p>
-    <h2 id="paths-title" class="section-title mt-2">Pick your path</h2>
-    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+    <dl class="mono mt-14 grid grid-cols-2 border-y border-ink text-sm sm:grid-cols-4">
       {
-        paths.map((p) => (
-          <a class="card flex flex-col p-5 no-underline" href={withBase(p.href)}>
-            <span class="text-3xl" aria-hidden="true">{p.emoji}</span>
-            <span class="mt-3 text-lg font-bold">{p.title}</span>
-            <span class="mt-1 text-sm text-muted">{p.text}</span>
-            <span class="mt-auto pt-4 text-sm font-bold text-cyan">{p.cta} →</span>
-          </a>
+        [
+          [summary.tools, "tools listed"],
+          [summary.freeTiers, "free tiers documented"],
+          [summary.prices, "prices with a date"],
+          [summary.openSource, "open source"],
+        ].map(([n, label], i) => (
+          <div class:list={["py-4", i > 0 && "sm:border-l sm:border-rule sm:pl-5", i % 2 === 1 && "border-l border-rule pl-5 sm:pl-5"]}>
+            <dt class="text-faint">{label}</dt>
+            <dd class="mt-1 font-serif text-4xl text-ink">{n}</dd>
+          </div>
         ))
       }
-    </div>
+    </dl>
   </section>
 
-  <!-- Roadmap preview -->
-  <section class="section border-y border-line bg-bg-2/60" aria-labelledby="roadmap-title">
-    <div class="container-x">
-      <div class="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p class="eyebrow">The roadmap</p>
-          <h2 id="roadmap-title" class="section-title mt-2">Five stages from first prompt to a healthy app</h2>
-        </div>
-        <a class="btn no-underline" href={withBase("/roadmap")}>Open the interactive roadmap →</a>
-      </div>
-      <ol class="relative mt-10 grid gap-4 md:grid-cols-5">
-        <div class="absolute left-0 right-0 top-[38px] hidden h-[3px] rounded-full md:block" style="background: var(--accent); opacity:.55" aria-hidden="true"></div>
+  <!-- Logo strip -->
+  <section class="border-y border-rule bg-paper-2 py-5" aria-label="Tools in the directory">
+    <div class="marquee">
+      <ul class="marquee-track" aria-hidden="true">
+        {[...marquee, ...marquee].map((t) => <li><ToolLogo tool={t} size={40} /></li>)}
+      </ul>
+    </div>
+    <p class="sr-only">{hub.tools.map((t) => t.name).join(", ")}</p>
+  </section>
+
+  <!-- 01 Pick your path -->
+  <section class="container-x section reveal" aria-labelledby="paths-title">
+    <header class="section-head">
+      <span class="section-num">01</span>
+      <h2 id="paths-title" class="section-title">Start where you are</h2>
+      <p class="text-sm text-muted">Five common situations, one page each.</p>
+    </header>
+    <ol>
+      {
+        paths.map((p) => (
+          <li class="border-b border-rule">
+            <a class="group grid gap-2 py-5 no-underline md:grid-cols-[3rem_1.4fr_1fr_auto] md:items-center md:gap-6" href={withBase(p.href)}>
+              <span class="mono text-sm text-faint">{p.n}</span>
+              <span class="font-serif text-[1.65rem] leading-tight group-hover:text-accent">{p.title}</span>
+              <span class="text-muted">{p.text}</span>
+              <span class="text-sm font-medium text-ink group-hover:text-accent">{p.cta} →</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <!-- 02 Roadmap -->
+  <section class="border-y border-rule bg-paper-2 reveal" aria-labelledby="roadmap-title">
+    <div class="container-x section">
+      <header class="section-head">
+        <span class="section-num">02</span>
+        <h2 id="roadmap-title" class="section-title">From first prompt to a healthy app</h2>
+        <a class="link-arrow text-sm" href={withBase("/roadmap")}>Open the interactive roadmap →</a>
+      </header>
+      <ol class="relative grid gap-8 md:grid-cols-5 md:gap-6">
+        <span class="absolute left-[11px] top-3 hidden h-px w-[calc(100%-22px)] bg-ink md:block" aria-hidden="true"></span>
         {
-          hub.guide.map((s) => (
+          hub.guide.map((s, i) => (
             <li class="relative">
-              <a class="card flex h-full flex-col p-5 no-underline" href={withBase(`/roadmap#${s.id}`)}>
-                <span class="grid h-12 w-12 place-items-center rounded-full border-2 border-violet bg-bg text-xl" aria-hidden="true">{s.emoji}</span>
-                <span class="mt-4 text-xs font-extrabold tracking-widest text-violet">STEP {s.order}</span>
-                <span class="mt-1 font-bold">{s.title}</span>
-                <span class="mt-2 text-sm text-muted">{s.summary.split(".")[0]}.</span>
+              <a class="group block no-underline" href={withBase(`/roadmap/#${s.id}`)}>
+                <span class="relative z-10 grid h-6 w-6 place-items-center rounded-full border border-ink bg-paper mono text-[0.7rem]" style={`color:${stageColor(i)}`}>
+                  {s.order}
+                </span>
+                <span class="mt-4 block font-serif text-2xl leading-tight group-hover:text-accent">{s.title}</span>
+                <span class="mt-2 block text-sm text-muted">{s.summary.split(".")[0]}.</span>
+                <ul class="mono mt-3 space-y-1 text-xs text-faint">
+                  {s.topics.slice(0, 3).map((t) => (
+                    <li>— {t}</li>
+                  ))}
+                </ul>
               </a>
             </li>
           ))
@@ -121,33 +170,74 @@ const stats = [
     </div>
   </section>
 
-  <!-- Categories -->
-  <section class="container-x section" aria-labelledby="cats-title">
-    <p class="eyebrow">The directory</p>
-    <h2 id="cats-title" class="section-title mt-2">Every kind of tool a vibe coder reaches for</h2>
-    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  <!-- 03 Directory -->
+  <section class="container-x section reveal" aria-labelledby="cats-title">
+    <header class="section-head">
+      <span class="section-num">03</span>
+      <h2 id="cats-title" class="section-title">The directory</h2>
+      <a class="link-arrow text-sm" href={withBase("/tools")}>All {summary.tools} tools →</a>
+    </header>
+
+    <div class="grid gap-px overflow-hidden rounded-[10px] border border-rule bg-rule md:grid-cols-4">
+      <a class="group flex flex-col bg-surface p-6 no-underline md:col-span-2 md:row-span-2" href={withBase(`/tools/?category=${lead!.id}`)}>
+        <span class="mono text-xs text-faint">{leadTools.length} tools · {leadTools.filter((t) => t.free_tier).length} with a free tier</span>
+        <span class="mt-3 font-serif text-4xl leading-tight group-hover:text-accent">{lead!.title}</span>
+        <span class="mt-3 max-w-md text-muted">{lead!.intro}</span>
+        <ul class="mt-6 grid grid-cols-3 gap-3 sm:grid-cols-5">
+          {leadTools.map((t) => (
+            <li class="flex flex-col items-center gap-1.5 text-center">
+              <ToolLogo tool={t} size={44} />
+              <span class="text-xs text-muted">{t.name}</span>
+            </li>
+          ))}
+        </ul>
+        <span class="mt-auto pt-6 text-sm font-medium group-hover:text-accent">Compare builders →</span>
+      </a>
       {
-        hub.categories.map((c) => {
+        restCats.map((c, i) => {
           const tools = byCategory(c.id);
+          const wide = i === restCats.length - 1 && restCats.length % 2 === 1;
           return (
-            <a class="card flex flex-col p-5 no-underline" href={withBase(`/tools?category=${c.id}`)} style={`--cat:${c.color}`}>
-              <span class="flex items-center gap-3">
-                <span class="grid h-11 w-11 place-items-center rounded-xl text-xl" style={`background: color-mix(in srgb, ${c.color} 18%, transparent)`} aria-hidden="true">
-                  {c.emoji}
-                </span>
-                <span class="font-bold leading-tight">{shortTitle(c)}</span>
-              </span>
-              <span class="mt-3 text-sm text-muted">{c.best_for}</span>
+            <a class:list={["group flex flex-col bg-surface p-5 no-underline", wide && "md:col-span-2"]} href={withBase(`/tools/?category=${c.id}`)}>
+              <span class="mono text-xs text-faint">{tools.length} tools</span>
+              <span class="mt-2 font-serif text-2xl leading-tight group-hover:text-accent">{shortTitle(c)}</span>
+              <span class="mt-2 text-sm text-muted">{c.best_for}.</span>
               <span class="mt-4 flex flex-wrap gap-1.5" aria-hidden="true">
-                {tools.slice(0, 6).map((t) => <ToolLogo tool={t} size={32} />)}
-              </span>
-              <span class="mt-4 text-sm font-semibold" style={`color:${c.color}`}>
-                {tools.length} tools · {tools.filter((t) => t.free_tier).length} free →
+                {tools.slice(0, 5).map((t) => <ToolLogo tool={t} size={28} />)}
               </span>
             </a>
           );
         })
       }
+    </div>
+  </section>
+
+  <!-- 04 A typical stack -->
+  <section class="border-t border-rule reveal" aria-labelledby="stack-title">
+    <div class="container-x section grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+      <div>
+        <span class="section-num">04</span>
+        <h2 id="stack-title" class="section-title mt-2">What a small SaaS usually runs on</h2>
+        <p class="lead mt-4">
+          One common starting stack for a vibe-coded SaaS with login and payments. It isn't the only answer, and the which-tool finder will suggest others for your case.
+        </p>
+        <a class="btn mt-6 no-underline" href={withBase("/which-tool")}>Find yours →</a>
+      </div>
+      <ol class="panel-box divide-y divide-rule">
+        {
+          featuredStack.map((t, i) => (
+            <li class="flex items-center gap-4 px-5 py-3">
+              <span class="mono w-6 text-xs text-faint">{String(i + 1).padStart(2, "0")}</span>
+              <ToolLogo tool={t} size={32} />
+              <span class="flex-1">
+                <span class="block font-medium">{t.name}</span>
+                <span class="block text-sm text-muted">{shortTitle(hub.categories.find((c) => c.id === t.category)!)}</span>
+              </span>
+              <span class="mono text-sm text-ink">{t.free_tier ? "free tier" : t.pricing ? `$${t.pricing.entry_usd}` : "per use"}</span>
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </section>
 </Base>

@@ -1,86 +1,102 @@
 ---
 import { withBase, neuralsaas, REPO_URL, editUrl, issueUrl } from "../lib/url.ts";
-import { lastUpdated, repoStars } from "../lib/data.ts";
+import { lastUpdated, repoStars, summary } from "../lib/data.ts";
 
 interface Props {
   editPath: string;
 }
 const { editPath } = Astro.props;
 const repo = "NeuralSaasAi/vibe-coding-hub";
+const columns = [
+  {
+    title: "Explore",
+    links: [
+      { label: "Roadmap", href: withBase("/roadmap") },
+      { label: "All tools", href: withBase("/tools") },
+      { label: "Pricing", href: withBase("/pricing") },
+      { label: "Which tool?", href: withBase("/which-tool") },
+      { label: "When it breaks", href: withBase("/when-it-breaks") },
+    ],
+  },
+  {
+    title: "Contribute",
+    links: [
+      { label: "Suggest a tool", href: issueUrl("add-tool.yml") },
+      { label: "Report a price change", href: issueUrl("pricing-update.yml") },
+      { label: "Report a broken link", href: issueUrl("broken-link.yml") },
+      { label: "Edit this page", href: editUrl(editPath) },
+      { label: "How to contribute", href: `${REPO_URL}/blob/main/CONTRIBUTING.md` },
+    ],
+  },
+];
 ---
 
-<footer class="mt-24 border-t border-line">
-  <section class="container-x section grid gap-10 lg:grid-cols-2" aria-labelledby="community-title">
+<footer class="mt-24 border-t border-ink">
+  <section class="container-x grid gap-12 py-14 lg:grid-cols-[1.3fr_1fr_1fr]" aria-labelledby="footer-title">
     <div>
-      <p class="eyebrow">Community</p>
-      <h2 id="community-title" class="section-title mt-2">Built in the open. Fixed by people like you.</h2>
-      <p class="lead mt-4">
-        Every tool is one small YAML file. Spotted a changed price or a tool we missed? A two-line pull request keeps this useful for everyone.
+      <p class="eyebrow">Built in the open</p>
+      <h2 id="footer-title" class="section-title mt-3 max-w-md">A field guide anyone can correct.</h2>
+      <p class="lead mt-4 max-w-md">
+        Every tool is one small YAML file in the repository. A changed price or a missing tool is a two-line pull request.
       </p>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <a class="btn btn-primary no-underline" href={issueUrl("add-tool.yml")}>Suggest a tool</a>
-        <a class="btn no-underline" href={issueUrl("pricing-update.yml")}>Report a price change</a>
-        <a class="btn no-underline" href={editUrl(editPath)}>Edit this page on GitHub</a>
-      </div>
-      <a class="mt-8 block no-underline" href={`${REPO_URL}/graphs/contributors`}>
-        <img
-          src={`https://contrib.rocks/image?repo=${repo}`}
-          alt="Avatars of the people who contributed to Vibe Coding Hub"
-          loading="lazy"
-          class="max-w-full"
-          width="400"
-          height="64"
-          onerror="this.parentElement.remove()"
-        />
-      </a>
+      <dl class="mono mt-8 grid max-w-md grid-cols-3 border-y border-rule text-sm">
+        <div class="py-3 pr-3">
+          <dt class="text-faint">Data updated</dt>
+          <dd class="mt-1 text-ink">{lastUpdated || summary.latestVerified}</dd>
+        </div>
+        <div class="border-l border-rule py-3 pl-3">
+          <dt class="text-faint">Tools</dt>
+          <dd class="mt-1 text-ink">{summary.tools}</dd>
+        </div>
+        <div class="border-l border-rule py-3 pl-3">
+          <dt class="text-faint">Stars</dt>
+          <dd class="mt-1 text-ink">{repoStars || "–"}</dd>
+        </div>
+      </dl>
+      {
+        repoStars >= 25 && (
+          <a class="mt-8 block max-w-md no-underline" href={`https://www.star-history.com/#${repo}&Date`}>
+            <img src={`https://api.star-history.com/svg?repos=${repo}&type=Date`} alt="Star history chart for Vibe Coding Hub" loading="lazy" decoding="async" width="800" height="533" class="w-full rounded-md border border-rule" />
+          </a>
+        )
+      }
     </div>
     {
-      repoStars >= 25 ? (
-        <a class="card block overflow-hidden p-4 no-underline" href={`https://www.star-history.com/#${repo}&Date`}>
-          <img
-            src={`https://api.star-history.com/svg?repos=${repo}&type=Date&theme=dark`}
-            alt="Star history chart for Vibe Coding Hub on GitHub"
-            loading="lazy"
-            class="w-full rounded-xl"
-            width="800"
-            height="533"
-          />
-        </a>
-      ) : (
-        <a class="card card-hover flex flex-col justify-center p-8 no-underline" href={REPO_URL}>
-          <p class="text-5xl" aria-hidden="true">⭐</p>
-          <p class="mt-4 text-2xl font-extrabold">Be one of the first to star it</p>
-          <p class="mt-2 text-muted">Stars help other vibe coders find the list, and they tell us which parts to keep improving.</p>
-          <span class="btn btn-primary mt-6 self-start">Star on GitHub →</span>
-        </a>
-      )
+      columns.map((col) => (
+        <nav aria-label={col.title}>
+          <h3 class="eyebrow">{col.title}</h3>
+          <ul class="mt-4 space-y-2.5">
+            {col.links.map((l) => (
+              <li>
+                <a class="text-ink-2 no-underline hover:text-accent hover:underline" href={l.href}>
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))
     }
   </section>
 
-  <section class="container-x pb-8">
-    <a
-      class="card card-hover flex flex-col items-start gap-4 p-7 no-underline md:flex-row md:items-center"
-      style="background: var(--accent); border: 0"
-      href={neuralsaas("/contact", "footer-card")}
-    >
-      <div class="text-white">
-        <p class="text-xs font-extrabold tracking-[0.18em] opacity-85">MAINTAINED BY NEURALSAAS</p>
-        <p class="mt-2 text-2xl font-extrabold">Built something with AI and need help shipping it?</p>
-        <p class="mt-1 opacity-90">Fixing, securing or scaling a vibe-coded app, starting with a free discovery call.</p>
+  <section class="border-t border-rule bg-ink text-paper">
+    <a class="container-x flex flex-col gap-4 py-10 no-underline md:flex-row md:items-center" href={neuralsaas("/contact", "footer-card")}>
+      <div>
+        <p class="mono text-xs uppercase tracking-[0.08em] opacity-70">Maintained by NeuralSaaS</p>
+        <p class="mt-2 font-serif text-[2rem] leading-tight">Built something with AI and need help shipping it?</p>
+        <p class="mt-1 opacity-80">Fixing, securing or scaling a vibe-coded app, starting with a free discovery call.</p>
       </div>
-      <span class="btn md:ml-auto" style="background:#0b1020;color:#fff;border-color:transparent">Book a free call →</span>
+      <span class="btn md:ml-auto" style="background:var(--paper);color:var(--ink);border-color:var(--paper)">Book a free call →</span>
     </a>
   </section>
 
-  <div class="container-x flex flex-col gap-3 border-t border-line py-8 text-sm text-faint md:flex-row md:items-center">
+  <div class="container-x flex flex-col gap-2 py-6 text-sm text-faint md:flex-row md:items-center">
     <p>
-      Maintained by <a class="font-semibold text-muted hover:text-ink" href={neuralsaas("/", "footer")}>NeuralSaaS</a>.
-      Tools are listed on merit; nobody pays to be included. Content is <a class="underline" href={`${REPO_URL}/blob/main/LICENSE`}>CC0</a>.
+      Maintained by <a class="text-ink-2 underline decoration-rule-strong underline-offset-2 hover:text-accent" href={neuralsaas("/", "footer")}>NeuralSaaS</a>. Tools are listed on merit; nobody pays to be included.
+      Content is <a class="underline" href={`${REPO_URL}/blob/main/LICENSE`}>CC0</a>. Logos belong to their owners.
     </p>
     <p class="md:ml-auto">
-      {lastUpdated && <span>Data updated {lastUpdated} · </span>}
-      <a class="underline" href={REPO_URL}>GitHub</a> ·
-      <a class="underline" href={withBase("/sitemap-index.xml")}>Sitemap</a>
+      <a class="underline" href={REPO_URL}>GitHub</a> · <a class="underline" href={withBase("/sitemap-index.xml")}>Sitemap</a>
     </p>
   </div>
 </footer>

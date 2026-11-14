@@ -20,15 +20,15 @@ const itemList = {
   jsonLd={[itemList]}
 >
   <section class="container-x pt-14">
-    <p class="eyebrow">The directory</p>
-    <h1 class="section-title mt-2">Find a tool</h1>
-    <p class="lead mt-3 max-w-2xl">
+    <p class="eyebrow">The directory · {summary.tools} tools</p>
+    <h1 class="display mt-4 text-[clamp(2.8rem,6vw,5rem)]">Find a tool</h1>
+    <p class="lead mt-6 max-w-2xl">
       {summary.tools} tools across {summary.categories} categories. Each one links to its official site. Filters are saved in the address bar, so you can share a view.
     </p>
   </section>
 
   <section class="container-x mt-8" aria-label="Filters">
-    <form id="filters" class="card flex flex-col gap-4 p-4" role="search" action={withBase("/tools")} method="get">
+    <form id="filters" class="flex flex-col gap-4 border-y border-ink py-5" role="search" action={withBase("/tools")} method="get">
       <div class="flex flex-col gap-3 md:flex-row md:items-center">
         <label class="relative flex-1">
           <span class="sr-only">Search tools</span>
@@ -36,12 +36,12 @@ const itemList = {
             type="search"
             name="q"
             placeholder="Search by name or what it does…"
-            class="w-full rounded-full border border-line bg-bg px-5 py-3 text-ink placeholder:text-faint focus:border-violet focus:outline-none"
+            class="w-full rounded-lg border border-rule-strong bg-surface px-4 py-3 text-ink placeholder:text-faint focus:border-ink focus:outline-none"
           />
         </label>
         <div class="flex gap-2">
-          <button type="button" class="chip" data-toggle="free" aria-pressed="false">🆓 Free tier</button>
-          <button type="button" class="chip" data-toggle="open" aria-pressed="false">🔓 Open source</button>
+          <button type="button" class="chip" data-toggle="free" aria-pressed="false">Free tier</button>
+          <button type="button" class="chip" data-toggle="open" aria-pressed="false">Open source</button>
         </div>
       </div>
       <div class="flex flex-wrap gap-2" role="group" aria-label="Category">
@@ -49,7 +49,7 @@ const itemList = {
         {
           hub.categories.map((c) => (
             <button type="button" class="chip" data-category={c.id} aria-pressed="false">
-              <span aria-hidden="true">{c.emoji}</span> {shortTitle(c)}
+              {shortTitle(c)} <span class="mono text-[0.7rem] opacity-60">{byCategory(c.id).length}</span>
             </button>
           ))
         }
@@ -65,19 +65,19 @@ const itemList = {
   <section class="container-x mt-6">
     {
       hub.categories.map((c) => (
-        <div class="mb-10" data-group={c.id}>
-          <h2 class="mb-4 flex items-center gap-2 text-lg font-bold" id={c.id}>
-            <span aria-hidden="true">{c.emoji}</span> {c.title}
-            <span class="text-sm font-medium text-faint">· {c.intro.split(".")[0]}.</span>
-          </h2>
-          <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mb-14" data-group={c.id}>
+          <div class="mb-5 grid gap-1 md:grid-cols-[1fr_1.4fr] md:items-baseline">
+            <h2 class="font-serif text-3xl" id={c.id}>{c.title}</h2>
+            <p class="text-sm text-muted">{c.intro}</p>
+          </div>
+          <ul class="grid gap-px overflow-hidden rounded-[10px] border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-3">
             {byCategory(c.id).map((t) => <ToolCard tool={t} />)}
           </ul>
         </div>
       ))
     }
-    <div id="empty" class="card hidden p-10 text-center">
-      <p class="text-lg font-bold">No tools match those filters.</p>
+    <div id="empty" class="hidden border-y border-rule py-14 text-center">
+      <p class="font-serif text-3xl">No tools match those filters.</p>
       <p class="mt-2 text-muted">Know one that should be here?</p>
       <a class="btn btn-primary mt-5 no-underline" href={issueUrl("add-tool.yml")}>Suggest a tool</a>
     </div>

@@ -11,10 +11,11 @@ const { tool } = Astro.props;
 const cat = categoryOf(tool);
 const price = tool.pricing;
 const fmt = (n: number) => (n >= 1000 ? `${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}k` : String(n));
+const verified = price?.last_verified ?? tool.free_details?.last_verified;
 ---
 
 <li
-  class="card card-hover relative flex flex-col p-5"
+  class="relative flex flex-col bg-surface p-5 transition-colors hover:bg-paper"
   data-tool
   data-slug={tool.slug}
   data-name={tool.name}
@@ -24,27 +25,27 @@ const fmt = (n: number) => (n >= 1000 ? `${(n / 1000).toFixed(n >= 10000 ? 0 : 1
   data-open={tool.open_source ? "1" : "0"}
 >
   <div class="flex items-start gap-3">
-    <ToolLogo tool={tool} />
-    <div class="min-w-0">
-      <h3 class="font-bold leading-tight">
+    <ToolLogo tool={tool} size={40} />
+    <div class="min-w-0 flex-1">
+      <h3 class="font-medium leading-tight text-ink">
         <a href={tool.url} rel="noopener" class="no-underline after:absolute after:inset-0 after:content-['']">{tool.name}</a>
       </h3>
-      <p class="mt-1 text-xs font-semibold" style={`color:${cat.color}`}>{cat.emoji} {shortTitle(cat)}</p>
+      <p class="mono mt-1 text-[0.7rem] text-faint">{shortTitle(cat)}</p>
     </div>
-  </div>
-  <p class="mt-3 text-sm leading-relaxed text-muted">{tool.description}</p>
-  <div class="mt-auto flex flex-wrap items-center gap-1.5 pt-4">
-    {tool.free_tier && <span class="tag tag-free">Free tier</span>}
-    {tool.open_source && <span class="tag tag-open">Open source</span>}
-    {price && (
-      <span class="tag tag-price" title={`${price.entry}. Verified ${price.last_verified}`}>
-        {price.entry_usd !== undefined ? `From $${price.entry_usd}/mo${price.entry_yearly ? "*" : ""}` : price.entry}
-      </span>
+    {price?.entry_usd !== undefined && (
+      <p class="mono text-right text-sm text-ink" title={`${price!.entry}. Verified ${price!.last_verified}`}>
+        ${price!.entry_usd}<span class="text-faint">{price!.entry_yearly ? "*" : ""}/mo</span>
+      </p>
     )}
-    {tool.stars !== undefined && <span class="tag tag-price" title={tool.last_commit ? `Last commit ${tool.last_commit}` : undefined}>★ {fmt(tool.stars)}</span>}
   </div>
-  <div class="relative z-10 mt-3 flex items-center justify-between text-xs text-faint">
-    <span>{price ? `Price verified ${price.last_verified}` : tool.free_details ? `Free tier verified ${tool.free_details.last_verified}` : " "}</span>
-    <a class="underline hover:text-ink" href={editUrl(`data/tools/${tool.slug}.yml`)}>Edit</a>
+  <p class="mt-3 text-sm leading-relaxed text-ink-2">{tool.description}</p>
+  <div class="mt-auto flex flex-wrap items-center gap-1.5 pt-4">
+    {tool.free_tier && <span class="tag tag-free">free tier</span>}
+    {tool.open_source && <span class="tag tag-open">open source</span>}
+    {tool.stars !== undefined && <span class="tag" title={tool.last_commit ? `Last commit ${tool.last_commit}` : undefined}>★ {fmt(tool.stars)}</span>}
+    <span class="relative z-10 ml-auto flex items-center gap-3 text-xs text-faint">
+      {verified && <span class="mono">checked {verified}</span>}
+      <a class="underline decoration-rule-strong underline-offset-2 hover:text-accent" href={editUrl(`data/tools/${tool.slug}.yml`)} aria-label={`Edit ${tool.name} on GitHub`}>edit</a>
+    </span>
   </div>
 </li>

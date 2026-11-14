@@ -4,7 +4,8 @@ import { hub } from "../lib/data.ts";
 import { renderMarkdown } from "../lib/markdown.ts";
 import { editUrl, neuralsaas, withBase } from "../lib/url.ts";
 
-const COLORS = ["#7c5cff", "#0ea5c6", "#f59e0b", "#ef4444", "#16a34a"];
+// Stage colours come from the theme, so they keep their contrast in light and dark mode
+const COLORS = [1, 2, 3, 4, 5].map((n) => `var(--stage-${n})`);
 const stages = hub.guide.map((s, i) => ({
   ...s,
   color: COLORS[i % COLORS.length]!,
@@ -53,7 +54,7 @@ const RING = 2 * Math.PI * 26;
           <stop offset="1" stop-color="#16a34a" />
         </linearGradient>
       </defs>
-      <path d="M20 0 C 38 125, 2 250, 20 375 S 38 625, 20 750 S 2 900, 20 1000" fill="none" stroke="var(--border)" stroke-width="4" vector-effect="non-scaling-stroke" stroke-dasharray="2 10" stroke-linecap="round" />
+      <path d="M20 0 C 38 125, 2 250, 20 375 S 38 625, 20 750 S 2 900, 20 1000" fill="none" stroke="var(--rule)" stroke-width="4" vector-effect="non-scaling-stroke" stroke-dasharray="2 10" stroke-linecap="round" />
       <path id="draw-path" d="M20 0 C 38 125, 2 250, 20 375 S 38 625, 20 750 S 2 900, 20 1000" fill="none" stroke="url(#path-grad)" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" />
     </svg>
 
@@ -68,13 +69,13 @@ const RING = 2 * Math.PI * 26;
               aria-label={`Open step ${s.order}: ${s.title}`}
             >
               <svg class="absolute inset-0 -rotate-90" viewBox="0 0 60 60" aria-hidden="true">
-                <circle cx="30" cy="30" r="26" fill="none" stroke="var(--border)" stroke-width="4" />
+                <circle cx="30" cy="30" r="26" fill="none" stroke="var(--rule)" stroke-width="4" />
                 <circle cx="30" cy="30" r="26" fill="none" stroke={s.color} stroke-width="4" stroke-linecap="round" stroke-dasharray={RING} stroke-dashoffset={RING} data-ring={s.id} class="transition-[stroke-dashoffset] duration-500" />
               </svg>
               <span class="text-2xl" aria-hidden="true">{s.emoji}</span>
             </button>
 
-            <div class:list={["card card-hover p-6", i % 2 === 1 ? "md:col-start-2" : "md:col-start-1 md:text-right"]} style={`border-color: color-mix(in srgb, ${s.color} 45%, var(--border))`}>
+            <div class:list={["card card-hover p-6", i % 2 === 1 ? "md:col-start-2" : "md:col-start-1 md:text-right"]} style={`border-color: color-mix(in srgb, ${s.color} 45%, var(--rule))`}>
               <p class="text-xs font-extrabold tracking-[0.16em]" style={`color:${s.color}`}>STEP {s.order}</p>
               <h2 class="mt-1 text-2xl font-extrabold tracking-tight">{s.title}</h2>
               <p class="mt-2 text-muted">{s.summary}</p>
