@@ -1,0 +1,265 @@
+---
+import Base from "../layouts/Base.astro";
+import { hub } from "../lib/data.ts";
+import { renderMarkdown } from "../lib/markdown.ts";
+import { editUrl, neuralsaas, withBase } from "../lib/url.ts";
+
+const COLORS = ["#7c5cff", "#0ea5c6", "#f59e0b", "#ef4444", "#16a34a"];
+const stages = hub.guide.map((s, i) => ({
+  ...s,
+  color: COLORS[i % COLORS.length]!,
+  html: renderMarkdown(s.body),
+  file: `content/guide/${s.order}-${s.id}.md`,
+}));
+const totalChecks = stages.reduce((n, s) => n + s.checklist.length, 0);
+const RING = 2 * Math.PI * 26;
+---
+
+<Base
+  title="The vibe coding roadmap"
+  description="An interactive roadmap from first prompt to a healthy live app: before you build, while you build, before you launch, when something breaks, and after launch. Tick off each checklist as you go."
+  editPath="content/guide"
+>
+  <section class="container-x pt-14 text-center">
+    <p class="eyebrow">The roadmap</p>
+    <h1 class="mx-auto mt-2 max-w-3xl text-[clamp(2rem,4.6vw,3.3rem)] font-extrabold leading-tight tracking-tight">
+      From first prompt to an app that <span class="gradient-text">stays up</span>
+    </h1>
+    <p class="lead mx-auto mt-4 max-w-2xl">
+      Five stages. Open any stage for the full guide, then tick off its checklist. Your progress is saved in this browser only.
+    </p>
+    <div class="mx-auto mt-8 max-w-md">
+      <div class="flex justify-between text-sm font-semibold text-muted">
+        <span>Your progress</span>
+        <span><span id="done-count">0</span> of {totalChecks} done</span>
+      </div>
+      <div class="mt-2 h-2.5 overflow-hidden rounded-full bg-surface-2" role="progressbar" aria-label="Checklist progress" aria-valuemin="0" aria-valuemax={totalChecks} aria-valuenow="0" id="overall">
+        <div class="h-full w-0 rounded-full transition-[width] duration-500" style="background: var(--accent)" id="overall-bar"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-x relative mt-16 pb-8" id="timeline" aria-label="Roadmap stages">
+    <svg
+      class="pointer-events-none absolute left-[34px] top-0 h-full w-10 md:left-1/2 md:-translate-x-1/2"
+      viewBox="0 0 40 1000"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="path-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#7c5cff" />
+          <stop offset="0.5" stop-color="#22d3ee" />
+          <stop offset="1" stop-color="#16a34a" />
+        </linearGradient>
+      </defs>
+      <path d="M20 0 C 38 125, 2 250, 20 375 S 38 625, 20 750 S 2 900, 20 1000" fill="none" stroke="var(--border)" stroke-width="4" vector-effect="non-scaling-stroke" stroke-dasharray="2 10" stroke-linecap="round" />
+      <path id="draw-path" d="M20 0 C 38 125, 2 250, 20 375 S 38 625, 20 750 S 2 900, 20 1000" fill="none" stroke="url(#path-grad)" stroke-width="4" vector-effect="non-scaling-stroke" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" />
+    </svg>
+
+    <ol class="relative space-y-14 md:space-y-20">
+      {
+        stages.map((s, i) => (
+          <li class="relative grid items-center gap-6 pl-[84px] md:grid-cols-2 md:gap-16 md:pl-0" id={s.id}>
+            <button
+              type="button"
+              class="stage-node absolute left-[8px] top-2 grid h-[60px] w-[60px] place-items-center rounded-full bg-bg md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2"
+              data-open={s.id}
+              aria-label={`Open step ${s.order}: ${s.title}`}
+            >
+              <svg class="absolute inset-0 -rotate-90" viewBox="0 0 60 60" aria-hidden="true">
+                <circle cx="30" cy="30" r="26" fill="none" stroke="var(--border)" stroke-width="4" />
+                <circle cx="30" cy="30" r="26" fill="none" stroke={s.color} stroke-width="4" stroke-linecap="round" stroke-dasharray={RING} stroke-dashoffset={RING} data-ring={s.id} class="transition-[stroke-dashoffset] duration-500" />
+              </svg>
+              <span class="text-2xl" aria-hidden="true">{s.emoji}</span>
+            </button>
+
+            <div class:list={["card card-hover p-6", i % 2 === 1 ? "md:col-start-2" : "md:col-start-1 md:text-right"]} style={`border-color: color-mix(in srgb, ${s.color} 45%, var(--border))`}>
+              <p class="text-xs font-extrabold tracking-[0.16em]" style={`color:${s.color}`}>STEP {s.order}</p>
+              <h2 class="mt-1 text-2xl font-extrabold tracking-tight">{s.title}</h2>
+              <p class="mt-2 text-muted">{s.summary}</p>
+              <ul class:list={["mt-4 flex flex-wrap gap-2", { "md:justify-end": i % 2 === 0 }]}>
+                {s.topics.map((t) => (
+                  <li>
+                    <button type="button" class="chip" data-open={s.id}>{t}</button>
+                  </li>
+                ))}
+              </ul>
+              <div class:list={["mt-5 flex flex-wrap items-center gap-3", { "md:justify-end": i % 2 === 0 }]}>
+                <button type="button" class="btn btn-sm" data-open={s.id} style={`border-color:${s.color}`}>
+                  Open guide <span aria-hidden="true">→</span>
+                </button>
+                <span class="text-sm text-faint"><span data-count={s.id}>0</span> / {s.checklist.length} checked</span>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="container-x section text-center">
+    <div class="card mx-auto max-w-2xl p-8">
+      <p class="text-3xl" aria-hidden="true">🎉</p>
+      <h2 class="mt-2 text-2xl font-extrabold">Stuck on a stage?</h2>
+      <p class="lead mt-2">Get a second pair of eyes on your vibe-coded app. The first call is free.</p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a class="btn btn-primary no-underline" href={neuralsaas("/contact", "roadmap")}>Get a free review</a>
+        <a class="btn no-underline" href={withBase("/when-it-breaks")}>Debug it yourself first</a>
+      </div>
+    </div>
+  </section>
+
+  {
+    stages.map((s) => (
+      <dialog class="panel" id={`panel-${s.id}`} aria-labelledby={`panel-title-${s.id}`}>
+        <div class="flex h-full flex-col">
+          <header class="flex items-start gap-4 border-b border-line p-6">
+            <span class="grid h-12 w-12 flex-none place-items-center rounded-full text-2xl" style={`background: color-mix(in srgb, ${s.color} 20%, transparent)`} aria-hidden="true">{s.emoji}</span>
+            <div>
+              <p class="text-xs font-extrabold tracking-[0.16em]" style={`color:${s.color}`}>STEP {s.order} OF {stages.length}</p>
+              <h2 class="text-2xl font-extrabold" id={`panel-title-${s.id}`}>{s.title}</h2>
+              <p class="mt-1 text-muted">{s.summary}</p>
+            </div>
+            <button type="button" class="btn btn-sm ml-auto" data-close aria-label="Close">✕</button>
+          </header>
+          <div class="flex-1 overflow-y-auto p-6">
+            <h3 class="text-sm font-extrabold uppercase tracking-wider text-faint">Checklist</h3>
+            <ul class="mt-3 space-y-2">
+              {s.checklist.map((item, n) => (
+                <li>
+                  <label class="check-item">
+                    <input type="checkbox" data-check={s.id} data-index={n} />
+                    <span>{item}</span>
+                  </label>
+                </li>
+              ))}
+            </ul>
+            <h3 class="mt-8 text-sm font-extrabold uppercase tracking-wider text-faint">Guide</h3>
+            <div class="prose mt-2" set:html={s.html} />
+          </div>
+          <footer class="flex flex-wrap items-center gap-3 border-t border-line p-4 text-sm">
+            <a class="underline text-muted hover:text-ink" href={editUrl(s.file)}>Edit this stage on GitHub</a>
+            <span class="ml-auto flex gap-2">
+              {s.order > 1 && <button type="button" class="btn btn-sm" data-open={stages[s.order - 2]!.id}>← Previous</button>}
+              {s.order < stages.length && <button type="button" class="btn btn-sm btn-primary" data-open={stages[s.order]!.id}>Next step →</button>}
+            </span>
+          </footer>
+        </div>
+      </dialog>
+    ))
+  }
+</Base>
+
+<style>
+  .stage-node { box-shadow: 0 0 0 6px var(--bg); transition: transform 0.2s ease; }
+  .stage-node:hover { transform: scale(1.06); }
+  @media (min-width: 768px) {
+    .stage-node:hover { transform: translate(-50%, -50%) scale(1.06); }
+  }
+</style>
+
+<script>
+  const KEY = "vch:roadmap";
+  type Saved = Record<string, number[]>;
+  const load = (): Saved => {
+    try {
+      return JSON.parse(localStorage.getItem(KEY) || "{}");
+    } catch {
+      return {};
+    }
+  };
+  let saved = load();
+
+  const RING = 2 * Math.PI * 26;
+  const boxes = [...document.querySelectorAll<HTMLInputElement>("[data-check]")];
+
+  function refresh() {
+    const totals: Record<string, [number, number]> = {};
+    for (const box of boxes) {
+      const id = box.dataset.check!;
+      box.checked = (saved[id] ?? []).includes(Number(box.dataset.index));
+      const t = (totals[id] ??= [0, 0]);
+      t[1]++;
+      if (box.checked) t[0]++;
+    }
+    let done = 0;
+    let all = 0;
+    for (const [id, [n, total]] of Object.entries(totals)) {
+      done += n;
+      all += total;
+      const ring = document.querySelector<SVGCircleElement>(`[data-ring="${id}"]`);
+      if (ring) ring.style.strokeDashoffset = String(RING * (1 - n / total));
+      document.querySelectorAll(`[data-count="${id}"]`).forEach((el) => (el.textContent = String(n)));
+    }
+    document.getElementById("done-count")!.textContent = String(done);
+    document.getElementById("overall-bar")!.style.width = `${all ? (done / all) * 100 : 0}%`;
+    document.getElementById("overall")!.setAttribute("aria-valuenow", String(done));
+  }
+
+  for (const box of boxes) {
+    box.addEventListener("change", () => {
+      const id = box.dataset.check!;
+      const index = Number(box.dataset.index);
+      const set = new Set(saved[id] ?? []);
+      if (box.checked) set.add(index);
+      else set.delete(index);
+      saved = { ...saved, [id]: [...set].sort() };
+      localStorage.setItem(KEY, JSON.stringify(saved));
+      refresh();
+    });
+  }
+
+  // Panels: open from nodes, chips and buttons; deep link with #stage-id.
+  const dialogs = new Map([...document.querySelectorAll<HTMLDialogElement>("dialog.panel")].map((d) => [d.id.replace("panel-", ""), d]));
+  let opener: HTMLElement | null = null;
+
+  function open(id: string, from?: HTMLElement) {
+    const dialog = dialogs.get(id);
+    if (!dialog) return;
+    for (const d of dialogs.values()) if (d.open && d !== dialog) d.close();
+    if (from && !from.closest("dialog")) opener = from;
+    if (!dialog.open) dialog.showModal();
+    dialog.querySelector<HTMLElement>("[data-close]")?.focus();
+    history.replaceState(null, "", `#${id}`);
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-open]").forEach((el) => el.addEventListener("click", () => open(el.dataset.open!, el)));
+  for (const dialog of dialogs.values()) {
+    dialog.querySelector("[data-close]")?.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+    dialog.addEventListener("close", () => {
+      if ([...dialogs.values()].some((d) => d.open)) return;
+      history.replaceState(null, "", location.pathname + location.search);
+      opener?.focus();
+    });
+  }
+
+  const fromHash = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (dialogs.has(id)) open(id);
+  };
+  window.addEventListener("hashchange", fromHash);
+  fromHash();
+  refresh();
+
+  // Draw the path as the timeline scrolls into view.
+  const path = document.getElementById("draw-path") as SVGPathElement | null;
+  const timeline = document.getElementById("timeline")!;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (path) {
+    if (reduce) path.style.strokeDashoffset = "0";
+    else {
+      const draw = () => {
+        const rect = timeline.getBoundingClientRect();
+        const progress = Math.min(1, Math.max(0, (innerHeight * 0.75 - rect.top) / rect.height));
+        path.style.strokeDashoffset = String(1 - progress);
+      };
+      addEventListener("scroll", draw, { passive: true });
+      addEventListener("resize", draw);
+      draw();
+    }
+  }
+</script>

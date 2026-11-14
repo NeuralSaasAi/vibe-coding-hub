@@ -1,0 +1,102 @@
+---
+import Base from "../layouts/Base.astro";
+import Diagram from "../components/Diagram.astro";
+import { hub } from "../lib/data.ts";
+import { extractPrompts, extractSteps, renderMarkdown } from "../lib/markdown.ts";
+import { neuralsaas, withBase } from "../lib/url.ts";
+
+const stage = hub.guide.find((s) => s.id === "when-something-breaks")!;
+const steps = extractSteps(stage.body);
+const prompts = extractPrompts(stage.body);
+const promptTitles = ["Explain the error first", "Find the change that broke it", "Fix only this one thing"];
+const warning = stage.body.match(/> \[!WARNING\][\s\S]*$/)?.[0] ?? "";
+const launch = hub.guide.find((s) => s.id === "before-you-launch")!;
+const warnings = [...launch.body.matchAll(/> \[!WARNING\]\n> (.+)/g)].map((m) => m[1]!);
+---
+
+<Base
+  title="My vibe-coded app broke. Now what?"
+  description="A calm, tool-agnostic debugging method for AI-built apps: reproduce, read the real error, find the change, roll back, give the AI context, and stop the loop. With copy-paste prompts."
+  editPath={`content/guide/${stage.order}-${stage.id}.md`}
+>
+  <section class="container-x pt-14">
+    <p class="eyebrow">{stage.emoji} When something breaks</p>
+    <h1 class="section-title mt-2 max-w-3xl">It will happen, and it is fixable</h1>
+    <p class="lead mt-3 max-w-2xl">Use the same calm method every time, whatever tool you use: six steps, three prompts, and the point where you should stop prompting.</p>
+  </section>
+
+  <section class="container-x mt-10 grid items-start gap-8 lg:grid-cols-[1fr_1.1fr]">
+    <ol class="grid gap-3">
+      {
+        steps.map((s, i) => (
+          <li class="card flex gap-4 p-5">
+            <span class="grid h-10 w-10 flex-none place-items-center rounded-full font-extrabold text-white" style="background: var(--accent)">{i + 1}</span>
+            <div>
+              <h2 class="font-bold">{s.title}</h2>
+              <p class="prose mt-1 text-sm" set:html={s.text} />
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="lg:sticky lg:top-24">
+      <Diagram name="when-it-breaks" alt="Flowchart: something broke, reproduce it, read the real error, find the change, give the AI context. If fixed within three tries, commit the fix. If not, roll back, start a fresh chat with a clear summary, and reproduce again.">
+        If three attempts don't fix it, roll back and start over with a clear summary.
+      </Diagram>
+    </div>
+  </section>
+
+  <section class="container-x section" aria-labelledby="prompts-title">
+    <p class="eyebrow">Copy-paste prompts</p>
+    <h2 id="prompts-title" class="section-title mt-2">Ask the AI the right way</h2>
+    <div class="mt-8 grid gap-4 lg:grid-cols-3">
+      {
+        prompts.map((p, i) => (
+          <article class="card flex flex-col p-5">
+            <h3 class="font-bold">{promptTitles[i] ?? `Prompt ${i + 1}`}</h3>
+            <pre class="mt-3 flex-1 whitespace-pre-wrap rounded-xl border border-line bg-bg p-4 font-mono text-sm leading-relaxed text-muted" data-prompt>{p}</pre>
+            <button type="button" class="btn btn-sm mt-4 self-start" data-copy>Copy prompt</button>
+          </article>
+        ))
+      }
+    </div>
+    <p class="sr-only" aria-live="polite" id="copy-status"></p>
+    <div class="prose mt-8 max-w-3xl" set:html={renderMarkdown(warning)} />
+  </section>
+
+  <section class="container-x pb-6" aria-labelledby="common-title">
+    <h2 id="common-title" class="section-title">Common breakages before launch</h2>
+    <div class="mt-6 grid gap-4 md:grid-cols-3">
+      {
+        warnings.map((w) => (
+          <div class="callout callout-warning">
+            <p class="callout-title">Watch out</p>
+            <p class="prose text-sm" set:html={renderMarkdown(w).replace(/^<p>|<\/p>\s*$/g, "")} />
+          </div>
+        ))
+      }
+    </div>
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a class="btn no-underline" href={withBase("/roadmap#before-you-launch")}>Open the launch checklist</a>
+      <a class="btn btn-primary no-underline" href={neuralsaas("/contact", "when-it-breaks")}>Still stuck? Get a free review</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const status = document.getElementById("copy-status")!;
+  document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((btn) =>
+    btn.addEventListener("click", async () => {
+      const text = btn.parentElement!.querySelector("[data-prompt]")!.textContent!.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = "Copied ✓";
+        status.textContent = "Prompt copied to the clipboard.";
+      } catch {
+        btn.textContent = "Select and copy";
+        status.textContent = "Copy failed. Select the prompt text and copy it.";
+      }
+      setTimeout(() => (btn.textContent = "Copy prompt"), 2000);
+    }),
+  );
+</script>

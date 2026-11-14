@@ -1,0 +1,132 @@
+---
+import Base from "../layouts/Base.astro";
+import ToolLogo from "../components/ToolLogo.astro";
+import { hub, summary } from "../lib/data.ts";
+import { pricingChart } from "../../../lib/svg.ts";
+import { isStale, sortRows } from "../lib/pricing.ts";
+import { issueUrl } from "../lib/url.ts";
+
+const rows = sortRows(
+  hub.tools
+    .filter((t) => t.pricing)
+    .map((t) => ({ tool: t, p: t.pricing!, name: t.pricing!.label ?? t.name, entry_usd: t.pricing!.entry_usd ?? null, verified: t.pricing!.last_verified })),
+  "price",
+);
+// The same chart function draws the README image, so both always agree.
+const chart = pricingChart(hub.tools, hub.categories).replace(/ width="\d+" height="\d+"/, ' class="h-auto w-full"');
+---
+
+<Base
+  title="Vibe coding tool pricing"
+  description={`Entry prices for ${summary.prices} vibe coding tools, taken from vendor pages and verified ${summary.latestVerified}. Lovable, Bolt, Replit, v0, Cursor, Claude Code and more.`}
+  editPath="data/tools"
+>
+  <section class="container-x pt-14">
+    <p class="eyebrow">Pricing at a glance</p>
+    <h1 class="section-title mt-2">What it really costs per month</h1>
+    <p class="lead mt-3 max-w-3xl">
+      USD before tax, billed monthly unless noted. Every row links to the vendor's own page and shows the month we checked it. Most AI tools bill by credits or usage pools, so your real cost depends on how much you build.
+    </p>
+  </section>
+
+  <section class="container-x mt-10 grid gap-8 lg:grid-cols-[1.1fr_1fr]">
+    <figure class="card overflow-hidden p-2">
+      <Fragment set:html={chart} />
+      <figcaption class="px-4 pb-3 pt-2 text-sm text-faint">Cheapest paid plan per tool. * means the price is only shown billed yearly.</figcaption>
+    </figure>
+    <aside class="flex flex-col gap-4">
+      <div class="callout callout-tip">
+        <p class="callout-title">Budget tip</p>
+        <p class="text-muted">The plan fee is only part of the cost. AI builders spend credits on every change, including fixes, and hosted backends charge for data and compute once you have users. Set a usage alert wherever the tool offers one.</p>
+      </div>
+      <div class="callout callout-note">
+        <p class="callout-title">Spotted a change?</p>
+        <p class="text-muted">Prices move every few weeks. Each row has a "Report a change" link that opens a prefilled issue.</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-sm text-faint">Cheapest entry plan</p>
+        <p class="mt-1 text-3xl font-extrabold">${Math.min(...rows.map((r) => r.entry_usd ?? Infinity))}<span class="text-base font-semibold text-muted"> / month</span></p>
+        <p class="mt-3 text-sm text-faint">Most common entry price</p>
+        <p class="mt-1 text-3xl font-extrabold">$20–25<span class="text-base font-semibold text-muted"> / month</span></p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="container-x mt-12" aria-labelledby="table-title">
+    <h2 id="table-title" class="mb-4 text-xl font-bold">All plans</h2>
+    <div class="card overflow-x-auto">
+      <table class="w-full min-w-[920px] text-left text-sm" id="price-table">
+        <thead class="border-b border-line text-xs uppercase tracking-wider text-faint">
+          <tr>
+            <th scope="col" class="p-4" aria-sort="none"><button type="button" class="sort-btn" data-sort="name">Tool <span class="sort-icon" aria-hidden="true"></span></button></th>
+            <th scope="col" class="p-4">Free plan</th>
+            <th scope="col" class="p-4" aria-sort="ascending"><button type="button" class="sort-btn" data-sort="price">Entry price <span class="sort-icon" aria-hidden="true"></span></button></th>
+            <th scope="col" class="p-4">Higher plans</th>
+            <th scope="col" class="p-4">How usage is measured</th>
+            <th scope="col" class="p-4" aria-sort="none"><button type="button" class="sort-btn" data-sort="verified">Verified <span class="sort-icon" aria-hidden="true"></span></button></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-line">
+          {
+            rows.map((r) => (
+              <tr data-row data-name={r.name} data-price={r.entry_usd ?? ""} data-verified={r.verified} class="align-top">
+                <th scope="row" class="p-4">
+                  <span class="flex items-center gap-3">
+                    <ToolLogo tool={r.tool} size={32} />
+                    <span class="font-bold text-ink">{r.name}</span>
+                  </span>
+                </th>
+                <td class="p-4 text-muted">{r.p.free_plan}</td>
+                <td class="p-4 font-semibold text-ink">{r.p.entry}</td>
+                <td class="p-4 text-muted">{r.p.higher}</td>
+                <td class="p-4 text-muted">{r.p.unit}</td>
+                <td class="p-4 text-muted">
+                  <span class="whitespace-nowrap">{r.verified}</span>
+                  <span class="tag tag-stale mt-1" data-stale hidden={!isStale(r.verified)}>Needs re-check</span>
+                  <span class="mt-2 flex flex-col gap-1 text-xs">
+                    {r.p.sources.map((s) => (
+                      <a class="underline hover:text-ink" href={s.url} rel="noopener">{s.label} ↗</a>
+                    ))}
+                    <a class="underline hover:text-ink" href={issueUrl("pricing-update.yml", `[Pricing] ${r.name}`)}>Report a change</a>
+                  </span>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { isStale, sortRows, type SortKey } from "../lib/pricing.ts";
+
+  const table = document.getElementById("price-table")!;
+  const body = table.querySelector("tbody")!;
+  const rows = [...body.querySelectorAll<HTMLTableRowElement>("[data-row]")].map((el) => ({
+    el,
+    name: el.dataset.name!,
+    entry_usd: el.dataset.price ? Number(el.dataset.price) : null,
+    verified: el.dataset.verified!,
+  }));
+
+  // Re-check staleness against today's date, since the page may be older than the data.
+  for (const r of rows) {
+    const tag = r.el.querySelector<HTMLElement>("[data-stale]");
+    if (tag) tag.hidden = !isStale(r.verified);
+  }
+
+  let key: SortKey = "price";
+  let dir: "asc" | "desc" = "asc";
+  table.querySelectorAll<HTMLButtonElement>("[data-sort]").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      const next = btn.dataset.sort as SortKey;
+      dir = next === key && dir === "asc" ? "desc" : "asc";
+      key = next;
+      for (const r of sortRows(rows, key, dir)) body.appendChild(r.el);
+      table.querySelectorAll("th[aria-sort]").forEach((th) => th.setAttribute("aria-sort", "none"));
+      btn.closest("th")!.setAttribute("aria-sort", dir === "asc" ? "ascending" : "descending");
+    }),
+  );
+</script>

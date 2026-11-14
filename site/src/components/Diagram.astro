@@ -1,0 +1,16 @@
+---
+import { withBase } from "../lib/url.ts";
+
+interface Props {
+  /** File name in public/diagrams, without the theme and extension. */
+  name: string;
+  alt: string;
+}
+const { name, alt } = Astro.props;
+---
+
+<figure class="diagram card p-6">
+  <img class="diagram-dark mx-auto h-auto max-w-full" src={withBase(`/diagrams/${name}.dark.svg`)} alt={alt} loading="lazy" decoding="async" />
+  <img class="diagram-light mx-auto h-auto max-w-full" src={withBase(`/diagrams/${name}.light.svg`)} alt={alt} loading="lazy" decoding="async" />
+  <figcaption class="mt-3 text-center text-sm text-faint"><slot /></figcaption>
+</figure>

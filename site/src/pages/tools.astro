@@ -1,0 +1,153 @@
+---
+import Base from "../layouts/Base.astro";
+import ToolCard from "../components/ToolCard.astro";
+import { hub, summary, byCategory, shortTitle } from "../lib/data.ts";
+import { issueUrl, withBase } from "../lib/url.ts";
+
+const itemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Vibe coding tools",
+  numberOfItems: hub.tools.length,
+  itemListElement: hub.tools.map((t, i) => ({ "@type": "ListItem", position: i + 1, name: t.name, url: t.url })),
+};
+---
+
+<Base
+  title="Vibe coding tools"
+  description={`${summary.tools} tools for vibe coding: AI app builders, AI IDEs, CLI agents, backends, auth, hosting and monitoring. Filter by free tier and open source.`}
+  editPath="data/tools"
+  jsonLd={[itemList]}
+>
+  <section class="container-x pt-14">
+    <p class="eyebrow">The directory</p>
+    <h1 class="section-title mt-2">Find a tool</h1>
+    <p class="lead mt-3 max-w-2xl">
+      {summary.tools} tools across {summary.categories} categories. Each one links to its official site. Filters are saved in the address bar, so you can share a view.
+    </p>
+  </section>
+
+  <section class="container-x mt-8" aria-label="Filters">
+    <form id="filters" class="card flex flex-col gap-4 p-4" role="search" action={withBase("/tools")} method="get">
+      <div class="flex flex-col gap-3 md:flex-row md:items-center">
+        <label class="relative flex-1">
+          <span class="sr-only">Search tools</span>
+          <input
+            type="search"
+            name="q"
+            placeholder="Search by name or what it does…"
+            class="w-full rounded-full border border-line bg-bg px-5 py-3 text-ink placeholder:text-faint focus:border-violet focus:outline-none"
+          />
+        </label>
+        <div class="flex gap-2">
+          <button type="button" class="chip" data-toggle="free" aria-pressed="false">🆓 Free tier</button>
+          <button type="button" class="chip" data-toggle="open" aria-pressed="false">🔓 Open source</button>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2" role="group" aria-label="Category">
+        <button type="button" class="chip" data-category="" aria-pressed="true">All</button>
+        {
+          hub.categories.map((c) => (
+            <button type="button" class="chip" data-category={c.id} aria-pressed="false">
+              <span aria-hidden="true">{c.emoji}</span> {shortTitle(c)}
+            </button>
+          ))
+        }
+      </div>
+      <noscript><p class="text-sm text-faint">Filters need JavaScript. All tools are listed below by category.</p></noscript>
+    </form>
+    <p class="mt-4 flex items-center gap-3 text-sm text-muted" aria-live="polite">
+      <span id="result-count">Showing all {summary.tools} tools</span>
+      <button type="button" id="clear" class="hidden underline hover:text-ink">Clear filters</button>
+    </p>
+  </section>
+
+  <section class="container-x mt-6">
+    {
+      hub.categories.map((c) => (
+        <div class="mb-10" data-group={c.id}>
+          <h2 class="mb-4 flex items-center gap-2 text-lg font-bold" id={c.id}>
+            <span aria-hidden="true">{c.emoji}</span> {c.title}
+            <span class="text-sm font-medium text-faint">· {c.intro.split(".")[0]}.</span>
+          </h2>
+          <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {byCategory(c.id).map((t) => <ToolCard tool={t} />)}
+          </ul>
+        </div>
+      ))
+    }
+    <div id="empty" class="card hidden p-10 text-center">
+      <p class="text-lg font-bold">No tools match those filters.</p>
+      <p class="mt-2 text-muted">Know one that should be here?</p>
+      <a class="btn btn-primary mt-5 no-underline" href={issueUrl("add-tool.yml")}>Suggest a tool</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { emptyState, isFiltered, matches, parseState, toSearch, type FilterState } from "../lib/filter.ts";
+
+  const form = document.getElementById("filters") as HTMLFormElement;
+  const search = form.querySelector<HTMLInputElement>('input[name="q"]')!;
+  const cards = [...document.querySelectorAll<HTMLElement>("[data-tool]")];
+  const groups = [...document.querySelectorAll<HTMLElement>("[data-group]")];
+  const count = document.getElementById("result-count")!;
+  const clear = document.getElementById("clear")!;
+  const empty = document.getElementById("empty")!;
+
+  const tools = cards.map((el) => ({
+    el,
+    tool: {
+      slug: el.dataset.slug!,
+      name: el.dataset.name!,
+      description: el.dataset.description!,
+      category: el.dataset.category!,
+      free_tier: el.dataset.free === "1",
+      open_source: el.dataset.open === "1",
+    },
+  }));
+
+  let state: FilterState = parseState(location.search);
+
+  function render() {
+    let shown = 0;
+    for (const { el, tool } of tools) {
+      const ok = matches(tool, state);
+      el.hidden = !ok;
+      if (ok) shown++;
+    }
+    for (const g of groups) g.hidden = ![...g.querySelectorAll<HTMLElement>("[data-tool]")].some((c) => !c.hidden);
+    empty.classList.toggle("hidden", shown > 0);
+    clear.classList.toggle("hidden", !isFiltered(state));
+    count.textContent = isFiltered(state) ? `Showing ${shown} of ${tools.length} tools` : `Showing all ${tools.length} tools`;
+
+    search.value = state.q;
+    form.querySelectorAll<HTMLButtonElement>("[data-category]").forEach((b) => {
+      b.setAttribute("aria-pressed", String((b.dataset.category || null) === state.category));
+    });
+    form.querySelectorAll<HTMLButtonElement>("[data-toggle]").forEach((b) => {
+      b.setAttribute("aria-pressed", String(state[b.dataset.toggle as "free" | "open"]));
+    });
+  }
+
+  function update(change: Partial<FilterState>) {
+    state = { ...state, ...change };
+    history.replaceState(null, "", location.pathname + toSearch(state));
+    render();
+  }
+
+  form.addEventListener("submit", (e) => e.preventDefault());
+  search.addEventListener("input", () => update({ q: search.value.trim() }));
+  form.querySelectorAll<HTMLButtonElement>("[data-category]").forEach((b) =>
+    b.addEventListener("click", () => update({ category: b.dataset.category || null, ids: [] })),
+  );
+  form.querySelectorAll<HTMLButtonElement>("[data-toggle]").forEach((b) =>
+    b.addEventListener("click", () => {
+      const key = b.dataset.toggle as "free" | "open";
+      update({ [key]: !state[key] });
+    }),
+  );
+  clear.addEventListener("click", () => update(emptyState()));
+
+  render();
+</script>

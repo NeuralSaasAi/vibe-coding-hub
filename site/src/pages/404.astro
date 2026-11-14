@@ -1,0 +1,17 @@
+---
+import Base from "../layouts/Base.astro";
+import { withBase } from "../lib/url.ts";
+---
+
+<Base title="Page not found" description="This page does not exist. Try the roadmap, the tool directory or the pricing table.">
+  <section class="container-x section text-center">
+    <p class="font-mono text-cyan">&gt; 404: page not found</p>
+    <h1 class="section-title mt-4">This page didn't survive the last deploy</h1>
+    <p class="lead mx-auto mt-3 max-w-xl">Roll back to somewhere that works:</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a class="btn btn-primary no-underline" href={withBase("/")}>Home</a>
+      <a class="btn no-underline" href={withBase("/roadmap")}>Roadmap</a>
+      <a class="btn no-underline" href={withBase("/tools")}>Tools</a>
+    </div>
+  </section>
+</Base>

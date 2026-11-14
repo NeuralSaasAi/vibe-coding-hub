@@ -1,0 +1,22 @@
+---
+import type { Tool } from "../../../schema/tool.ts";
+import { withBase } from "../lib/url.ts";
+
+interface Props {
+  tool: Tool;
+  size?: number;
+  /** Decorative when the tool name is shown next to it. */
+  decorative?: boolean;
+}
+const { tool, size = 44, decorative = true } = Astro.props;
+---
+
+<img
+  src={withBase(`/assets/logos/${tool.slug}.svg`)}
+  width={size}
+  height={size}
+  alt={decorative ? "" : tool.name}
+  loading="lazy"
+  decoding="async"
+  class="flex-none rounded-[14px]"
+/>

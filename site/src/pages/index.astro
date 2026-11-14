@@ -1,0 +1,153 @@
+---
+import Base from "../layouts/Base.astro";
+import ToolLogo from "../components/ToolLogo.astro";
+import { hub, summary, byCategory, shortTitle } from "../lib/data.ts";
+import { withBase } from "../lib/url.ts";
+
+const paths = [
+  { emoji: "🌱", title: "New to this", text: "You have an idea and have never shipped an app.", href: "/which-tool", cta: "Find your first tool" },
+  { emoji: "💸", title: "Comparing tools", text: "What's free, and what it really costs per month.", href: "/pricing", cta: "Compare prices" },
+  { emoji: "🚀", title: "About to launch", text: "It works on your screen. Make it safe for real users.", href: "/roadmap#before-you-launch", cta: "Open the checklist" },
+  { emoji: "🔥", title: "Something broke", text: "Login loops, payments don't update, deploy fails.", href: "/when-it-breaks", cta: "Fix it calmly" },
+  { emoji: "🧑‍💻", title: "A developer", text: "Agents that work inside your own codebase.", href: "/tools?category=cli-agents", cta: "See CLI agents" },
+];
+
+const stats = [
+  { value: summary.tools, label: "tools" },
+  { value: summary.categories, label: "categories" },
+  { value: summary.freeTiers, label: "free tiers" },
+  { value: summary.prices, label: "dated prices" },
+  { value: summary.openSource, label: "open source" },
+];
+---
+
+<Base
+  title="Vibe Coding Hub"
+  description={`Free, community-maintained guide for vibe coders: ${summary.tools} tools, ${summary.freeTiers} free tiers, prices verified ${summary.latestVerified}, and a roadmap for keeping an AI-built app alive.`}
+  editPath="README.md"
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="grid-bg pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="container-x relative grid items-center gap-12 pb-16 pt-16 lg:grid-cols-[1.05fr_1fr] lg:pt-24">
+      <div>
+        <p class="eyebrow">Free · community-maintained · verified {summary.latestVerified}</p>
+        <h1 class="mt-4 text-[clamp(2.4rem,5.6vw,4.2rem)] font-extrabold leading-[1.04] tracking-[-0.035em]">
+          Ship the app.<br /><span class="gradient-text">Keep it alive.</span>
+        </h1>
+        <p class="lead mt-6 max-w-xl">
+          The tools, the real prices, and the habits that keep an AI-built app working after the demo. Pick a tool, check what it costs, then follow the roadmap from first prompt to a healthy live app.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a class="btn btn-primary no-underline" href={withBase("/roadmap")}>Walk the roadmap →</a>
+          <a class="btn no-underline" href={withBase("/tools")}>Browse {summary.tools} tools</a>
+          <a class="btn no-underline" href={withBase("/when-it-breaks")}>🛟 Fix my app</a>
+        </div>
+      </div>
+
+      <div class="terminal" role="img" aria-label="A terminal showing the prompt: build me an app that actually stays up, followed by what the hub covers">
+        <div class="terminal-bar" aria-hidden="true">
+          <span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span>
+          <p class="ml-auto mr-auto text-xs font-semibold text-faint">vibe-coding-hub</p>
+        </div>
+        <div class="space-y-3 p-6 text-[15px] leading-relaxed sm:text-base" aria-hidden="true">
+          <p><span class="text-cyan">&gt;</span> <span class="typing">build me an app that actually stays up</span></p>
+          <p class="term-line text-muted" style="animation-delay:2.1s"><span class="text-green">✓</span> {summary.tools} tools across {summary.categories} categories</p>
+          <p class="term-line text-muted" style="animation-delay:2.5s"><span class="text-green">✓</span> {summary.freeTiers} free tiers, {summary.prices} prices from vendor pages</p>
+          <p class="term-line text-muted" style="animation-delay:2.9s"><span class="text-green">✓</span> ship-ready launch checklist</p>
+          <p class="term-line text-muted" style="animation-delay:3.3s"><span class="text-green">✓</span> calm debugging method + prompts</p>
+          <p class="term-line" style="animation-delay:3.8s"><span class="text-violet">→</span> <span class="font-semibold">next:</span> <span class="text-muted">pick your path below</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-x relative pb-6">
+      <dl class="card grid grid-cols-2 divide-line sm:grid-cols-5 sm:divide-x">
+        {
+          stats.map((s) => (
+            <div class="px-5 py-5 text-center">
+              <dt class="text-xs font-semibold uppercase tracking-wider text-faint">{s.label}</dt>
+              <dd class="mt-1 text-3xl font-extrabold tracking-tight">{s.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <!-- Pick your path -->
+  <section class="container-x section" aria-labelledby="paths-title">
+    <p class="eyebrow">Start where you are</p>
+    <h2 id="paths-title" class="section-title mt-2">Pick your path</h2>
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {
+        paths.map((p) => (
+          <a class="card flex flex-col p-5 no-underline" href={withBase(p.href)}>
+            <span class="text-3xl" aria-hidden="true">{p.emoji}</span>
+            <span class="mt-3 text-lg font-bold">{p.title}</span>
+            <span class="mt-1 text-sm text-muted">{p.text}</span>
+            <span class="mt-auto pt-4 text-sm font-bold text-cyan">{p.cta} →</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Roadmap preview -->
+  <section class="section border-y border-line bg-bg-2/60" aria-labelledby="roadmap-title">
+    <div class="container-x">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="eyebrow">The roadmap</p>
+          <h2 id="roadmap-title" class="section-title mt-2">Five stages from first prompt to a healthy app</h2>
+        </div>
+        <a class="btn no-underline" href={withBase("/roadmap")}>Open the interactive roadmap →</a>
+      </div>
+      <ol class="relative mt-10 grid gap-4 md:grid-cols-5">
+        <div class="absolute left-0 right-0 top-[38px] hidden h-[3px] rounded-full md:block" style="background: var(--accent); opacity:.55" aria-hidden="true"></div>
+        {
+          hub.guide.map((s) => (
+            <li class="relative">
+              <a class="card flex h-full flex-col p-5 no-underline" href={withBase(`/roadmap#${s.id}`)}>
+                <span class="grid h-12 w-12 place-items-center rounded-full border-2 border-violet bg-bg text-xl" aria-hidden="true">{s.emoji}</span>
+                <span class="mt-4 text-xs font-extrabold tracking-widest text-violet">STEP {s.order}</span>
+                <span class="mt-1 font-bold">{s.title}</span>
+                <span class="mt-2 text-sm text-muted">{s.summary.split(".")[0]}.</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="container-x section" aria-labelledby="cats-title">
+    <p class="eyebrow">The directory</p>
+    <h2 id="cats-title" class="section-title mt-2">Every kind of tool a vibe coder reaches for</h2>
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        hub.categories.map((c) => {
+          const tools = byCategory(c.id);
+          return (
+            <a class="card flex flex-col p-5 no-underline" href={withBase(`/tools?category=${c.id}`)} style={`--cat:${c.color}`}>
+              <span class="flex items-center gap-3">
+                <span class="grid h-11 w-11 place-items-center rounded-xl text-xl" style={`background: color-mix(in srgb, ${c.color} 18%, transparent)`} aria-hidden="true">
+                  {c.emoji}
+                </span>
+                <span class="font-bold leading-tight">{shortTitle(c)}</span>
+              </span>
+              <span class="mt-3 text-sm text-muted">{c.best_for}</span>
+              <span class="mt-4 flex flex-wrap gap-1.5" aria-hidden="true">
+                {tools.slice(0, 6).map((t) => <ToolLogo tool={t} size={32} />)}
+              </span>
+              <span class="mt-4 text-sm font-semibold" style={`color:${c.color}`}>
+                {tools.length} tools · {tools.filter((t) => t.free_tier).length} free →
+              </span>
+            </a>
+          );
+        })
+      }
+    </div>
+  </section>
+</Base>

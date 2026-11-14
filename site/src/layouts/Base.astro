@@ -1,0 +1,79 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { withBase, REPO_URL } from "../lib/url.ts";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Repo path of the file this page is built from, for "Edit this page on GitHub". */
+  editPath?: string;
+  /** Extra JSON-LD objects for this page. */
+  jsonLd?: Record<string, unknown>[];
+}
+
+const { title, description, editPath = "data/tools", jsonLd = [] } = Astro.props;
+const fullTitle = title === "Vibe Coding Hub" ? `Vibe Coding Hub: tools, prices and guides for vibe coders` : `${title} | Vibe Coding Hub`;
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImage = new URL(withBase("/og.png"), Astro.site).toString();
+const siteUrl = new URL(withBase("/"), Astro.site).toString();
+
+const structured = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Vibe Coding Hub",
+    url: siteUrl,
+    description: "A free, community-maintained guide for vibe coders: tools, free tiers, dated prices and how to keep an AI-built app alive.",
+    publisher: { "@type": "Organization", name: "NeuralSaaS", url: "https://neuralsaasai.com" },
+    sameAs: [REPO_URL],
+  },
+  ...jsonLd,
+];
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
+    <link rel="sitemap" href={withBase("/sitemap-index.xml")} />
+    <meta name="theme-color" content="#0b1020" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Vibe Coding Hub" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Vibe Coding Hub: tools, free tiers, dated prices and a guide to keeping AI-built apps alive" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script is:inline>
+      (() => {
+        const saved = localStorage.getItem("vch:theme");
+        const theme = saved || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(structured)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer editPath={editPath} />
+  </body>
+</html>

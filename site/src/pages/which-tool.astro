@@ -1,0 +1,184 @@
+---
+import Base from "../layouts/Base.astro";
+import ToolLogo from "../components/ToolLogo.astro";
+import Diagram from "../components/Diagram.astro";
+import { hub, toolBySlug } from "../lib/data.ts";
+import { withBase } from "../lib/url.ts";
+
+const { jobs, questions } = hub.jobs;
+const plain = (text: string) =>
+  text.replace(/\{cat:[a-z0-9-]+\|([^}]+)\}/g, "$1").replace(/\{([a-z0-9-]+)\}/g, (_, s: string) => toolBySlug(s).name);
+
+// Only what the browser needs, so the client script stays small.
+const clientData = {
+  jobs: hub.jobs,
+  tools: hub.tools.map((t) => ({ slug: t.slug, name: t.name, url: t.url, description: t.description, free_tier: t.free_tier, open_source: t.open_source, category: t.category, entry: t.pricing?.entry ?? null })),
+};
+---
+
+<Base
+  title="Which vibe coding tool should I use?"
+  description="Answer three questions and get a starting tool set for a landing page, SaaS MVP, internal tool, mobile app, AI agent or an existing codebase."
+  editPath="data/jobs.yml"
+>
+  <section class="container-x pt-14">
+    <p class="eyebrow">Which tool for which job</p>
+    <h1 class="section-title mt-2">Three questions, one starting point</h1>
+    <p class="lead mt-3 max-w-2xl">{hub.jobs.intro}</p>
+  </section>
+
+  <section class="container-x mt-10 grid gap-8 lg:grid-cols-[1fr_1fr]">
+    <form id="quiz" class="card space-y-8 p-6 sm:p-8" aria-describedby="quiz-help">
+      <p id="quiz-help" class="sr-only">Choose one answer in each group. The recommendation updates as you go.</p>
+      <fieldset>
+        <legend class="text-lg font-bold"><span class="text-violet">1.</span> What are you building?</legend>
+        <div class="mt-4 grid gap-2 sm:grid-cols-2">
+          {
+            jobs.map((j, i) => (
+              <label class="choice">
+                <input type="radio" name="job" value={j.id} checked={i === 1} />
+                <span>{j.use_case}</span>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend class="text-lg font-bold"><span class="text-violet">2.</span> How much do you code?</legend>
+        <div class="mt-4 grid gap-2 sm:grid-cols-3">
+          {
+            questions.coding.map((o, i) => (
+              <label class="choice">
+                <input type="radio" name="coding" value={o.id} checked={i === 0} />
+                <span>{o.label}</span>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend class="text-lg font-bold"><span class="text-violet">3.</span> What's your budget?</legend>
+        <div class="mt-4 grid gap-2 sm:grid-cols-3">
+          {
+            questions.budget.map((o, i) => (
+              <label class="choice">
+                <input type="radio" name="budget" value={o.id} checked={i === 1} />
+                <span>{o.label}</span>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+    </form>
+
+    <div class="lg:sticky lg:top-24 lg:self-start">
+      <div id="result" class="card p-6 sm:p-8" aria-live="polite" hidden>
+        <p class="eyebrow">Your starting point</p>
+        <h2 class="mt-2 text-2xl font-extrabold" data-r="use-case"></h2>
+        <h3 class="mt-6 text-sm font-extrabold uppercase tracking-wider text-faint">Start with</h3>
+        <ul class="mt-3 grid gap-3" data-r="picks"></ul>
+        <h3 class="mt-6 text-sm font-extrabold uppercase tracking-wider text-faint">Also consider</h3>
+        <ul class="mt-3 flex flex-wrap gap-2" data-r="also"></ul>
+        <div class="callout callout-important mt-6">
+          <p class="callout-title">Where people outgrow it</p>
+          <p class="text-muted" data-r="outgrow"></p>
+        </div>
+        <ul class="mt-4 space-y-2 text-sm text-muted" data-r="notes"></ul>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a class="btn btn-primary no-underline" data-r="tools-link" href={withBase("/tools")}>See these tools →</a>
+          <a class="btn no-underline" href={withBase("/pricing")}>Compare prices</a>
+        </div>
+      </div>
+
+      <noscript>
+        <div class="card p-6">
+          <p class="font-bold">The quiz needs JavaScript. Here is the full table:</p>
+        </div>
+      </noscript>
+    </div>
+  </section>
+
+  <section class="container-x section" aria-labelledby="all-jobs">
+    <h2 id="all-jobs" class="section-title">Every job at a glance</h2>
+    <div class="mt-6">
+      <Diagram name="which-tool" alt="Decision tree: what you are building leads to a first pick of tools for each of six jobs.">
+        Generated from <code>data/jobs.yml</code>, the same file that builds the README table.
+      </Diagram>
+    </div>
+    <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {
+        jobs.map((j) => (
+          <article class="card p-5">
+            <h3 class="font-bold">{j.use_case}</h3>
+            <p class="mt-3 flex gap-1.5" aria-hidden="true">
+              {j.first_pick.map((s) => <ToolLogo tool={toolBySlug(s)} size={36} />)}
+            </p>
+            <p class="mt-3 text-sm"><span class="font-semibold text-ink">First pick:</span> <span class="text-muted">{plain(j.first_pick_text)}</span></p>
+            <p class="mt-1 text-sm"><span class="font-semibold text-ink">Also:</span> <span class="text-muted">{plain(j.also_text)}</span></p>
+            <p class="mt-3 text-sm text-faint">Outgrow it: {plain(j.outgrow)}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <script type="application/json" id="which-data" set:html={JSON.stringify(clientData)} />
+</Base>
+
+<script>
+  import { recommend } from "../../../lib/recommend.ts";
+  import type { JobsFile, Tool } from "../../../schema/tool.ts";
+
+  const { jobs, tools } = JSON.parse(document.getElementById("which-data")!.textContent!) as { jobs: JobsFile; tools: (Tool & { entry: string | null })[] };
+  const form = document.getElementById("quiz") as HTMLFormElement;
+  const result = document.getElementById("result")!;
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  const $ = (name: string) => result.querySelector<HTMLElement>(`[data-r="${name}"]`)!;
+
+  const el = (tag: string, attrs: Record<string, string> = {}, text?: string) => {
+    const node = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+    if (text) node.textContent = text;
+    return node;
+  };
+
+  function render() {
+    const data = new FormData(form);
+    const rec = recommend(jobs, tools, {
+      job: String(data.get("job")),
+      coding: String(data.get("coding")),
+      budget: String(data.get("budget")),
+    });
+    $("use-case").textContent = rec.useCase;
+
+    const picks = $("picks");
+    picks.replaceChildren(
+      ...rec.picks.map((t) => {
+        const li = el("li", { class: "flex items-center gap-3 rounded-xl border border-line bg-surface p-3" });
+        li.append(el("img", { src: `${base}/assets/logos/${t.slug}.svg`, width: "40", height: "40", alt: "", class: "rounded-[12px]" }));
+        const text = el("div", { class: "min-w-0" });
+        const name = el("a", { href: t.url, rel: "noopener", class: "font-bold no-underline hover:underline" }, t.name);
+        text.append(name, el("p", { class: "text-sm text-muted" }, t.description));
+        li.append(text);
+        const tag = (t as Tool & { entry: string | null }).entry;
+        if (t.free_tier) li.append(el("span", { class: "tag tag-free ml-auto" }, "Free tier"));
+        else if (tag) li.append(el("span", { class: "tag tag-price ml-auto" }, tag));
+        return li;
+      }),
+    );
+    $("also").replaceChildren(
+      ...rec.also.map((t) => {
+        const li = el("li");
+        li.append(el("a", { href: t.url, rel: "noopener", class: "chip no-underline" }, t.name));
+        return li;
+      }),
+    );
+    $("outgrow").textContent = rec.outgrow.replace(/\{cat:[a-z0-9-]+\|([^}]+)\}/g, "$1").replace(/\{([a-z0-9-]+)\}/g, (_, s) => tools.find((t) => t.slug === s)?.name ?? s);
+    $("notes").replaceChildren(...rec.notes.map((n) => el("li", { class: "flex gap-2" }, `💡 ${n}`)));
+    $("tools-link").setAttribute("href", `${base}/tools?ids=${rec.slugs.join(",")}`);
+    result.hidden = false;
+  }
+
+  form.addEventListener("change", render);
+  render();
+</script>
