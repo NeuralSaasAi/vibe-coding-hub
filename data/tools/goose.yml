@@ -5,3 +5,5 @@ description: Local agent that works with many model providers and MCP tools.
 free_tier: false
 open_source: true
 repo: aaif-goose/goose
+stars: 56601
+last_commit: 2026-11-14

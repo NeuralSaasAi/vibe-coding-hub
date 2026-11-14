@@ -1,0 +1,64 @@
+name: Weekly refresh
+
+on:
+  schedule:
+    # Mondays 06:00 UTC
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  stars:
+    name: Refresh GitHub stars
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Refresh stars and last-commit dates
+        run: npm run refresh-stars
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REFRESH_SUMMARY: ${{ runner.temp }}/summary.md
+      - name: Rebuild README sections and images
+        run: npm run readme
+      - name: Open a pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: chore/refresh-stars
+          commit-message: Refresh GitHub stars
+          title: Refresh GitHub stars
+          body-path: ${{ runner.temp }}/summary.md
+          labels: automated
+          delete-branch: true
+
+  links:
+    name: Check links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config lychee.toml --no-progress README.md CONTRIBUTING.md
+          output: ${{ runner.temp }}/links.md
+          fail: false
+      - name: Open or update an issue for broken links
+        if: steps.lychee.outputs.exit_code != 0
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          title="Broken links found by the weekly check"
+          existing=$(gh issue list --state open --label broken-link --search "\"$title\" in:title" --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body-file "${{ runner.temp }}/links.md"
+          else
+            gh issue create --title "$title" --label broken-link --body-file "${{ runner.temp }}/links.md"
+          fi

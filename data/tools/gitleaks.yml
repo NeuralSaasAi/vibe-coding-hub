@@ -6,3 +6,5 @@ free_tier: false
 open_source: true
 repo: gitleaks/gitleaks
 featured: true
+stars: 31022
+last_commit: 2026-10-28

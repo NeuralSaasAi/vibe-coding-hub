@@ -6,3 +6,5 @@ free_tier: false
 open_source: true
 repo: google-gemini/gemini-cli
 icon: googlegemini
+stars: 108824
+last_commit: 2026-11-14

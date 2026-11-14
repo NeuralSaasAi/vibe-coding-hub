@@ -6,3 +6,5 @@ free_tier: true
 open_source: false
 repo: github/copilot-cli
 icon: githubcopilot
+stars: 11414
+last_commit: 2026-11-13
