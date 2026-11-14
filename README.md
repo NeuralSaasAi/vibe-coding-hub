@@ -1,20 +1,65 @@
-# Vibe Coding Hub
+<p align="center">
+  <img src="assets/banner.svg" alt="Vibe Coding Hub: 69 tools, 18 free tiers, 16 dated prices, and a guide to keeping AI-built apps alive" width="100%">
+</p>
 
-[![CC0 license](https://img.shields.io/badge/license-CC0--1.0-blue.svg)](LICENSE)
-[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Checks](https://github.com/NeuralSaasAi/vibe-coding-hub/actions/workflows/ci.yml/badge.svg)](https://github.com/NeuralSaasAi/vibe-coding-hub/actions/workflows/ci.yml)
+<h1 align="center">Vibe Coding Hub</h1>
 
-A free, community-maintained guide for people who build software by talking to AI. Find the right tool, see what is actually free, compare current prices, and learn how to keep your app working after the first version ships.
+<p align="center">
+  <strong>The tools, the real prices, and the habits that keep an AI-built app working after the demo.</strong><br>
+  Free, community-maintained, and checked against vendor pages every month.
+</p>
 
-What makes this list different:
+<p align="center">
+  <img src="https://img.shields.io/badge/tools-69-7c5cff" alt="69 tools">
+  <img src="https://img.shields.io/badge/free%20tiers-18-16a34a" alt="18 free tiers">
+  <img src="https://img.shields.io/badge/prices%20verified-2026--11-0ea5c6" alt="Prices verified 2026-11">
+  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs welcome"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-CC0--1.0-blue" alt="CC0 license"></a>
+</p>
 
-- **Dated prices.** Every price comes from the vendor's own page and shows the month we checked it.
-- **Honest fit notes.** Which tool suits which job, and where people tend to outgrow it.
-- **A guide for after the demo.** How to launch safely, debug calmly and maintain an AI-built app.
+<p align="center">
+  <a href="#tools-by-category"><b>🧰 Find a tool</b></a> ·
+  <a href="#free-tools-and-free-tiers"><b>🆓 What's free</b></a> ·
+  <a href="#pricing-at-a-glance"><b>💸 Prices</b></a> ·
+  <a href="#which-tool-for-which-job"><b>🎯 Which tool?</b></a> ·
+  <a href="#4-when-something-breaks"><b>🛟 Fix my app</b></a> ·
+  <a href="CONTRIBUTING.md"><b>🤝 Contribute</b></a>
+</p>
 
-Spotted something out of date? [Open an issue](https://github.com/NeuralSaasAi/vibe-coding-hub/issues/new/choose) or send a pull request. See [CONTRIBUTING.md](CONTRIBUTING.md).
+## Pick your path
 
-## Contents
+| | You are... | Go to |
+| :---: | --- | --- |
+| 🌱 | **New to this.** You have an idea and have never shipped an app. | [Start here](#start-here-zero-to-your-first-shipped-app), then [Which tool for which job](#which-tool-for-which-job) |
+| 💸 | **Comparing tools.** You want to know what's free and what it really costs. | [Free tiers](#free-tools-and-free-tiers) and [Pricing at a glance](#pricing-at-a-glance) |
+| 🚀 | **About to launch.** It works on your screen; you want it safe for real users. | [Ship-ready checklist](#3-before-you-launch) |
+| 🔥 | **Something broke.** Login loops, payments don't update, deploy fails. | [When something breaks](#4-when-something-breaks) |
+| 🧑‍💻 | **A developer.** You want agents that work in your own codebase. | [AI IDEs](#ai-ides-and-editor-extensions) and [CLI coding agents](#cli-coding-agents) |
+
+## Why this list
+
+<table>
+  <tr>
+    <td width="33%" valign="top">
+      <h3>📅 Dated prices</h3>
+      Every price comes from the vendor's own page and shows the month it was checked. No guessing from old blog posts.
+    </td>
+    <td width="33%" valign="top">
+      <h3>🎯 Honest fit notes</h3>
+      Which tool suits which job, and the point where people usually outgrow it.
+    </td>
+    <td width="33%" valign="top">
+      <h3>🛟 Life after the demo</h3>
+      How to launch safely, debug calmly and keep an AI-built app healthy as users arrive.
+    </td>
+  </tr>
+</table>
+
+> [!TIP]
+> Found a price that changed or a tool we missed? [Open an issue](https://github.com/NeuralSaasAi/vibe-coding-hub/issues/new/choose) or send a pull request. Small fixes are the most useful kind. ⭐ Star the repo to find it again when you need it.
+
+<details>
+<summary><b>📖 Full contents</b></summary>
 
 - [Start here: zero to your first shipped app](#start-here-zero-to-your-first-shipped-app)
 - [Tools by category](#tools-by-category)
@@ -41,7 +86,13 @@ Spotted something out of date? [Open an issue](https://github.com/NeuralSaasAi/v
 - [Credits](#credits)
 - [Maintained by NeuralSaaS](#maintained-by-neuralsaas)
 
+</details>
+
 ## Start here: zero to your first shipped app
+
+<p align="center">
+  <img src="assets/journey.svg" alt="The journey: 1. Idea, pick your tool. 2. Build, 69 tools and 18 free. 3. Launch, ship-ready checklist. 4. Keep alive, debug, monitor and grow." width="100%">
+</p>
 
 You do not need to know how to code to start. You do need a few habits. This path takes most people from an idea to a live app.
 
@@ -216,7 +267,8 @@ Monthly prices in USD, before tax, billed monthly unless noted. Most AI tools no
 | v0 | Yes | Plus $30 per user ($30 credits) | Business $100 per user; Enterprise custom | Dollar credits, plus $2 daily login credit on paid plans | [Pricing docs](https://v0.app/docs/pricing) | 2026-11 |
 | Vercel | Yes (Hobby) | Pro $20 | Enterprise custom | Included usage, then pay as you go | [Pricing](https://vercel.com/pricing) | 2026-11 |
 
-**Budget tip:** the plan fee is only part of the cost. AI builders spend credits on every change, including fixes, and hosted backends charge for data and compute once you have users. Set a usage alert wherever the tool offers one.
+> [!TIP]
+> **Budget tip:** the plan fee is only part of the cost. AI builders spend credits on every change, including fixes, and hosted backends charge for data and compute once you have users. Set a usage alert wherever the tool offers one.
 
 ## Which tool for which job
 
@@ -235,7 +287,8 @@ A starting point, not a ranking. Any of these tools can build most apps. The que
 
 Getting the first version working is the fun part. Keeping it working while you add features, get users and fix problems is where most projects stall. Nobody gets this right the first time. These habits make it much easier, whichever tool you use.
 
-There is a real reason to care: in a [2025 study by Veracode](https://www.veracode.com/blog/genai-code-security-report), AI-generated code failed security tests in 45% of tasks. That is not a reason to stop. It means you need a short checklist and a few safety nets.
+> [!IMPORTANT]
+> In a [2025 study by Veracode](https://www.veracode.com/blog/genai-code-security-report), AI-generated code failed security tests in 45% of tasks. That is not a reason to stop. It means you need a short checklist and a few safety nets.
 
 ### 1. Before you build
 
@@ -246,7 +299,8 @@ Set things up so mistakes are cheap.
 - **Choose a common, well-documented stack.** AI tools write better code for popular tools such as React, Next.js, Supabase and Stripe, because they have seen far more examples. Avoid niche libraries in your first app.
 - **Keep secrets out of your code.** API keys and passwords belong in environment variables, not in files the AI writes. See [Next.js environment variables](https://nextjs.org/docs/app/guides/environment-variables) or [Vite env variables](https://vite.dev/guide/env-and-mode).
 
-> **Watch out:** anything starting with `NEXT_PUBLIC_` or `VITE_` is sent to every visitor's browser. Only public keys belong there. Supabase explains which of its keys are safe in the browser and which are not in [Understanding API keys](https://supabase.com/docs/guides/getting-started/api-keys).
+> [!WARNING]
+> Anything starting with `NEXT_PUBLIC_` or `VITE_` is sent to every visitor's browser. Only public keys belong there. Supabase explains which of its keys are safe in the browser and which are not in [Understanding API keys](https://supabase.com/docs/guides/getting-started/api-keys).
 
 ### 2. While you build
 
@@ -258,7 +312,8 @@ Habits that stop small changes from turning into big messes.
 - **Ask the AI to explain before you accept.** "What did you change and why?" catches surprises like deleted features, new packages or database changes.
 - **Never let an agent work directly on your live data.** Use a separate development database. In July 2025 an AI agent [deleted a live production database](https://www.theregister.com/software/2025/07/21/vibe-coding-service-replit-deleted-production-database/719783) during a code freeze. Replit later [restored the data and added safeguards](https://www.fastcompany.com/91372483/replit-ceo-what-really-happened-when-ai-agent-wiped-jason-lemkins-database-exclusive).
 
-> **Watch out:** when a new feature breaks an old one, the cause is usually a shared file the AI changed along the way. Compare the last working commit with the current one before asking for another fix.
+> [!WARNING]
+> When a new feature breaks an old one, the cause is usually a shared file the AI changed along the way. Compare the last working commit with the current one before asking for another fix.
 
 ### 3. Before you launch
 
@@ -273,11 +328,14 @@ A ship-ready checklist. Ask your AI tool to check each item, then verify it your
 - [ ] **A staging or preview environment exists.** Try changes there first. Most hosts create a preview link for every branch.
 - [ ] **Basic security review.** Skim the [OWASP Top 10](https://owasp.org/Top10/) and ask your AI tool to check the app against it.
 
-> **Watch out:** missing access rules are the most common serious problem in AI-built apps. In 2025, researchers found 170 apps built with one popular builder that exposed user data this way ([CVE-2025-48757](https://nvd.nist.gov/vuln/detail/CVE-2025-48757)). Turning on Row Level Security without writing policies blocks everything, so test with two real accounts.
+> [!WARNING]
+> Missing access rules are the most common serious problem in AI-built apps. In 2025, researchers found 170 apps built with one popular builder that exposed user data this way ([CVE-2025-48757](https://nvd.nist.gov/vuln/detail/CVE-2025-48757)). Turning on Row Level Security without writing policies blocks everything, so test with two real accounts.
 
-> **Watch out:** login that works in preview but loops or fails on your real domain usually means the domain is missing from your auth provider's allowed redirect URLs. See [Supabase redirect URLs](https://supabase.com/docs/guides/auth/redirect-urls).
+> [!WARNING]
+> Login that works in preview but loops or fails on your real domain usually means the domain is missing from your auth provider's allowed redirect URLs. See [Supabase redirect URLs](https://supabase.com/docs/guides/auth/redirect-urls).
 
-> **Watch out:** if payments succeed in Stripe but your app never updates, the webhook is usually pointing at the wrong URL, using a test-mode secret in live mode, or failing signature checks. Test locally with the [Stripe CLI](https://docs.stripe.com/stripe-cli).
+> [!WARNING]
+> If payments succeed in Stripe but your app never updates, the webhook is usually pointing at the wrong URL, using a test-mode secret in live mode, or failing signature checks. Test locally with the [Stripe CLI](https://docs.stripe.com/stripe-cli).
 
 ### 4. When something breaks
 
@@ -307,7 +365,8 @@ Fix only this issue. Do not change unrelated files, rename things or add new pac
 After the fix, list every file you changed and why.
 ```
 
-> **Watch out:** if your app builds on your computer or in preview but fails on deploy, check for missing environment variables on the host and package version differences first. See [Vercel: troubleshoot a build](https://vercel.com/docs/deployments/troubleshoot-a-build).
+> [!WARNING]
+> If your app builds on your computer or in preview but fails on deploy, check for missing environment variables on the host and package version differences first. See [Vercel: troubleshoot a build](https://vercel.com/docs/deployments/troubleshoot-a-build).
 
 ### 5. After launch
 
@@ -320,7 +379,8 @@ Keeping a live app healthy.
 - **Plan for real data.** Apps that feel fast with ten records can slow down with ten thousand. Load data in pages instead of all at once, and add database indexes on columns you filter by. See [Supabase query optimization](https://supabase.com/docs/guides/database/query-optimization) and [PostgreSQL indexes](https://www.postgresql.org/docs/current/indexes.html).
 - **Know when to bring in a developer.** Consider it when you are handling payments or sensitive data at scale, when the same bug keeps coming back, or when every new feature breaks an old one.
 
-> **Watch out:** a slow app is usually caused by loading every row on each page view, or by one database query running inside a loop. Ask your AI tool to list every database query on the slow page before it tries a fix.
+> [!WARNING]
+> A slow app is usually caused by loading every row on each page view, or by one database query running inside a loop. Ask your AI tool to list every database query on the slow page before it tries a fix.
 
 **Stuck? [Get a free review of your vibe-coded app](https://neuralsaasai.com/contact?utm_source=github&utm_medium=readme&utm_campaign=vibe-coding-hub&utm_content=keep-alive-guide).**
 
