@@ -1,0 +1,8 @@
+name: Aider
+url: https://aider.chat
+category: cli-agents
+description: Terminal pair programmer that edits files in your git repo and commits each change, so every step is easy to undo.
+free_tier: false
+open_source: true
+repo: Aider-AI/aider
+featured: true

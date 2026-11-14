@@ -1,0 +1,6 @@
+name: Kiro CLI
+url: https://kiro.dev/cli/
+category: cli-agents
+description: Kiro's agent in the terminal, using the same steering files and specs as the IDE.
+free_tier: false
+open_source: false

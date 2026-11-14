@@ -1,0 +1,6 @@
+name: Semgrep
+url: https://semgrep.dev
+category: testing-monitoring
+description: Code scanning for security issues.
+free_tier: false
+open_source: false

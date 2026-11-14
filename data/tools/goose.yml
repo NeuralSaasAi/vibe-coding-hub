@@ -1,0 +1,7 @@
+name: Goose
+url: https://block.github.io/goose/
+category: cli-agents
+description: Local agent that works with many model providers and MCP tools.
+free_tier: false
+open_source: true
+repo: aaif-goose/goose

@@ -1,0 +1,8 @@
+name: Cline
+url: https://cline.bot
+category: ai-ides
+description: VS Code agent that plans, edits files and runs commands, asking before each step.
+free_tier: false
+open_source: true
+repo: cline/cline
+icon: cline

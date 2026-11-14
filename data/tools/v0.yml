@@ -1,0 +1,24 @@
+name: v0
+url: https://v0.app
+category: ai-app-builders
+description: Vercel's builder for React and Next.js apps, with one-click deploys to Vercel.
+free_tier: true
+open_source: false
+icon: v0
+free_details:
+  whats_free: Building and deploying
+  limits: 7 messages a day; free credits depend on current signup offer
+  source:
+    label: Pricing docs
+    url: https://v0.app/docs/pricing
+  last_verified: 2026-11
+pricing:
+  free_plan: Yes
+  entry: Plus $30 per user ($30 credits)
+  entry_usd: 30
+  higher: Business $100 per user; Enterprise custom
+  unit: Dollar credits, plus $2 daily login credit on paid plans
+  sources:
+    - label: Pricing docs
+      url: https://v0.app/docs/pricing
+  last_verified: 2026-11

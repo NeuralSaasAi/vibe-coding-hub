@@ -1,0 +1,7 @@
+name: Firebase App Hosting
+url: https://firebase.google.com/docs/app-hosting
+category: deploy-hosting
+description: Hosting for Next.js and Angular apps on Google Cloud.
+free_tier: false
+open_source: false
+icon: firebase

@@ -1,0 +1,7 @@
+name: Fly.io
+url: https://fly.io
+category: deploy-hosting
+description: Run full apps and databases close to your users.
+free_tier: false
+open_source: false
+icon: flydotio

@@ -1,0 +1,7 @@
+name: Turso
+url: https://turso.tech
+category: backend-database
+description: SQLite-based database built for the edge.
+free_tier: false
+open_source: false
+icon: turso

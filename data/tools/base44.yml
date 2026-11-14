@@ -1,0 +1,24 @@
+name: Base44
+url: https://base44.com
+category: ai-app-builders
+description: Chat-to-app builder with a built-in database, login and hosting. Suits internal tools and simple SaaS.
+free_tier: true
+open_source: false
+free_details:
+  whats_free: Core features, up to 5 apps
+  limits: 25 message credits and 100 integration credits a month
+  source:
+    label: Pricing
+    url: https://base44.com/pricing
+  last_verified: 2026-11
+pricing:
+  free_plan: Yes
+  entry: Starter $16 (billed yearly)
+  entry_usd: 16
+  entry_yearly: true
+  higher: Builder $40, Pro $80, Elite $160 (billed yearly)
+  unit: Message and integration credits
+  sources:
+    - label: Pricing
+      url: https://base44.com/pricing
+  last_verified: 2026-11

@@ -1,0 +1,9 @@
+name: shadcn/ui
+url: https://ui.shadcn.com
+category: ui-design
+description: Copy-paste React components that many AI builders use by default. Knowing the names helps you prompt better.
+free_tier: false
+open_source: true
+repo: shadcn-ui/ui
+icon: shadcnui
+featured: true

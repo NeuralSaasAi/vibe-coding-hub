@@ -1,0 +1,8 @@
+name: Cloudflare Workers
+url: https://www.cloudflare.com/products/workers/
+category: deploy-hosting
+description: Run sites and APIs on Cloudflare's global network.
+free_tier: false
+open_source: false
+icon: cloudflareworkers
+featured: true

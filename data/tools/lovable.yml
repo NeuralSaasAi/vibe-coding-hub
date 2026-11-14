@@ -1,0 +1,24 @@
+name: Lovable
+url: https://lovable.dev
+category: ai-app-builders
+description: Prompt-to-web-app builder with its own Cloud backend, GitHub sync and one-click publishing.
+free_tier: true
+open_source: false
+featured: true
+free_details:
+  whats_free: Building, Cloud hosting, GitHub sync
+  limits: 5 build credits a day, up to 30 a month; no code editing, no custom domain
+  source:
+    label: Plans
+    url: https://docs.lovable.dev/introduction/subscription-plans
+  last_verified: 2026-11
+pricing:
+  free_plan: Yes
+  entry: Pro $25 (100 credits)
+  entry_usd: 25
+  higher: Business $50; Enterprise custom
+  unit: One credit balance for building, hosting and in-app AI
+  sources:
+    - label: Pricing
+      url: https://lovable.dev/pricing
+  last_verified: 2026-11

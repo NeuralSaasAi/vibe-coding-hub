@@ -1,0 +1,8 @@
+name: OpenCode
+url: https://opencode.ai
+category: cli-agents
+description: Terminal agent that works with many model providers.
+free_tier: false
+open_source: true
+repo: anomalyco/opencode
+icon: opencode

@@ -1,0 +1,7 @@
+name: Neon
+url: https://neon.com
+category: backend-database
+description: Serverless Postgres with database branching for safe testing.
+free_tier: false
+open_source: false
+icon: neon

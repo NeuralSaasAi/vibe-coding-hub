@@ -1,0 +1,8 @@
+name: Coolify
+url: https://coolify.io
+category: deploy-hosting
+description: Self-hosted alternative to Vercel and Netlify on your own server.
+free_tier: false
+open_source: true
+repo: coollabsio/coolify
+icon: coolify

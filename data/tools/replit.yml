@@ -1,0 +1,26 @@
+name: Replit
+url: https://replit.com
+category: ai-app-builders
+description: Browser workspace with an Agent that builds, hosts and deploys apps, databases included.
+free_tier: true
+open_source: false
+icon: replit
+featured: true
+free_details:
+  label: Replit (Starter)
+  whats_free: Agent in Lite mode, 1 published app
+  limits: Daily Agent credits with a monthly cap; free app goes offline after 30 days
+  source:
+    label: Starter plan
+    url: https://docs.replit.com/billing/plans/starter-plan
+  last_verified: 2026-11
+pricing:
+  free_plan: Yes (Starter)
+  entry: Core $20 ($18 billed yearly)
+  entry_usd: 20
+  higher: Pro $100 ($90 billed yearly), up to 15 builders
+  unit: Credits; Agent billed by effort
+  sources:
+    - label: Pricing
+      url: https://replit.com/pricing
+  last_verified: 2026-11

@@ -1,0 +1,48 @@
+- id: ai-app-builders
+  title: AI app builders
+  emoji: 🏗️
+  color: "#7c5cff"
+  intro: Describe the app in plain language and get a working web app, usually with hosting included. Best for non-developers and fast prototypes.
+  best_for: Non-developers who want a working app fast
+- id: ai-ides
+  title: AI IDEs and editor extensions
+  emoji: 🧑‍💻
+  color: "#22d3ee"
+  intro: A code editor with an AI agent built in. You see and own every file. Best once your app outgrows a builder, or if you already code.
+  best_for: Owning the code once you outgrow a builder
+- id: cli-agents
+  title: CLI coding agents
+  emoji: ⌨️
+  color: "#38bdf8"
+  intro: Agents that run in your terminal, read your whole project and make changes. Best for developers and larger codebases.
+  best_for: Developers working in large codebases
+- id: ui-design
+  title: UI and design generators
+  emoji: 🎨
+  color: "#f472b6"
+  intro: Turn a prompt, sketch or screenshot into screens and components.
+  best_for: Screens, components and marketing pages
+- id: backend-database
+  title: Backend and database
+  emoji: 🗄️
+  color: "#34d399"
+  intro: Where your users and data live. Pick one your builder supports well.
+  best_for: Storing users and data safely
+- id: auth-payments
+  title: Auth and payments
+  emoji: 🔐
+  color: "#fbbf24"
+  intro: Login and money are where small mistakes hurt most. Use a proven service instead of asking the AI to invent one.
+  best_for: Login and money, done by proven services
+- id: deploy-hosting
+  title: Deploy and hosting
+  emoji: 🚀
+  color: "#fb923c"
+  intro: Put your app on the internet. Many builders include hosting; these are for when you export your code.
+  best_for: Putting exported code on the internet
+- id: testing-monitoring
+  title: Testing, security and monitoring
+  emoji: 🛡️
+  color: "#a3e635"
+  intro: The tools that tell you something broke before your users do.
+  best_for: Finding problems before your users do

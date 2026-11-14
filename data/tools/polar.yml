@@ -1,0 +1,7 @@
+name: Polar
+url: https://polar.sh
+category: auth-payments
+description: Merchant of record for developers selling digital products and subscriptions.
+free_tier: false
+open_source: true
+repo: polarsource/polar

@@ -1,0 +1,7 @@
+name: Render
+url: https://render.com
+category: deploy-hosting
+description: Hosting for web services, databases and cron jobs.
+free_tier: false
+open_source: false
+icon: render

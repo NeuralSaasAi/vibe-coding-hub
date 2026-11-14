@@ -1,0 +1,8 @@
+name: Gitleaks
+url: https://github.com/gitleaks/gitleaks
+category: testing-monitoring
+description: Scans your repo for leaked passwords and API keys.
+free_tier: false
+open_source: true
+repo: gitleaks/gitleaks
+featured: true

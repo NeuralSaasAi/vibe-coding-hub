@@ -1,0 +1,25 @@
+name: Netlify
+url: https://www.netlify.com
+category: deploy-hosting
+description: Git-based hosting with deploy previews, functions and forms.
+free_tier: true
+open_source: false
+icon: netlify
+featured: true
+free_details:
+  whats_free: Deploys, functions, custom domains
+  limits: 300 credits a month
+  source:
+    label: Pricing
+    url: https://www.netlify.com/pricing/
+  last_verified: 2026-11
+pricing:
+  free_plan: Yes
+  entry: Personal $9
+  entry_usd: 9
+  higher: Pro $20 with unlimited members
+  unit: Credits
+  sources:
+    - label: Pricing
+      url: https://www.netlify.com/pricing/
+  last_verified: 2026-11

@@ -1,0 +1,25 @@
+name: GitHub Copilot
+url: https://github.com/features/copilot
+category: ai-ides
+description: AI assistant and agent across VS Code, JetBrains, GitHub.com and the terminal.
+free_tier: true
+open_source: false
+icon: githubcopilot
+featured: true
+free_details:
+  whats_free: Editor, CLI and agent mode
+  limits: Limited chat and agent usage
+  source:
+    label: Plans
+    url: https://github.com/features/copilot/plans
+  last_verified: 2026-11
+pricing:
+  free_plan: Yes
+  entry: Pro $10
+  entry_usd: 10
+  higher: Pro+ $39, Max $100
+  unit: GitHub AI Credits
+  sources:
+    - label: Plans
+      url: https://github.com/features/copilot/plans
+  last_verified: 2026-11

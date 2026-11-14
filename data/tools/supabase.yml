@@ -1,0 +1,26 @@
+name: Supabase
+url: https://supabase.com
+category: backend-database
+description: Postgres with login, storage, edge functions and Row Level Security. Widely used with Lovable, Bolt and v0 apps.
+free_tier: true
+open_source: true
+repo: supabase/supabase
+icon: supabase
+featured: true
+free_details:
+  whats_free: Database, login, storage
+  limits: 500 MB database, 2 active projects; paused after 1 week without activity
+  source:
+    label: Pricing
+    url: https://supabase.com/pricing
+  last_verified: 2026-11
+pricing:
+  free_plan: Yes
+  entry: Pro from $25 plus compute ($10 compute credit included)
+  entry_usd: 25
+  higher: Team from $599
+  unit: Per organization, plus compute per project
+  sources:
+    - label: Pricing
+      url: https://supabase.com/pricing
+  last_verified: 2026-11

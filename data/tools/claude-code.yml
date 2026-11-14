@@ -1,0 +1,27 @@
+name: Claude Code
+url: https://claude.com/product/claude-code
+category: cli-agents
+description: Anthropic's agent that reads your codebase, edits files and runs commands. Included with Claude Pro and above.
+free_tier: false
+open_source: false
+icon: claude
+featured: true
+free_details:
+  label: Claude
+  whats_free: Chat, artifacts, file creation
+  limits: Claude Code needs Pro or above
+  source:
+    label: Pricing
+    url: https://claude.com/pricing
+  last_verified: 2026-11
+pricing:
+  label: Claude (Claude Code)
+  free_plan: Chat only
+  entry: Pro $20 ($17 billed yearly)
+  entry_usd: 20
+  higher: Max $100, Ultra $200
+  unit: Limits every 5 hours and every week
+  sources:
+    - label: Pricing
+      url: https://claude.com/pricing
+  last_verified: 2026-11

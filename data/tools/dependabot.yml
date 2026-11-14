@@ -1,0 +1,7 @@
+name: Dependabot
+url: https://docs.github.com/en/code-security/how-tos/secure-your-supply-chain
+category: testing-monitoring
+description: Free on GitHub. Opens pull requests when your packages have security fixes.
+free_tier: false
+open_source: false
+icon: dependabot

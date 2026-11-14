@@ -1,0 +1,7 @@
+name: Paddle
+url: https://www.paddle.com
+category: auth-payments
+description: Merchant of record for SaaS subscriptions.
+free_tier: false
+open_source: false
+icon: paddle

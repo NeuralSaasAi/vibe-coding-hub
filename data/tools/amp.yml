@@ -1,0 +1,7 @@
+name: Amp
+url: https://ampcode.com
+category: cli-agents
+description: Coding agent for the terminal and editor.
+free_tier: false
+open_source: false
+icon: amp

@@ -1,0 +1,14 @@
+name: Google Antigravity
+url: https://antigravity.google
+category: ai-ides
+description: Google's agent-first editor built around Gemini models.
+free_tier: true
+open_source: false
+icon: google
+free_details:
+  whats_free: Agent models, unlimited Tab
+  limits: Basic weekly rate limits
+  source:
+    label: Pricing
+    url: https://antigravity.google/pricing
+  last_verified: 2026-11

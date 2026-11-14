@@ -1,0 +1,6 @@
+name: Kinde
+url: https://www.kinde.com
+category: auth-payments
+description: Hosted login with built-in feature flags and billing.
+free_tier: false
+open_source: false

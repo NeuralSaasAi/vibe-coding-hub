@@ -1,0 +1,8 @@
+name: Appwrite
+url: https://appwrite.io
+category: backend-database
+description: Backend with login, database, storage and functions. Cloud or self-hosted.
+free_tier: false
+open_source: true
+repo: appwrite/appwrite
+icon: appwrite

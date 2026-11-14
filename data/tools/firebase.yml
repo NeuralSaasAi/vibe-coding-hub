@@ -1,0 +1,16 @@
+name: Firebase
+url: https://firebase.google.com
+category: backend-database
+description: Google's backend platform with login, Firestore database, storage and hosting.
+free_tier: true
+open_source: false
+icon: firebase
+featured: true
+free_details:
+  label: Firebase (Spark)
+  whats_free: Login, Firestore, hosting
+  limits: 50K monthly active users; Firestore 1 GiB, 50K reads and 20K writes a day
+  source:
+    label: Pricing
+    url: https://firebase.google.com/pricing
+  last_verified: 2026-11

@@ -1,0 +1,7 @@
+name: JetBrains Junie
+url: https://junie.jetbrains.com
+category: ai-ides
+description: Coding agent inside JetBrains IDEs such as IntelliJ and PyCharm.
+free_tier: false
+open_source: false
+icon: jetbrains

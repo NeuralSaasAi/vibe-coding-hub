@@ -1,0 +1,8 @@
+name: Playwright
+url: https://playwright.dev
+category: testing-monitoring
+description: Automated browser tests. Can record a test while you click through your app.
+free_tier: false
+open_source: true
+repo: microsoft/playwright
+featured: true

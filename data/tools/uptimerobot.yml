@@ -1,0 +1,6 @@
+name: UptimeRobot
+url: https://uptimerobot.com
+category: testing-monitoring
+description: Alerts you when your site goes down.
+free_tier: false
+open_source: false

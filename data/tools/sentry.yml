@@ -1,0 +1,27 @@
+name: Sentry
+url: https://sentry.io
+category: testing-monitoring
+description: Error tracking that shows which line failed and for which user.
+free_tier: true
+open_source: false
+icon: sentry
+featured: true
+free_details:
+  label: Sentry (Developer)
+  whats_free: Error tracking
+  limits: 1 user, 30-day lookback
+  source:
+    label: Pricing
+    url: https://sentry.io/pricing/
+  last_verified: 2026-11
+pricing:
+  free_plan: Yes
+  entry: Team $26 (billed yearly)
+  entry_usd: 26
+  entry_yearly: true
+  higher: Business $80 (billed yearly)
+  unit: Errors and data volume
+  sources:
+    - label: Pricing
+      url: https://sentry.io/pricing/
+  last_verified: 2026-11

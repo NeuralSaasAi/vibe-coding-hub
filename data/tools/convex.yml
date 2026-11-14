@@ -1,0 +1,8 @@
+name: Convex
+url: https://www.convex.dev
+category: backend-database
+description: TypeScript backend with a real-time database.
+free_tier: false
+open_source: false
+icon: convex
+featured: true

@@ -1,0 +1,7 @@
+name: Google Stitch
+url: https://stitch.google.com
+category: ui-design
+description: Generates UI designs and front-end code from prompts or images.
+free_tier: false
+open_source: false
+icon: google

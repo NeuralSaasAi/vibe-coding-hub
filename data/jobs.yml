@@ -1,0 +1,63 @@
+intro: A starting point, not a ranking. Any of these tools can build most apps. The question is how much control you want and when you will need more.
+
+# Text fields use {slug} for a tool link and {cat:id} for a category link.
+jobs:
+  - id: landing-page
+    use_case: A landing page or marketing site
+    first_pick_text: "{framer}, {v0}"
+    also_text: "{lovable}, {relume} for the wireframe"
+    outgrow: Rarely. Move on only if you need custom app logic behind the site.
+    first_pick: [framer, v0]
+    also_consider: [lovable, relume]
+  - id: saas-mvp
+    use_case: A SaaS MVP with login and payments
+    first_pick_text: "{lovable} or {bolt}, with {supabase} and {stripe}"
+    also_text: "{replit}, {v0}, {base44}"
+    outgrow: Complex business rules, background jobs, many user roles. Sync to GitHub and continue in an {cat:ai-ides}.
+    first_pick: [lovable, bolt, supabase, stripe]
+    also_consider: [replit, v0, base44]
+  - id: internal-tool
+    use_case: An internal tool or dashboard
+    first_pick_text: "{base44}, {replit}"
+    also_text: "{lovable}, {convex} for live data"
+    outgrow: Large data sets and strict permissions.
+    first_pick: [base44, replit]
+    also_consider: [lovable, convex]
+  - id: mobile-app
+    use_case: A mobile app
+    first_pick_text: "{bolt}, {replit}"
+    also_text: "{emergent}, {rocket}"
+    outgrow: App store releases and native device features. Move to {expo} with an AI IDE.
+    first_pick: [bolt, replit]
+    also_consider: [emergent, rocket]
+  - id: ai-agent
+    use_case: An AI agent or chatbot
+    first_pick_text: "{replit}, {v0}"
+    also_text: "{lovable}, {claude-code} or {codex-cli} for custom logic"
+    outgrow: Cost control and answer quality at scale. You will need logging and tests.
+    first_pick: [replit, v0]
+    also_consider: [lovable, claude-code, codex-cli]
+  - id: existing-codebase
+    use_case: Changes to an existing codebase
+    first_pick_text: "{cursor}, {kiro}, {github-copilot}"
+    also_text: "{claude-code}, {codex-cli}, {aider}, {cline}"
+    outgrow: These are the tools people grow into.
+    first_pick: [cursor, kiro, github-copilot]
+    also_consider: [claude-code, codex-cli, aider, cline]
+
+# Extra questions for the which-tool flow on the website.
+questions:
+  coding:
+    - id: none
+      label: I don't code
+    - id: some
+      label: I can read some code
+    - id: developer
+      label: I'm a developer
+  budget:
+    - id: free
+      label: Free only for now
+    - id: small
+      label: Up to about $25 a month
+    - id: any
+      label: Whatever gets it done

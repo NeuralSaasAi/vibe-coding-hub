@@ -1,0 +1,25 @@
+name: Bolt
+url: https://bolt.new
+category: ai-app-builders
+description: Builds full-stack web and mobile apps in the browser, with hosting and databases included.
+free_tier: true
+open_source: false
+icon: stackblitz
+featured: true
+free_details:
+  whats_free: Public and private projects, hosting, databases
+  limits: 1M tokens a month, 300K a day; Bolt branding on sites
+  source:
+    label: Pricing
+    url: https://bolt.new/pricing
+  last_verified: 2026-11
+pricing:
+  free_plan: Yes
+  entry: Pro $25 (10M tokens)
+  entry_usd: 25
+  higher: Teams $30 per member; Enterprise custom
+  unit: Tokens; unused tokens roll over
+  sources:
+    - label: Pricing
+      url: https://bolt.new/pricing
+  last_verified: 2026-11

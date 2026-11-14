@@ -1,0 +1,7 @@
+name: PostHog
+url: https://posthog.com
+category: testing-monitoring
+description: Product analytics, session replay and feature flags.
+free_tier: false
+open_source: false
+icon: posthog

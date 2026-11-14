@@ -1,0 +1,7 @@
+name: Expo
+url: https://expo.dev
+category: deploy-hosting
+description: Builds and submits React Native apps to the App Store and Google Play.
+free_tier: false
+open_source: false
+icon: expo

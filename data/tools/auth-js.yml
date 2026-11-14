@@ -1,0 +1,7 @@
+name: Auth.js
+url: https://authjs.dev
+category: auth-payments
+description: Login library for Next.js and other JavaScript frameworks.
+free_tier: false
+open_source: true
+repo: nextauthjs/next-auth

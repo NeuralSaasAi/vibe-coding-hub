@@ -1,0 +1,8 @@
+name: GitHub Copilot CLI
+url: https://github.com/github/copilot-cli
+category: cli-agents
+description: Copilot in your terminal. Works on the Copilot Free plan.
+free_tier: true
+open_source: false
+repo: github/copilot-cli
+icon: githubcopilot

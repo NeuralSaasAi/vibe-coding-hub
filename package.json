@@ -1,0 +1,29 @@
+{
+  "name": "vibe-coding-hub",
+  "private": true,
+  "type": "module",
+  "description": "Data, generator and website for the Vibe Coding Hub list",
+  "license": "CC0-1.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "validate": "tsx scripts/validate.ts",
+    "readme": "tsx scripts/generate.ts",
+    "readme:check": "tsx scripts/generate.ts --check",
+    "diagrams": "tsx scripts/render-diagrams.ts",
+    "refresh-stars": "tsx scripts/refresh-stars.ts",
+    "test": "vitest run",
+    "lint:md": "markdownlint-cli2"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "markdownlint-cli2": "^0.24.1",
+    "simple-icons": "^16.37.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  }
+}

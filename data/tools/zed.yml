@@ -1,0 +1,8 @@
+name: Zed
+url: https://zed.dev
+category: ai-ides
+description: Fast editor with built-in AI agent support.
+free_tier: false
+open_source: true
+repo: zed-industries/zed
+icon: zedindustries

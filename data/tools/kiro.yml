@@ -1,0 +1,24 @@
+name: Kiro
+url: https://kiro.dev
+category: ai-ides
+description: Agentic IDE and CLI with spec-driven development (requirements, design, tasks), steering files and hooks.
+free_tier: true
+open_source: false
+featured: true
+free_details:
+  whats_free: IDE and CLI
+  limits: 50 credits a month
+  source:
+    label: Billing docs
+    url: https://kiro.dev/docs/billing/
+  last_verified: 2026-11
+pricing:
+  free_plan: Yes (50 credits)
+  entry: Pro $20 (1,000 credits)
+  entry_usd: 20
+  higher: Pro+ $40 (2,000), Pro Max $100 (5,000), Power $200 (10,000)
+  unit: Credits
+  sources:
+    - label: Billing docs
+      url: https://kiro.dev/docs/billing/
+  last_verified: 2026-11

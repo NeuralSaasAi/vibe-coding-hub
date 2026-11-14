@@ -1,0 +1,29 @@
+name: Codex CLI
+url: https://github.com/openai/codex
+category: cli-agents
+description: OpenAI's terminal agent. Sign in with a ChatGPT plan (including Free) or use an API key.
+free_tier: true
+open_source: true
+repo: openai/codex
+featured: true
+free_details:
+  label: ChatGPT (Codex)
+  whats_free: Codex for quick coding tasks
+  limits: Smaller model; limited usage
+  source:
+    label: Codex pricing
+    url: https://learn.chatgpt.com/docs/pricing
+  last_verified: 2026-11
+pricing:
+  label: ChatGPT (Codex)
+  free_plan: Yes
+  entry: Plus $20
+  entry_usd: 20
+  higher: Pro $100 or $200; Business per seat
+  unit: Shared usage limits, then credits
+  sources:
+    - label: Codex pricing
+      url: https://learn.chatgpt.com/docs/pricing
+    - label: Plus
+      url: https://help.openai.com/en/articles/6950777-what-is-chatgpt-plus
+  last_verified: 2026-11

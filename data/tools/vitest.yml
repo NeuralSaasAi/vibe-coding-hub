@@ -1,0 +1,8 @@
+name: Vitest
+url: https://vitest.dev
+category: testing-monitoring
+description: Fast unit tests for JavaScript and TypeScript projects.
+free_tier: false
+open_source: true
+repo: vitest-dev/vitest
+icon: vitest

@@ -1,0 +1,7 @@
+name: CodeRabbit
+url: https://www.coderabbit.ai
+category: testing-monitoring
+description: AI reviews on every pull request.
+free_tier: false
+open_source: false
+icon: coderabbit

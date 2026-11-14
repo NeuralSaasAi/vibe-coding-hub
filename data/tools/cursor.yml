@@ -1,0 +1,25 @@
+name: Cursor
+url: https://cursor.com
+category: ai-ides
+description: VS Code-based AI editor with agent mode, tab completion and cloud agents. Now sold as part of The X Subscription.
+free_tier: true
+open_source: false
+icon: cursor
+featured: true
+free_details:
+  whats_free: Editor with agent
+  limits: Limited agent and chat requests
+  source:
+    label: Pricing
+    url: https://cursor.com/pricing
+  last_verified: 2026-11
+pricing:
+  free_plan: Yes
+  entry: Plus $8 (Grok models only)
+  entry_usd: 8
+  higher: Premium $30, Super $100, Ultra $200; Teams from $30 per user
+  unit: Usage pool shared with Grok; third-party models billed at API prices
+  sources:
+    - label: Pricing
+      url: https://cursor.com/pricing
+  last_verified: 2026-11

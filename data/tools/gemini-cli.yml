@@ -1,0 +1,8 @@
+name: Gemini CLI
+url: https://github.com/google-gemini/gemini-cli
+category: cli-agents
+description: Google's terminal agent, now aimed at Gemini Code Assist business users. Free individual access moved to Antigravity CLI in June 2026.
+free_tier: false
+open_source: true
+repo: google-gemini/gemini-cli
+icon: googlegemini

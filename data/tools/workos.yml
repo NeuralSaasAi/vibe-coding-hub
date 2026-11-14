@@ -1,0 +1,6 @@
+name: WorkOS
+url: https://workos.com
+category: auth-payments
+description: Enterprise login (SSO, directory sync) for when business customers ask for it.
+free_tier: false
+open_source: false

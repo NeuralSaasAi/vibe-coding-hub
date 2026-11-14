@@ -1,0 +1,7 @@
+name: Railway
+url: https://railway.com
+category: deploy-hosting
+description: Deploy apps, databases and background workers from GitHub.
+free_tier: false
+open_source: false
+icon: railway

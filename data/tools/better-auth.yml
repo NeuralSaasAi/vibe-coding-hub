@@ -1,0 +1,9 @@
+name: Better Auth
+url: https://better-auth.com
+category: auth-payments
+description: TypeScript login library with plugins for 2FA, organizations and more.
+free_tier: false
+open_source: true
+repo: better-auth/better-auth
+icon: betterauth
+featured: true

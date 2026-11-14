@@ -1,0 +1,23 @@
+name: Devin (formerly Windsurf)
+url: https://devin.ai
+category: ai-ides
+description: Cognition's AI editor and cloud agent. windsurf.com now redirects here.
+free_tier: true
+open_source: false
+free_details:
+  whats_free: Editor, unlimited Tab completions and inline edits
+  limits: Light agent quota, limited models
+  source:
+    label: Pricing
+    url: https://devin.ai/pricing
+  last_verified: 2026-11
+pricing:
+  free_plan: Yes
+  entry: Pro $20
+  entry_usd: 20
+  higher: Max $200; Teams $80 plus $40 per seat
+  unit: Daily and weekly quotas
+  sources:
+    - label: Pricing
+      url: https://devin.ai/pricing
+  last_verified: 2026-11

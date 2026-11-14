@@ -1,0 +1,26 @@
+name: Vercel
+url: https://vercel.com
+category: deploy-hosting
+description: Hosting from the makers of Next.js, with preview deploys and instant rollback.
+free_tier: true
+open_source: false
+icon: vercel
+featured: true
+free_details:
+  label: Vercel (Hobby)
+  whats_free: Hosting and preview deploys
+  limits: 1M CDN requests and 100 GB data transfer a month
+  source:
+    label: Pricing
+    url: https://vercel.com/pricing
+  last_verified: 2026-11
+pricing:
+  free_plan: Yes (Hobby)
+  entry: Pro $20
+  entry_usd: 20
+  higher: Enterprise custom
+  unit: Included usage, then pay as you go
+  sources:
+    - label: Pricing
+      url: https://vercel.com/pricing
+  last_verified: 2026-11

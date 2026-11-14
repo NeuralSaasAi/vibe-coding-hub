@@ -1,0 +1,8 @@
+name: Stripe
+url: https://stripe.com
+category: auth-payments
+description: Payments, subscriptions and invoicing, priced per transaction.
+free_tier: false
+open_source: false
+icon: stripe
+featured: true
