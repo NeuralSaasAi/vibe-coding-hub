@@ -18,7 +18,7 @@
   <img src="https://img.shields.io/badge/tools-69-7c5cff" alt="69 tools">
   <img src="https://img.shields.io/badge/free%20tiers-18-16a34a" alt="18 free tiers">
   <img src="https://img.shields.io/badge/prices%20verified-2026--11-0ea5c6" alt="Prices verified 2026-11">
-  <a href="https://neuralsaasai.github.io/vibe-coding-hub/"><img src="https://img.shields.io/badge/website-live-7c5cff" alt="Website"></a>
+  <a href="https://vibe-coding.neuralsaasai.com/"><img src="https://img.shields.io/badge/website-live-7c5cff" alt="Website"></a>
   <a href="https://github.com/NeuralSaasAi/vibe-coding-hub/actions/workflows/ci.yml"><img src="https://github.com/NeuralSaasAi/vibe-coding-hub/actions/workflows/ci.yml/badge.svg" alt="Checks"></a>
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs welcome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-CC0--1.0-blue" alt="CC0 license"></a>
@@ -27,7 +27,7 @@
 <!-- END:badges -->
 
 <h3 align="center">
-  <a href="https://neuralsaasai.github.io/vibe-coding-hub/">🌐 Explore the website</a> &nbsp;·&nbsp;
+  <a href="https://vibe-coding.neuralsaasai.com/">🌐 Explore the website</a> &nbsp;·&nbsp;
   <a href="#-tools-by-category">🧰 Browse tools</a> &nbsp;·&nbsp;
   <a href="#-pricing-at-a-glance">💸 Compare prices</a> &nbsp;·&nbsp;
   <a href="#4-when-something-breaks">🛟 Fix my app</a>
@@ -108,7 +108,7 @@
 
 ## 👀 Tools at a glance
 
-Every tool in the list, by category. Click a logo to visit the tool, or a category to read the notes. Prefer filters? [Browse them on the website](https://neuralsaasai.github.io/vibe-coding-hub/tools/).
+Every tool in the list, by category. Click a logo to visit the tool, or a category to read the notes. Prefer filters? [Browse them on the website](https://vibe-coding.neuralsaasai.com/tools/).
 
 <!-- BEGIN:glance -->
 
@@ -155,18 +155,18 @@ Every tool in the list, by category. Click a logo to visit the tool, or a catego
 
 <table>
   <tr>
-    <td width="33%" align="center"><a href="https://neuralsaasai.github.io/vibe-coding-hub/tools/?category=ai-app-builders"><img src="assets/cards/ai-app-builders.svg" width="100%" alt="AI app builders: 9 tools. Non-developers who want a working app fast."></a></td>
-    <td width="33%" align="center"><a href="https://neuralsaasai.github.io/vibe-coding-hub/tools/?category=ai-ides"><img src="assets/cards/ai-ides.svg" width="100%" alt="AI IDEs and editor extensions: 9 tools. Owning the code once you outgrow a builder."></a></td>
-    <td width="33%" align="center"><a href="https://neuralsaasai.github.io/vibe-coding-hub/tools/?category=cli-agents"><img src="assets/cards/cli-agents.svg" width="100%" alt="CLI coding agents: 9 tools. Developers working in large codebases."></a></td>
+    <td width="33%" align="center"><a href="https://vibe-coding.neuralsaasai.com/tools/?category=ai-app-builders"><img src="assets/cards/ai-app-builders.svg" width="100%" alt="AI app builders: 9 tools. Non-developers who want a working app fast."></a></td>
+    <td width="33%" align="center"><a href="https://vibe-coding.neuralsaasai.com/tools/?category=ai-ides"><img src="assets/cards/ai-ides.svg" width="100%" alt="AI IDEs and editor extensions: 9 tools. Owning the code once you outgrow a builder."></a></td>
+    <td width="33%" align="center"><a href="https://vibe-coding.neuralsaasai.com/tools/?category=cli-agents"><img src="assets/cards/cli-agents.svg" width="100%" alt="CLI coding agents: 9 tools. Developers working in large codebases."></a></td>
   </tr>
   <tr>
-    <td width="33%" align="center"><a href="https://neuralsaasai.github.io/vibe-coding-hub/tools/?category=ui-design"><img src="assets/cards/ui-design.svg" width="100%" alt="UI and design generators: 8 tools. Screens, components and marketing pages."></a></td>
-    <td width="33%" align="center"><a href="https://neuralsaasai.github.io/vibe-coding-hub/tools/?category=backend-database"><img src="assets/cards/backend-database.svg" width="100%" alt="Backend and database: 7 tools. Storing users and data safely."></a></td>
-    <td width="33%" align="center"><a href="https://neuralsaasai.github.io/vibe-coding-hub/tools/?category=auth-payments"><img src="assets/cards/auth-payments.svg" width="100%" alt="Auth and payments: 9 tools. Login and money, done by proven services."></a></td>
+    <td width="33%" align="center"><a href="https://vibe-coding.neuralsaasai.com/tools/?category=ui-design"><img src="assets/cards/ui-design.svg" width="100%" alt="UI and design generators: 8 tools. Screens, components and marketing pages."></a></td>
+    <td width="33%" align="center"><a href="https://vibe-coding.neuralsaasai.com/tools/?category=backend-database"><img src="assets/cards/backend-database.svg" width="100%" alt="Backend and database: 7 tools. Storing users and data safely."></a></td>
+    <td width="33%" align="center"><a href="https://vibe-coding.neuralsaasai.com/tools/?category=auth-payments"><img src="assets/cards/auth-payments.svg" width="100%" alt="Auth and payments: 9 tools. Login and money, done by proven services."></a></td>
   </tr>
   <tr>
-    <td width="33%" align="center"><a href="https://neuralsaasai.github.io/vibe-coding-hub/tools/?category=deploy-hosting"><img src="assets/cards/deploy-hosting.svg" width="100%" alt="Deploy and hosting: 9 tools. Putting exported code on the internet."></a></td>
-    <td width="33%" align="center"><a href="https://neuralsaasai.github.io/vibe-coding-hub/tools/?category=testing-monitoring"><img src="assets/cards/testing-monitoring.svg" width="100%" alt="Testing, security and monitoring: 9 tools. Finding problems before your users do."></a></td>
+    <td width="33%" align="center"><a href="https://vibe-coding.neuralsaasai.com/tools/?category=deploy-hosting"><img src="assets/cards/deploy-hosting.svg" width="100%" alt="Deploy and hosting: 9 tools. Putting exported code on the internet."></a></td>
+    <td width="33%" align="center"><a href="https://vibe-coding.neuralsaasai.com/tools/?category=testing-monitoring"><img src="assets/cards/testing-monitoring.svg" width="100%" alt="Testing, security and monitoring: 9 tools. Finding problems before your users do."></a></td>
   </tr>
 </table>
 
@@ -174,16 +174,16 @@ Every tool in the list, by category. Click a logo to visit the tool, or a catego
 
 ## 🚦 The roadmap
 
-Five stages from first prompt to a healthy live app. Click a stage to open it on the [interactive roadmap](https://neuralsaasai.github.io/vibe-coding-hub/roadmap/), where you can tick off each checklist, or read the full guide [below](#-keep-your-vibe-coded-app-alive).
+Five stages from first prompt to a healthy live app. Click a stage to open it on the [interactive roadmap](https://vibe-coding.neuralsaasai.com/roadmap/), where you can tick off each checklist, or read the full guide [below](#-keep-your-vibe-coded-app-alive).
 
 <!-- BEGIN:roadmap -->
 
 <p align="center">
-  <a href="https://neuralsaasai.github.io/vibe-coding-hub/roadmap/#before-you-build"><img src="assets/roadmap/1-before-you-build.svg" width="19%" alt="Step 1: Before you build"></a>
-  <a href="https://neuralsaasai.github.io/vibe-coding-hub/roadmap/#while-you-build"><img src="assets/roadmap/2-while-you-build.svg" width="19%" alt="Step 2: While you build"></a>
-  <a href="https://neuralsaasai.github.io/vibe-coding-hub/roadmap/#before-you-launch"><img src="assets/roadmap/3-before-you-launch.svg" width="19%" alt="Step 3: Before you launch"></a>
-  <a href="https://neuralsaasai.github.io/vibe-coding-hub/roadmap/#when-something-breaks"><img src="assets/roadmap/4-when-something-breaks.svg" width="19%" alt="Step 4: When something breaks"></a>
-  <a href="https://neuralsaasai.github.io/vibe-coding-hub/roadmap/#after-launch"><img src="assets/roadmap/5-after-launch.svg" width="19%" alt="Step 5: After launch"></a>
+  <a href="https://vibe-coding.neuralsaasai.com/roadmap/#before-you-build"><img src="assets/roadmap/1-before-you-build.svg" width="19%" alt="Step 1: Before you build"></a>
+  <a href="https://vibe-coding.neuralsaasai.com/roadmap/#while-you-build"><img src="assets/roadmap/2-while-you-build.svg" width="19%" alt="Step 2: While you build"></a>
+  <a href="https://vibe-coding.neuralsaasai.com/roadmap/#before-you-launch"><img src="assets/roadmap/3-before-you-launch.svg" width="19%" alt="Step 3: Before you launch"></a>
+  <a href="https://vibe-coding.neuralsaasai.com/roadmap/#when-something-breaks"><img src="assets/roadmap/4-when-something-breaks.svg" width="19%" alt="Step 4: When something breaks"></a>
+  <a href="https://vibe-coding.neuralsaasai.com/roadmap/#after-launch"><img src="assets/roadmap/5-after-launch.svg" width="19%" alt="Step 5: After launch"></a>
 </p>
 
 <!-- END:roadmap -->
@@ -411,13 +411,13 @@ Open-source tools in this list (Aider, Cline, Codex CLI, OpenCode, Playwright an
 Monthly prices in USD, before tax, billed monthly unless noted. Most AI tools now bill by credits, tokens or usage pools, so your real cost depends on how much you build. Prices change often: if one is wrong, please [send a pricing update](https://github.com/NeuralSaasAi/vibe-coding-hub/issues/new?template=pricing-update.yml).
 
 <p align="center">
-  <a href="https://neuralsaasai.github.io/vibe-coding-hub/pricing/"><picture>
+  <a href="https://vibe-coding.neuralsaasai.com/pricing/"><picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/pricing-chart-dark.svg">
     <img src="assets/pricing-chart.svg" alt="Bar chart of the cheapest paid plan for each tool in the table below, in USD per month" width="100%">
   </picture></a>
 </p>
 
-<p align="center"><a href="https://neuralsaasai.github.io/vibe-coding-hub/pricing/">Sort and compare on the website →</a></p>
+<p align="center"><a href="https://vibe-coding.neuralsaasai.com/pricing/">Sort and compare on the website →</a></p>
 
 <!-- BEGIN:pricing -->
 
@@ -481,7 +481,7 @@ A starting point, not a ranking. Any of these tools can build most apps. The que
 
 <!-- END:jobs -->
 
-Not sure yet? Answer three questions with the [which-tool finder](https://neuralsaasai.github.io/vibe-coding-hub/which-tool/).
+Not sure yet? Answer three questions with the [which-tool finder](https://vibe-coding.neuralsaasai.com/which-tool/).
 
 <p align="right"><a href="#top">↑ back to top</a></p>
 
@@ -601,7 +601,7 @@ Keeping a live app healthy.
 
 <!-- END:guide -->
 
-Prefer a step-by-step view? [Debug it on the website](https://neuralsaasai.github.io/vibe-coding-hub/when-it-breaks/), with copy buttons for each prompt.
+Prefer a step-by-step view? [Debug it on the website](https://vibe-coding.neuralsaasai.com/when-it-breaks/), with copy buttons for each prompt.
 
 **Stuck? [Get a free review of your vibe-coded app](https://neuralsaasai.com/contact?utm_source=github&utm_medium=readme&utm_campaign=vibe-coding-hub&utm_content=keep-alive-guide).**
 
@@ -624,7 +624,7 @@ Prefer a step-by-step view? [Debug it on the website](https://neuralsaasai.githu
 - [x] Tool directory, free tiers and dated pricing
 - [x] Keep your vibe-coded app alive guide
 - [x] Tool data in YAML, with the README built from it
-- [x] [A visual website for the list](https://neuralsaasai.github.io/vibe-coding-hub/)
+- [x] [A visual website for the list](https://vibe-coding.neuralsaasai.com/)
 - [ ] Showcase your vibe-coded product: a place to share what you built, with a link and screenshots ([#1](https://github.com/NeuralSaasAi/vibe-coding-hub/issues/1))
 - [ ] Platform-specific launch checklists (Lovable, Bolt, Replit, v0)
 - [ ] Monthly pricing re-check
